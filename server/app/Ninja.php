@@ -32,6 +32,8 @@ class Ninja extends Model implements AuthenticatableContract, AuthorizableContra
         ,
     ];
 
+    public $timestamps = false;
+
     public function objet() {
       return $this->hasOne('App/Objet', 'idninja');
     }

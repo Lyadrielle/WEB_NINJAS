@@ -32,6 +32,8 @@ class Objet extends Model implements AuthenticatableContract, AuthorizableContra
         ,
     ];
 
+    public $timestamps = false;
+
     public function utilisateurs() {
       return $this->belongsToMany('App\Utilisateur', 'posseder', 'idobjet', 'idutilisateur');
     }

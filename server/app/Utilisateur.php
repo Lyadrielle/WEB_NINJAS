@@ -33,6 +33,8 @@ class Utilisateur extends Model implements AuthenticatableContract, Authorizable
         'motdepasse',
     ];
 
+    public $timestamps = false;
+
     public function ninja() {
       return $this->hasOne('App/Ninja', 'idutilisateur');
     }
@@ -40,5 +42,5 @@ class Utilisateur extends Model implements AuthenticatableContract, Authorizable
     public function objets() {
       return $this->belongsToMany('App/Objet', 'posseder', 'idutilisateur', 'idobjet');
     }
-    
+
 }

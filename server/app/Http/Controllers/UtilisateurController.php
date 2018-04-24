@@ -17,17 +17,7 @@ class UtilisateurController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth:api')
-    }
-
-
-    static public function idFromPseudo($pseudo) {
-      $user = Utilisateur::where('pseudo', $pseudo)->first();
-      if(!empty($user)) {
-        return $user->idutilisateur;
-      } else {
-        return null;
-      }
+        //
     }
 
     public function signin(Request $request)
@@ -45,7 +35,7 @@ class UtilisateurController extends Controller
 
      if(!empty($user) && Hash::check($request->input('motdepasse'), $user->motdepasse)){
 
-          $request->session()->put('utilisateur', Self::idFromPseudo($request->input('pseudo')));
+          $request->session()->put('utilisateur', $user->idutilisateur);
           return reditect()->route('home');
 
       } else {
@@ -69,8 +59,8 @@ class UtilisateurController extends Controller
      $existing = Utilisateur::where('pseudo', $request->input('pseudo'))->first();
 
      if(empty($existing)) {
-       Utilisateur::insert(['pseudo' => $request->input('pseudo'), 'motdepasse' => Hash::make($request->input('motdepasse'))]);
-       $request->session()->put('utilisateur', Self::idFromPseudo($request->input('pseudo')));
+       $id = Utilisateur::insertGetId(['pseudo' => $request->input('pseudo'), 'motdepasse' => Hash::make($request->input('motdepasse'))]);
+       $request->session()->put('utilisateur', $id);
        return redirect()->route('home');
 
      } else {
