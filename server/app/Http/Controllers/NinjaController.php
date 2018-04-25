@@ -8,7 +8,7 @@ use App\Ninja;
 
 use App\Utilisateur;
 
-class ExampleController extends Controller
+class NinjaController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -33,15 +33,15 @@ class ExampleController extends Controller
 
       $user = Utilisateur::where('idutilisateur', $request->session()->get('utilisateur'))->first();
 
-      if(empty($user->ninja)) {
-        $id = Ninja::insertGetId(['nom' => $request->input('nom'), 'avatar' => $request->input('avatar')]);
-        $user->idninja = $id;
+      if(empty($user->idninja)) {
+        $idninja = Ninja::insertGetId(['nom' => $request->input('nom'), 'avatar' => $request->input('avatar')]);
+        $user->idninja = $idninja;
         $user->save();
         return redirect()->route('home');
 
       } else {
 
-        return response()->json(['error' => 'A Ninja Already Existing']);
+        return response()->json(['error' => 'A Ninja is Already Existing']);
 
       }
 
