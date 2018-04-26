@@ -15,11 +15,21 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('/Hello', function () use ($router) {
-    return 'Hello Mother Fucker !';
-});
+$router->post('api/signin', function(\Illuminate\Http\Request $request) {
+    if ($request->isJson()) {
+        $data = $request->json();
+    } else {
+        $data = $request;
+    }
 
-$router->get('user/{id}', function ($id) {
-    $result = app('db')->select("SELECT * FROM user WHERE id=1");;
-    return $result[0]->name;
+    $login = $data->get('login');
+    $password = $data->get('password');
+    
+    $user = app('db')->select("SELECT * FROM user WHERE pseudonym='".$login."' AND password='".$password."'");
+
+    if (!$user) {
+        return response()->json(['success' => false, 'message' => 'wrong email or password']);
+    }
+
+    return response()->json(['success' => true, 'message' => 'test']);
 });
