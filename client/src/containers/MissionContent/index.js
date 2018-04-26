@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import './style.css'
 
-class Form extends Component {
+class MissionContent extends Component {
   render () {
     return (
       <div>
@@ -11,4 +11,4 @@ class Form extends Component {
   }
 }
 
-export default Form
+export default MissionContent

@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 
 import './style.css'
 
-class Form extends Component {
+class CupsMissionsLevel extends Component {
   render () {
+    const { level } = this.props
+
     return (
       <div>
       </div>
@@ -11,4 +13,4 @@ class Form extends Component {
   }
 }
 
-export default Form
+export default CupsMissionsLevel

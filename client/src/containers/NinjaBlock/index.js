@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-
 import './style.css'
 
-class Form extends Component {
+class NinjaBlock extends Component {
   render () {
     return (
       <div>
+        <img alt ="Mon ninja" src=""/>
       </div>
     )
   }
 }
 
-export default Form
+export default NinjaBlock
