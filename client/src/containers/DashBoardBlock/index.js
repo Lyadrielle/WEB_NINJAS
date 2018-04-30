@@ -12,7 +12,6 @@ class DashBoardBlock extends Component {
         <h2>{ title }</h2>
         <div className='dashboard-content-block'>
           { content }
-          
         </div>
       </div>
     )

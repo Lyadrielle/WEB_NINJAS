@@ -1,0 +1,12 @@
+.trophy {
+    max-width: 30px;
+    padding:3px;
+}
+
+.cups-container {
+    width: 75px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-right:10px;
+}

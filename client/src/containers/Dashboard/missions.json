@@ -20,7 +20,7 @@
     "id":1,
     "title":"Sauver le chat de Mme. Nana",
     "description":"Mme. Nana est triste, elle ne retrouve plus son chat... Cours le retrouver !",
-    "level":1,
+    "level":2,
     "status":false,
     "needs": [{
         "energy":-4,
@@ -37,8 +37,8 @@
 },{
     "id":2,
     "title":"Tues Kyubi",
-    "description":"Ben vazy, go.",
-    "level":1,
+    "description":"Ben vazy, go. Qu'est-ce que t'attends? Que la mission passe à la ligne peut être? T'as raison, faut faire du remplissage..",
+    "level":3,
     "status":false,
     "needs": [{
         "energy":-10,

@@ -10,7 +10,7 @@ class Button extends Component {
 
     return (
       <div>
-         <button type="button" onClick={ callBack }>
+         <button className="button" type="button" onClick={ callBack }>
          {image!=null? <img src = { image } alt="button-image"/> : "" }
          { title }
          </button> 

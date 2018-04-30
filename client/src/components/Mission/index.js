@@ -19,12 +19,13 @@ class Mission extends Component {
   render () {
     
     return (
-      <div>
+      <div className='mission'>
+        <CupsMissionsLevel level = {this.state.level} />
          <div>
-           <h5>{ this.state.title }</h5>
-           <p>{ this.state.description }</p>
+           <h4>{ this.state.title }</h4>
+           <p className='mission-description'>{ this.state.description }</p>
          </div>
-         {this.state.status? <CircularMeasure color="orange" measure ={this.state.measure}/> : <Button title = "Accepter"/>}
+         {this.state.status? <CircularMeasure color="orange" measure ={this.state.measure}/> : <Button title = "ACCEPTER"/>}
       </div>
     )
   }

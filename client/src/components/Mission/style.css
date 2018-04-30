@@ -1,0 +1,18 @@
+.mission {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color:#f26c4f;
+
+}
+
+h4 {
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+.mission-description {
+    font-size:12px;
+    max-width: 300px;
+
+}
