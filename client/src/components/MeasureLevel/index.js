@@ -10,7 +10,7 @@ class MeasureNeed extends Component {
 
     return (
       <div>
-        <h4>{ level }</h4>
+        <h4>Level { level }</h4>
         <Measure color = "blue" measure = "50"/>
       </div>
     )

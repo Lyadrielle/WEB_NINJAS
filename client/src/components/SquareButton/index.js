@@ -11,7 +11,7 @@ class SquareButton extends Component {
     return (
       <div>
          <button type="button" onClick={ callBack }>
-         {image==null? <img src = { image } alt="button-image"/> : "" }
+            {image!=null? <img src = { image } alt="button-image"/> : "" }
          </button> 
          <h3>{ title }</h3>
       </div>
