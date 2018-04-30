@@ -8,9 +8,12 @@ class DashBoardBlock extends Component {
     const { content } = this.props
 
     return (
-      <div>
+      <div className='dashboard-block'>
         <h2>{ title }</h2>
-        { content }
+        <div className='dashboard-content-block'>
+          { content }
+          
+        </div>
       </div>
     )
   }

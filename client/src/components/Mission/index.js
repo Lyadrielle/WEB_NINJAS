@@ -9,17 +9,17 @@ class Mission extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      status:props.mission.status,
-      title: props.mission.title,
-      description: props.mission.description,
-      level: props.mission.level,
-      measure: props.mission.measure,
+      status:this.props.mission.status,
+      title: this.props.mission.title,
+      description: this.props.mission.description,
+      level: this.props.mission.level,
+      measure: this.props.mission.measure,
     }
   }
   render () {
+    
     return (
       <div>
-         <CupsMissionsLevel level={this.state.level}/>
          <div>
            <h5>{ this.state.title }</h5>
            <p>{ this.state.description }</p>

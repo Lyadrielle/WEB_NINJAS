@@ -1,14 +1,27 @@
 import React, { Component } from 'react'
 
+import DashboardBlock from '../DashBoardBlock'
+import Mission from '../../components/Mission'
 import './style.css'
 
-class Form extends Component {
+import * as missions from './missions.json'
+
+class Dashboard extends Component {
+  displayMissionBlock() {
+
+    console.log("dshbd miss")
+    return  missions.map((item,i) => {
+      return <Mission mission = { item }/>
+    })
+  }
+
   render () {
     return (
-      <div>
+      <div className='dashboard-app'>
+        <DashboardBlock title="Mes missions" content={this.displayMissionBlock()}/>
       </div>
     )
   }
 }
 
-export default Form
+export default Dashboard
