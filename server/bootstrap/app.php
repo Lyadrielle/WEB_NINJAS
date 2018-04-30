@@ -72,6 +72,7 @@ $app->middleware([
  $app->routeMiddleware([
      'auth' => App\Http\Middleware\Authenticate::class,
      'session' => App\Http\Middleware\SessionMiddleware::class,
+     'action' => App\Http\Middleware\ActionMiddleware::class,
  ]);
 
 /*

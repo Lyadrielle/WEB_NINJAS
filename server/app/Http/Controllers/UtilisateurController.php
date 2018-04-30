@@ -36,7 +36,7 @@ class UtilisateurController extends Controller
      if(!empty($user) && Hash::check($request->input('motdepasse'), $user->motdepasse)){
 
           $request->session()->put('utilisateur', $user->idutilisateur);
-          return reditect()->route('home');
+          return reditect()->route('ninja');
 
       } else {
 
@@ -65,7 +65,7 @@ class UtilisateurController extends Controller
 
      } else {
 
-       return response()->json(['error' => 'Pseudo Already Existing']);
+       return response()->json(['error' => 'Pseudo Already Existing'], 401);
 
      }
 
