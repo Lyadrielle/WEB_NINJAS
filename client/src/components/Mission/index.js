@@ -8,6 +8,7 @@ import Button from '../Button'
 class Mission extends Component {
   constructor(props) {
     super(props)
+    this.acceptMission = this.acceptMission.bind(this)
     this.state = {
       status:this.props.mission.status,
       title: this.props.mission.title,
@@ -16,8 +17,13 @@ class Mission extends Component {
       measure: this.props.mission.measure,
     }
   }
+
+  acceptMission() {
+    console.log("Hello bro I accept the mission")
+    this.setState({status: true})
+  }
+
   render () {
-    
     return (
       <div className='mission'>
         <CupsMissionsLevel level = {this.state.level} />
@@ -25,7 +31,7 @@ class Mission extends Component {
            <h4>{ this.state.title }</h4>
            <p className='mission-description'>{ this.state.description }</p>
          </div>
-         {this.state.status? <CircularMeasure color="orange" measure ={this.state.measure}/> : <Button title = "ACCEPTER"/>}
+         {this.state.status? <p>Jauge</p> : <Button callBack = {this.acceptMission} title = "ACCEPTER"/>}
       </div>
     )
   }
