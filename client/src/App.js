@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, BrowserRouter as Router } from 'react-router-dom'
+// import { Route, BrowserRouter as Router } from 'react-router-dom'
 
 import Login from './containers/Login'
 import Dashboard from './containers/Dashboard'
@@ -17,7 +17,7 @@ class App extends Component {
 
     return (
       <div>
-        {logged === false ? <Login/> : <Dashboard/>}
+        {logged === true ? <Login/> : <Dashboard/>}
       </div>
     );
   }

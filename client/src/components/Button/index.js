@@ -3,6 +3,13 @@ import React, { Component } from 'react'
 import './style.css'
 
 class Button extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      disabled:this.props.disabled
+    }
+  }
   render () {
     const { callBack } = this.props
     const { title } = this.props
@@ -10,10 +17,10 @@ class Button extends Component {
 
     return (
       <div>
-         <button type="button" onClick={ callBack }>
+         <button type="button" onClick={ callBack } disabled={this.props.disabled}>
          {image!=null? <img src = { image } alt="button-image"/> : "" }
          { title }
-         </button> 
+         </button>
       </div>
     )
   }
