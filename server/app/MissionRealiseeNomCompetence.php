@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Pivot;
 
-class Remporter extends Pivot
+class MissionRealiseeNomCompetence extends Pivot
 {
 
     /**
@@ -13,10 +13,10 @@ class Remporter extends Pivot
      * @var array
      */
     protected $fillable = [
-        'nom',  
+        'minimum',  
     ];
 
-    protected $table = "remporter";
+    protected $table = "requerir";
 
     /**
      * The attributes excluded from the model's JSON form.
