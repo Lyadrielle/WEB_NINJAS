@@ -30,15 +30,14 @@ class ExerciceController extends Controller
         $nomCompetences = $exercice->nomCompetences;
         foreach($nomCompetences as $nomCompetence) {
           $competence = $competences->where('idnomcompetence', '=', $nomCompetence->idnomcompetence)->first();
-          var_dump($nomCompetence->pivot->valeur);
           $competence->niveau += $nomCompetence->pivot->valeur;
           $competence->save();
         }
-        //$exercice->statut = 3;
+        $exercice->statut = 3;
         $exercice->save();
       }
 
-      //return redirect()->route('home');
+      return redirect()->route('home');
     }
 
     public function create(Request $request, $action){
