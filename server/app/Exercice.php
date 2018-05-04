@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Exercice extends Model
 {
 
+    protected $primaryKey = 'idexercice';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -23,17 +25,16 @@ class Exercice extends Model
      *
      * @var array
      */
-    protected $hidden = [
-        ,
-    ];
+    protected $hidden = [];
 
     public $timestamps = false;
 
-    public function objet() {
-      return $this->hasOne('App/Objet', 'idninja');
+    public function nomCompetences() {
+      return $this->belongsToMany('App\NomCompetence', 'entrainer', $this->primaryKey, 'idnomcompetence')->withPivot('valeur');;
     }
 
-    public function utilisateur() {
-      return $this->belongsTo('App\Utilisateur', 'idninja');
+    public function ninja() {
+      return $this->belongsTo('App\Ninja', 'idninja');
     }
+
 }

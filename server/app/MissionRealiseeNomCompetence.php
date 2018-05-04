@@ -2,10 +2,12 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Pivot;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class MissionRealiseeNomCompetence extends Pivot
 {
+
+    protected $primaryKey = 'idrequerir';
 
     /**
      * The attributes that are mass assignable.
@@ -13,7 +15,7 @@ class MissionRealiseeNomCompetence extends Pivot
      * @var array
      */
     protected $fillable = [
-        'minimum',  
+        'minimum',
     ];
 
     protected $table = "requerir";
@@ -23,9 +25,7 @@ class MissionRealiseeNomCompetence extends Pivot
      *
      * @var array
      */
-    protected $hidden = [
-        ,
-    ];
+    protected $hidden = [];
 
     public $timestamps = false;
 

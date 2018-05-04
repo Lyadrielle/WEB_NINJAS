@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Exercice;
-use App\ExerciceCompetence;
+use App\ExerciceNomCompetence;
 use App\Utilisateur;
+use DateTime;
 
 class ExerciceController extends Controller
 {
@@ -16,6 +18,27 @@ class ExerciceController extends Controller
     public function __construct()
     {
         //
+    }
+
+    public function update(Request $request) {
+      $user = Utilisateur::where('idutilisateur', $request->session()->get("utilisateur"))->first();
+      $ninja = $user->ninja;
+      $competences = $ninja->competences;
+      $exercices = $ninja->exercices->where("statut", '=', 2);
+
+      foreach($exercices as $exercice) {
+        $nomCompetences = $exercice->nomCompetences;
+        foreach($nomCompetences as $nomCompetence) {
+          $competence = $competences->where('idnomcompetence', '=', $nomCompetence->idnomcompetence)->first();
+          var_dump($nomCompetence->pivot->valeur);
+          $competence->niveau += $nomCompetence->pivot->valeur;
+          $competence->save();
+        }
+        //$exercice->statut = 3;
+        $exercice->save();
+      }
+
+      //return redirect()->route('home');
     }
 
     public function create(Request $request, $action){
@@ -41,9 +64,9 @@ class ExerciceController extends Controller
         $user = Utilisateur::where('idutilisateur', $id)->first();
         $dt = new DateTime();
         $dt->modify("+1 minute");
-        $exo = Exercice::insertGetId(["fin" => $dt->format("Y-m-d H:i:s"), "action" => $action, "idninja" => $user->ninja()->idninja]);
+        $exo = Exercice::insertGetId(["fin" => $dt->format("Y-m-d H:i:s"), "statut" => 1, "action" => $action, "idninja" => $user->idninja]);
         foreach($array as $competence){
-            ExerciceCompetence::insert(array_merge($competence, array("idExercice" => $exo)));
+            ExerciceNomCompetence::insert(array_merge($competence, array("idexercice" => $exo)));
         }
     }
 

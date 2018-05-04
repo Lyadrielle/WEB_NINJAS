@@ -2,10 +2,12 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Pivot;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class ExerciceCompetence extends Pivot
+class ExerciceNomCompetence extends Pivot
 {
+
+    protected $primaryKey = 'identrainer';
 
     /**
      * The attributes that are mass assignable.
@@ -13,7 +15,7 @@ class ExerciceCompetence extends Pivot
      * @var array
      */
     protected $fillable = [
-        'valeur',  
+        'valeur',
     ];
 
     protected $table = "entrainer";
@@ -23,9 +25,7 @@ class ExerciceCompetence extends Pivot
      *
      * @var array
      */
-    protected $hidden = [
-        ,
-    ];
+    protected $hidden = [];
 
     public $timestamps = false;
 

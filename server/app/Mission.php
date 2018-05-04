@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Mission extends Model
 {
 
+    protected $primaryKey = 'idmission';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -23,9 +25,7 @@ class Mission extends Model
      *
      * @var array
      */
-    protected $hidden = [
-        ,
-    ];
+    protected $hidden = [];
 
     public $timestamps = false;
 

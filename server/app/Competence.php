@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Competence extends Model
 {
 
+    protected $primaryKey = 'idcompetence';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -23,14 +25,12 @@ class Competence extends Model
      *
      * @var array
      */
-    protected $hidden = [
-        ,
-    ];
+    protected $hidden = [];
 
     public $timestamps = false;
 
-    public function name() {
-      return $this->hasOne('App\NomCompetence', 'idcompetence');
+    public function nomCompetence() {
+      return $this->hasOne('App\NomCompetence', $this->primaryKey);
     }
 
 }

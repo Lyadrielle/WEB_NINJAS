@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Ninja extends Model
 {
 
+    protected $primaryKey = 'idninja';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -23,25 +25,23 @@ class Ninja extends Model
      *
      * @var array
      */
-    protected $hidden = [
-        ,
-    ];
+    protected $hidden = [];
 
     public $timestamps = false;
 
     public function objet() {
-      return $this->hasOne('App/Objet', 'idninja');
+      return $this->hasOne('App/Objet', 'idobjet');
     }
 
     public function utilisateur() {
-      return $this->belongsTo('App\Utilisateur', 'idninja');
+      return $this->hasOne('App\Utilisateur', $this->primaryKey);
     }
 
     public function exercices() {
-      return $this->hasMany('App\Exercice', 'idninja');
+      return $this->hasMany('App\Exercice', $this->primaryKey);
     }
 
     public function competences() {
-      return $this->hasMany('App\Competence', 'idninja');
+      return $this->hasMany('App\Competence', $this->primaryKey);
     }
 }

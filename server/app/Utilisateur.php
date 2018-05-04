@@ -13,6 +13,8 @@ class Utilisateur extends Model implements AuthenticatableContract, Authorizable
     use Authenticatable, Authorizable;
 
 
+    protected $primaryKey = "idutilisateur";
+
     /**
      * The attributes that are mass assignable.
      *
@@ -36,11 +38,11 @@ class Utilisateur extends Model implements AuthenticatableContract, Authorizable
     public $timestamps = false;
 
     public function ninja() {
-      return $this->hasOne('App/Ninja', 'idutilisateur');
+      return $this->belongsTo('App\Ninja', 'idninja');
     }
 
     public function objets() {
-      return $this->belongsToMany('App/Objet', 'posseder', 'idutilisateur', 'idobjet');
+      return $this->belongsToMany('App\Objet', 'posseder', $this->primaryKey, 'idobjet');
     }
 
 }

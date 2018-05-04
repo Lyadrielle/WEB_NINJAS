@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Objet extends Model
 {
 
+    protected $primaryKey = "idobjet";
+
     /**
      * The attributes that are mass assignable.
      *
@@ -23,14 +25,12 @@ class Objet extends Model
      *
      * @var array
      */
-    protected $hidden = [
-        ,
-    ];
+    protected $hidden = [];
 
     public $timestamps = false;
 
     public function utilisateurs() {
-      return $this->belongsToMany('App\Utilisateur', 'posseder', 'idobjet', 'idutilisateur');
+      return $this->belongsToMany('App\Utilisateur', 'posseder', $this->primaryKey, 'idutilisateur');
     }
 
 }

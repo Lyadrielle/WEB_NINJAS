@@ -2,10 +2,12 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Pivot;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class NomCompetenceObjet extends Pivot
 {
+
+    protected $primaryKey = "idinfluencer";
 
     /**
      * The attributes that are mass assignable.
@@ -13,7 +15,7 @@ class NomCompetenceObjet extends Pivot
      * @var array
      */
     protected $fillable = [
-        'bonus',  
+        'bonus',
     ];
 
     protected $table = "influencer";
@@ -23,9 +25,7 @@ class NomCompetenceObjet extends Pivot
      *
      * @var array
      */
-    protected $hidden = [
-        ,
-    ];
+    protected $hidden = [];
 
     public $timestamps = false;
 

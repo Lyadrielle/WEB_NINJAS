@@ -8,6 +8,8 @@ use App\Ninja;
 
 use App\Utilisateur;
 
+use App\Competence;
+
 class NinjaController extends Controller
 {
     /**
@@ -23,6 +25,7 @@ class NinjaController extends Controller
     //
 
     public function create(Request $request, $name) {
+
 
       $user = Utilisateur::where('idutilisateur', $request->session()->get('utilisateur'))->first();
 

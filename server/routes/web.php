@@ -14,9 +14,9 @@ use App\Utilisateur;
 |
 */
 
-$router->get('/', function () use ($router) {
+$router->get('/', ['as' => 'test', function () use ($router) {
     return $router->app->version();
-});
+}]);
 
 $router->group(['prefix' => 'api'], function () use ($router) {
 
@@ -26,17 +26,24 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
       $router->group(['middleware' => 'auth'], function () use ($router) {
 
-          $router->get('action/{action}', ['middleware' => 'action', 'ExerciceController@create']);
+          $router->get('action/{action}', ['middleware' => 'action', 'uses' => 'ExerciceController@create']);
+
+          $router->get('update/exercice', ['as' => 'updateExo', 'uses' => 'ExerciceController@update']);
 
           $router->get('game', ['as' => 'home', function (Request $request) {
-              $user = Utilisateur::where(["id" => $request->session()->get('utilisateur')]);
+              $user = Utilisateur::where(["idutilisateur" => $request->session()->get('utilisateur')])->first();
               if(empty($user->idninja)) {
-                return redirect()->route('createNinja', ['name' => 'Alberto']);
+                return redirect()->route('ninja', ['name' => 'Alberto']);
               }
-              return response()->json($user);
+              if(!empty($user->ninja->exercices->where('statut', '=', 2)->first())) {
+                echo "bounjour";
+                return redirect()->route('updateExo');
+              }
+
+              return response()->json($user->get());
           }]);
 
-          $router->post('createNinja/{name}', ['as' => 'ninja', 'NinjaController@create']);
+          $router->get('createNinja/{name}', ['as' => 'ninja', 'uses' => 'NinjaController@create']);
 
           $router->get('logout', function (Request $request) {
             $request->session()->flush();

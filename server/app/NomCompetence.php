@@ -7,13 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class NomCompetence extends Model
 {
 
+    protected $primaryKey = "idnomcompetence";
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'nom', 
+        'nom',
     ];
 
     protected $table = "nomcompetence";
@@ -23,9 +25,7 @@ class NomCompetence extends Model
      *
      * @var array
      */
-    protected $hidden = [
-        ,
-    ];
+    protected $hidden = [];
 
     public $timestamps = false;
 

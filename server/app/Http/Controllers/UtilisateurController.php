@@ -62,7 +62,7 @@ class UtilisateurController extends Controller
      if(empty($existing)) {
        $id = Utilisateur::insertGetId(['pseudo' => $request->input('pseudo'), 'motdepasse' => Hash::make($request->input('motdepasse'))]);
        $request->session()->put('utilisateur', $id);
-       return redirect()->route('createNinja', ['name', $request->input('nom')]);
+       return redirect()->route('ninja', ['name', $request->input('nom')]);
 
      } else {
 
