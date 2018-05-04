@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Utilisateur;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,14 +29,14 @@ $router->group(['prefix' => 'api'], function () use ($router) {
           $router->get('action/{action}', ['middleware' => 'action', 'ExerciceController@create']);
 
           $router->get('game', ['as' => 'home', function (Request $request) {
-              $user = app('db')->select("SELECT * FROM utilisateur WHERE idutilisateur=:id", ["id" => $request->session()->get('utilisateur')]);
+              $user = Utilisateur::where(["id" => $request->session()->get('utilisateur')]);
               if(empty($user->idninja)) {
-                echo "have to redirect to createNinja";
+                return redirect()->route('createNinja', ['name' => 'Alberto']);
               }
               return response()->json($user);
           }]);
 
-          $router->post('createNinja', ['as' => 'ninja', 'NinjaController@create']);
+          $router->post('createNinja/{name}', ['as' => 'ninja', 'NinjaController@create']);
 
           $router->get('logout', function (Request $request) {
             $request->session()->flush();

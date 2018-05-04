@@ -36,7 +36,7 @@ class UtilisateurController extends Controller
      if(!empty($user) && Hash::check($request->input('motdepasse'), $user->motdepasse)){
 
           $request->session()->put('utilisateur', $user->idutilisateur);
-          return reditect()->route('ninja');
+          return redirect()->route('home');
 
       } else {
 
@@ -52,7 +52,8 @@ class UtilisateurController extends Controller
      $this->validate($request, [
 
        'pseudo' => 'required',
-       'motdepasse' => 'required'
+       'motdepasse' => 'required',
+       'nom' => 'required'
 
      ]);
 
@@ -61,7 +62,7 @@ class UtilisateurController extends Controller
      if(empty($existing)) {
        $id = Utilisateur::insertGetId(['pseudo' => $request->input('pseudo'), 'motdepasse' => Hash::make($request->input('motdepasse'))]);
        $request->session()->put('utilisateur', $id);
-       return redirect()->route('home');
+       return redirect()->route('createNinja', ['name', $request->input('nom')]);
 
      } else {
 

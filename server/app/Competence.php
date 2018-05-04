@@ -13,7 +13,7 @@ class Competence extends Model
      * @var array
      */
     protected $fillable = [
-        'niveau',  
+        'niveau',
     ];
 
     protected $table = "competence";
@@ -28,5 +28,9 @@ class Competence extends Model
     ];
 
     public $timestamps = false;
+
+    public function name() {
+      return $this->hasOne('App\NomCompetence', 'idcompetence');
+    }
 
 }

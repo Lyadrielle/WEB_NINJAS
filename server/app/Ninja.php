@@ -40,4 +40,8 @@ class Ninja extends Model
     public function exercices() {
       return $this->hasMany('App\Exercice', 'idninja');
     }
+
+    public function competences() {
+      return $this->hasMany('App\Competence', 'idninja');
+    }
 }

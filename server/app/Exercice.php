@@ -13,7 +13,7 @@ class Exercice extends Model
      * @var array
      */
     protected $fillable = [
-        'fin', 'action',
+        'fin', 'action', 'statut'
     ];
 
     protected $table = "exercice";
