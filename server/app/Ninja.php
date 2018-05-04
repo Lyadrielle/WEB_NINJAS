@@ -36,4 +36,8 @@ class Ninja extends Model
     public function utilisateur() {
       return $this->belongsTo('App\Utilisateur', 'idninja');
     }
+
+    public function exercices() {
+      return $this->hasMany('App\Exercice', 'idninja');
+    }
 }

@@ -25,6 +25,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
       $router->group(['middleware' => 'auth'], function () use ($router) {
 
+          $router->get('action/{action}', ['middleware' => 'action', 'ExerciceController@create']);
+
           $router->get('game', ['as' => 'home', function (Request $request) {
               $user = app('db')->select("SELECT * FROM utilisateur WHERE idutilisateur=:id", ["id" => $request->session()->get('utilisateur')]);
               if(empty($user->idninja)) {
@@ -33,7 +35,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
               return response()->json($user);
           }]);
 
-          $router->post('createNinja', 'NinjaController@create');
+          $router->post('createNinja', ['as' => 'ninja', 'NinjaController@create']);
 
           $router->get('logout', function (Request $request) {
             $request->session()->flush();

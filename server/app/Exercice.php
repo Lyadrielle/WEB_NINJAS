@@ -16,7 +16,7 @@ class Exercice extends Model
         'fin', 'action',
     ];
 
-    protected $table = "ninja";
+    protected $table = "exercice";
 
     /**
      * The attributes excluded from the model's JSON form.
