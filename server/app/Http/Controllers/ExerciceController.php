@@ -7,6 +7,7 @@ use App\Exercice;
 use App\ExerciceNomCompetence;
 use App\Utilisateur;
 use DateTime;
+use DateTimeZone;
 
 class ExerciceController extends Controller
 {
@@ -30,7 +31,8 @@ class ExerciceController extends Controller
         $nomCompetences = $exercice->nomCompetences;
         foreach($nomCompetences as $nomCompetence) {
           $competence = $competences->where('idnomcompetence', '=', $nomCompetence->idnomcompetence)->first();
-          $competence->niveau += $nomCompetence->pivot->valeur;
+          //max ?
+          $competence->niveau = ($nomCompetence->pivot->valeur + $competence->niveau) < 0 ? 0 : ($nomCompetence->pivot->valeur + $competence->niveau);
           $competence->save();
         }
         $exercice->statut = 3;
@@ -62,6 +64,7 @@ class ExerciceController extends Controller
     public function evolving($array, $id, $action) {
         $user = Utilisateur::where('idutilisateur', $id)->first();
         $dt = new DateTime();
+        $dt->setTimezone(new DateTimeZone('Europe/Paris'));
         $dt->modify("+1 minute");
         $exo = Exercice::insertGetId(["fin" => $dt->format("Y-m-d H:i:s"), "statut" => 1, "action" => $action, "idninja" => $user->idninja]);
         foreach($array as $competence){
