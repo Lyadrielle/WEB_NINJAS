@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Http\Request;
+use App\Utilisateur;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -11,25 +14,44 @@
 |
 */
 
-$router->get('/', function () use ($router) {
+$router->get('/', ['as' => 'test', function () use ($router) {
     return $router->app->version();
-});
+}]);
 
-$router->post('api/signin', function(\Illuminate\Http\Request $request) {
-    if ($request->isJson()) {
-        $data = $request->json();
-    } else {
-        $data = $request;
-    }
+$router->group(['prefix' => 'api'], function () use ($router) {
 
-    $login = $data->get('login');
-    $password = $data->get('password');
-    
-    $user = app('db')->select("SELECT * FROM user WHERE pseudonym='".$login."' AND password='".$password."'");
+      $router->post('signin', 'UtilisateurController@signin');
 
-    if (!$user) {
-        return response()->json(['success' => false, 'message' => 'wrong email or password']);
-    }
+      $router->post('signup', 'UtilisateurController@signup');
 
-    return response()->json(['success' => true, 'message' => 'test']);
+      $router->group(['middleware' => 'auth'], function () use ($router) {
+
+          $router->get('action/{action}', ['middleware' => 'action', 'uses' => 'ExerciceController@create']);
+
+          $router->get('update/exercice', ['as' => 'updateExo', 'uses' => 'ExerciceController@update']);
+
+          $router->get('game', ['as' => 'home', function (Request $request) {
+              $user = Utilisateur::where(["idutilisateur" => $request->session()->get('utilisateur')])->first();
+              if(empty($user->idninja)) {
+                return redirect()->route('ninja', ['name' => 'Alberto']);
+              }
+              if(!empty($user->ninja->exercices->where('statut', '=', 2)->first())) {
+                echo "bounjour";
+                return redirect()->route('updateExo');
+              }
+
+              return response()->json($user->get());
+          }]);
+
+          $router->get('createNinja/{name}', ['as' => 'ninja', 'uses' => 'NinjaController@create']);
+
+          $router->get('logout', function (Request $request) {
+            $request->session()->flush();
+            return redirect('/');
+          });
+
+      });
+
+
+
 });
