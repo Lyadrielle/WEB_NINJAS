@@ -3,6 +3,9 @@
 # dependencies
 client/node_modules
 
+#session
+server/storage/framework/sessions/*
+
 # testing
 /coverage
 
