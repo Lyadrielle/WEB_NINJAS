@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import './style.css'
 
-class Form extends Component {
+class LoginForm extends Component {
   render () {
     return (
       <div>
@@ -18,4 +18,4 @@ class Form extends Component {
   }
 }
 
-export default Form
+export default LoginForm
