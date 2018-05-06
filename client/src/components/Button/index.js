@@ -17,7 +17,7 @@ class Button extends Component {
 
     return (
       <div>
-         <button type="button" onClick={ callBack } disabled={this.props.disabled}>
+         <button className='button' type="button" onClick={ callBack } disabled={this.props.disabled}>
          {image!=null? <img src = { image } alt="button-image"/> : "" }
          { title }
          </button>

@@ -16,7 +16,7 @@ class App extends Component {
     const { logged } = this.state
 
     return (
-      <div>
+      <div className='app-page'>
         {logged === true ? <Login/> : <Dashboard/>}
       </div>
     );

@@ -1,0 +1,15 @@
+h2 {
+    color: #f26c4f;
+    margin:0px;
+    margin-left:20px;
+}
+
+.dashboard-content-block {
+    padding: 10px;
+    border-style:solid;
+    border-bottom-width: 22px;
+    border-color: #f26c4f;
+    border-radius:1%;
+    background-color:#f6f6f6;
+}
+
