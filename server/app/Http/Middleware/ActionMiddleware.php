@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-use App\Exercice;
+use App\Utilisateur;
 
 class ActionMiddleware
 {
@@ -17,7 +17,8 @@ class ActionMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $exo = Exercice::where('fin', '>', 'NOW()')->first();
+        $user = Utilisateur::where('idutilisateur', $request->session()->get("utilisateur"))->first();
+        $exo = $user->ninja->exercices->where('statut', '<', 3)->first();
         if(!empty($exo)) {
           return response()->json(['error' => 'Unauthorized'], 401);
         }

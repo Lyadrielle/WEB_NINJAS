@@ -36,7 +36,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
                 return redirect()->route('ninja', ['name' => 'Alberto']);
               }
               if(!empty($user->ninja->exercices->where('statut', '=', 2)->first())) {
-                echo "bounjour";
                 return redirect()->route('updateExo');
               }
 
