@@ -33,11 +33,14 @@ class Skill extends Component {
   render () {
     return (
       <div className='skill'>
-         <Button title = "Lancé de shurikens" callBack={this.throwShurikens}/>
-         <Button title = "Lecture" callBack={this.readBooks}/>
-         <Button title = "Dissimulation" callBack={this.dissimulation}/>
-         <Button title = "Musculation" callBack={this.bodybuilding}/>
-         <Button title = "Jonglage" callBack={this.juggling}/>
+        <RadarChart/>
+         <div class="activityButtons">
+           <Button title = "Lancé de shurikens" callBack={this.throwShurikens}/>
+           <Button title = "Lecture" callBack={this.readBooks}/>
+           <Button title = "Dissimulation" callBack={this.dissimulation}/>
+           <Button title = "Musculation" callBack={this.bodybuilding}/>
+           <Button title = "Jonglage" callBack={this.juggling}/>
+         </div>
       </div>
     )
   }
