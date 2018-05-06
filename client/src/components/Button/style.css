@@ -15,3 +15,8 @@
     background-color: #5cd16c; /* Green */
     cursor: pointer;
 }
+
+.button:disabled{
+    background-color : #9ce3a5;
+    cursor: default;
+}
