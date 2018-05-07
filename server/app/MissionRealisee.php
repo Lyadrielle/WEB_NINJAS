@@ -28,5 +28,17 @@ class MissionRealisee extends Model
     protected $hidden = [];
 
     public $timestamps = false;
+	
+	public function competences() {
+      return $this->belongsToMany('App\Competence', 'requerir', $this->primaryKey, 'idnomcompetence')->withPivot('minimum');
+    }
+
+    public function utilisateur() {
+      return $this->belongsTo('App\Utilisateur', 'idutilisateur');
+    }
+	
+	public function mission() {
+		return $this->belongsTo('App/Mission', 'idmission');
+	}
 
 }
