@@ -5,8 +5,7 @@ import { VictoryChart, VictoryTheme, VictoryLabel, VictoryGroup, VictoryArea, Vi
 import './style.css'
 
 const characterData = [
-  { strength: 10, intelligence: 10, luck: 10, stealth: 10, charisma: 10 },
-  { strength: 1, intelligence: 2, luck: 8, stealth: 4, charisma: 8 }
+  { strength: 10, intelligence: 20, luck: 30, stealth: 40, charisma: 25 }
 ];
 
 class RadarChart extends Component {
@@ -29,7 +28,7 @@ class RadarChart extends Component {
   }
 
   processData(data) {
-    const maxByGroup = this.getMaxima(data);
+    const maxByGroup = {strength: 50, intelligence: 50, luck: 50, stealth: 50, charisma: 50};
     const makeDataArray = (d) => {
       return Object.keys(d).map((key) => {
         return { x: key, y: d[key] / maxByGroup[key] };
@@ -45,7 +44,7 @@ class RadarChart extends Component {
         theme={VictoryTheme.material}
         domain={{ y: [ 0, 1 ] }}
       >
-        <VictoryGroup colorScale={["transparent", "orange", "tomato"]}
+        <VictoryGroup colorScale={["orange"]}
           style={{ data: { fillOpacity: 0.2, strokeWidth: 2 } }}
         >
           {this.state.data.map((data, i) => {
@@ -66,7 +65,7 @@ class RadarChart extends Component {
               }
               labelPlacement="perpendicular"
               axisValue={i + 1} label={key}
-              tickFormat={(t) => Math.ceil(t * this.state.maxima[key])}
+              tickFormat={[2,4,6,8,10]}
               tickValues={[0.25, 0.5, 0.75]}
             />
           );
