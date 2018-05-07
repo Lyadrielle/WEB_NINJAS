@@ -38,7 +38,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
                 return redirect()->route('ninja', ['name' => 'Alberto']);
               }
               if(!empty($user->ninja->exercices->where('statut', '=', 2)->first())) {
-                echo "bounjour";
                 return redirect()->route('updateExo');
               }
 
@@ -46,6 +45,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
           }]);
 
           $router->get('createNinja/{name}', ['as' => 'ninja', 'uses' => 'NinjaController@create']);
+
+          $router->post('levelup', 'CompetenceController@addExp');
 
           $router->get('logout', function (Request $request) {
             $request->session()->flush();

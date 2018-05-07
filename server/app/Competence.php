@@ -30,7 +30,7 @@ class Competence extends Model
     public $timestamps = false;
 
     public function nomCompetence() {
-      return $this->hasOne('App\NomCompetence', $this->primaryKey);
+      return $this->belongsTo('App\NomCompetence', 'idnomcompetence');
     }
 
 }
