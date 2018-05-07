@@ -22,13 +22,13 @@ class RadarChart extends Component {
       return memo;
     }, {});
     return Object.keys(groupedData).reduce((memo, key) => {
-      memo[key] = Math.max(...groupedData[key]);
+      memo[key] = 50;
       return memo;
     }, {});
   }
 
   processData(data) {
-    const maxByGroup = {strength: 50, intelligence: 50, luck: 50, stealth: 50, charisma: 50};
+    const maxByGroup = this.getMaxima(data);
     const makeDataArray = (d) => {
       return Object.keys(d).map((key) => {
         return { x: key, y: d[key] / maxByGroup[key] };
@@ -65,7 +65,7 @@ class RadarChart extends Component {
               }
               labelPlacement="perpendicular"
               axisValue={i + 1} label={key}
-              tickFormat={[2,4,6,8,10]}
+              tickFormat={(t) => Math.ceil(t * this.state.maxima[key])}
               tickValues={[0.25, 0.5, 0.75]}
             />
           );
