@@ -19,7 +19,7 @@ class Button extends Component {
     setTimeout(function(){
       console.log(this.state.disabled)
       if(this.state.disabled === true){
-        setTimeout(function(){this.setState({disabled:false})}.bind(this), 3000)
+        setTimeout(function(){this.setState({disabled:false})}.bind(this), 3000) // changer ici le temps de désactivation du bouton
       }
     }.bind(this), 1000) // pour laisser le temps à setState de mettre à jour --> Asynchrone
     this.props.callBack()
@@ -34,7 +34,7 @@ class Button extends Component {
       <div>
          <button className='button' type="button" onClick={ this.disableButton } disabled={this.state.disabled}>
          {image!=null? <img src = { image } alt="button-image"/> : "" }
-         { title }
+         {" " + title }
          </button>
       </div>
     )

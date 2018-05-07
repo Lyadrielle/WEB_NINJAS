@@ -8,7 +8,10 @@
     padding: 8px 18px;
     text-align: center;
     text-decoration: none;
-    font-size: 12px;;
+    font-size: 12px;
+    margin-top : 5px;
+    margin-bottom: 5px;
+
 }
 
 .button:hover{
@@ -19,4 +22,8 @@
 .button:disabled{
     background-color : #9ce3a5;
     cursor: default;
+}
+
+.button img{
+  width : 12px;
 }
