@@ -44,6 +44,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
           $router->get('createNinja/{name}', ['as' => 'ninja', 'uses' => 'NinjaController@create']);
 
+          $router->post('levelup', 'CompetenceController@addExp');
+
           $router->get('logout', function (Request $request) {
             $request->session()->flush();
             return redirect('/');
