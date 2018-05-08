@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import DashboardBlock from '../DashBoardBlock'
+import Menu from '../Menu'
 import Skill from '../../components/Skill'
 import Mission from '../../components/Mission'
 
@@ -24,11 +25,13 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div className='dashboard-app'>
-        <DashboardBlock title="Missions" content={this.displayMissionBlock()} />
-        <DashboardBlock title="Compétences" content={this.displaySkillsBlock()}/>
-
-      </div>
+      <React.Fragment>
+        <Menu pseudo="ROBERT"/>
+        <div className='dashboard-app'>
+          <DashboardBlock title="Missions" content={this.displayMissionBlock()} />
+          <DashboardBlock title="Compétences" content={this.displaySkillsBlock()}/>
+        </div>
+      </React.Fragment>
     )
 }
 }

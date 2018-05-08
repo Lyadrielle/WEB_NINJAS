@@ -9,7 +9,7 @@ class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      logged: true,
+      logged: false,
     }
   }
 
@@ -18,7 +18,7 @@ class App extends Component {
 
     return (
       <div className='app-page'>
-        {logged === true ? <SignIn/> : <Dashboard/>}
+        {logged === true ? <Login/> : <Dashboard/>}
       </div>
     );
   }
