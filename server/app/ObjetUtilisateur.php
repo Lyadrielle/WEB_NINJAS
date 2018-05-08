@@ -2,19 +2,19 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Pivot;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class ObjetUtilisateur extends Pivot
 {
+
+    protected $primaryKey = "idremporter";
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        ,  
-    ];
+    protected $fillable = [];
 
     protected $table = "posseder";
 
@@ -23,9 +23,7 @@ class ObjetUtilisateur extends Pivot
      *
      * @var array
      */
-    protected $hidden = [
-        ,
-    ];
+    protected $hidden = [];
 
     public $timestamps = false;
 

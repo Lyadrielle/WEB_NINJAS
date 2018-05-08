@@ -48,4 +48,5 @@ class Utilisateur extends Model implements AuthenticatableContract, Authorizable
 	public function missionRealisee() {
       return $this->hasMany('App\MissionRealisee', $this->primaryKey);
 	}
+
 }

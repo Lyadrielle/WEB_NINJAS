@@ -32,7 +32,7 @@ class ExerciceController extends Controller
         foreach($nomCompetences as $nomCompetence) {
           $competence = $competences->where('idnomcompetence', '=', $nomCompetence->idnomcompetence)->first();
           //max ?
-          $competence->niveau = ($nomCompetence->pivot->valeur + $competence->niveau) < 0 ? 0 : ($nomCompetence->pivot->valeur + $competence->niveau);
++          $competence->niveau = ($nomCompetence->pivot->valeur + $competence->niveau) < 0 ? 0 : ($nomCompetence->pivot->valeur + $competence->niveau);
           $competence->save();
         }
         $exercice->statut = 3;
@@ -48,7 +48,7 @@ class ExerciceController extends Controller
 
         switch($action){
             case 0 : //manger
-              $competences = array(["valeur" => 10, "idnomcompetence" => 2]);
+              $competences = array(["valeur" => 3, "idnomcompetence" => 0]);
             break;
 
             case 1 : //dormir
@@ -81,7 +81,8 @@ class ExerciceController extends Controller
 
             default:
               return response()->json(['error' => 'Not Found'], 404);
-            break;
+			break;
+
         }
 
         $this->evolving($competences, $request->session()->get("utilisateur"), $action);
@@ -92,7 +93,7 @@ class ExerciceController extends Controller
     public function evolving($array, $id, $action) {
         $user = Utilisateur::where('idutilisateur', $id)->first();
         $dt = new DateTime();
-        $dt->setTimezone(new DateTimeZone('Europe/Paris'));
+		$dt->setTimezone(new DateTimeZone('Europe/Paris'));
         $dt->modify("+1 minute");
         $exo = Exercice::insertGetId(["fin" => $dt->format("Y-m-d H:i:s"), "statut" => 1, "action" => $action, "idninja" => $user->idninja]);
         foreach($array as $competence){

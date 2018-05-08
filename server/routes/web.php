@@ -30,7 +30,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
           $router->get('update/exercice', ['as' => 'updateExo', 'uses' => 'ExerciceController@update']);
 		  
-		  $router->get('mission/{idmissionrealisee}', ['middleware' => 'idmissionrealisee', 'uses' => 'MissionController@create']);
+		   $router->get('mission/{idmrealisee}', ['middleware' => 'action', 'uses' => 'MissionController@create']);
 
           $router->get('game', ['as' => 'home', function (Request $request) {
               $user = Utilisateur::where(["idutilisateur" => $request->session()->get('utilisateur')])->first();
@@ -45,8 +45,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
           }]);
 
           $router->get('createNinja/{name}', ['as' => 'ninja', 'uses' => 'NinjaController@create']);
-
-          $router->post('levelup', 'CompetenceController@addExp');
+		  
+		  $router->post('levelup', 'CompetenceController@addExp');
 
           $router->get('logout', function (Request $request) {
             $request->session()->flush();

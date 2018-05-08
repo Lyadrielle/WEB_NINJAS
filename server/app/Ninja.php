@@ -44,5 +44,4 @@ class Ninja extends Model
     public function competences() {
       return $this->hasMany('App\Competence', $this->primaryKey);
     }
-	
 }
