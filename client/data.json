@@ -13,6 +13,12 @@
         "agility": 5,
         "dissimulation": 5,
         "endurance": 5
+      },
+      "inventory": {
+        "items": [
+          "Sword", "Magic Shuriken", "Katana", "Kunai"
+        ],
+        "emptySlots":8
       }
     },
     "missions": [

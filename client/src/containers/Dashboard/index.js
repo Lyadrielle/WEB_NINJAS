@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
-
 import DashboardBlock from '../DashBoardBlock'
+import Skill from '../../components/Skill'
 import Mission from '../../components/Mission'
-import './style.css'
 
+import './style.css'
 import * as missions from './missions.json'
 
 class Dashboard extends Component {
-  /*On peut simplifier grâce au Css en passant une classe à mission*/
+  displaySkillsBlock() {
+    console.log("dshbd competences")
+    return <div><Skill/></div>
+  }
 
   displayMissionBlock() {
     console.log("dshbd miss")
@@ -20,10 +23,11 @@ class Dashboard extends Component {
     return (
       <div className='dashboard-app'>
         <DashboardBlock title="Missions" content={this.displayMissionBlock()} />
+        <DashboardBlock title="Compétences" content={this.displaySkillsBlock()}/>
 
       </div>
     )
-  }
+}
 }
 
 export default Dashboard
