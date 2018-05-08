@@ -9,7 +9,6 @@ h2 {
     border-style:solid;
     border-bottom-width: 22px;
     border-color: #f26c4f;
-    border-radius:1%;
+    border-radius: 5px;
     background-color:#f6f6f6;
 }
-

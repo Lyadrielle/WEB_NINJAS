@@ -14,7 +14,12 @@ class LoginForm extends Component {
       <div>
         <form>
           <p>
-            Identifie-toi pour aller entrainer ton ninja !
+            <div className = "textLogin">
+              Identifie-toi pour aller entrainer ton ninja !
+              <p>
+                Sinon <a href = "">inscris toi</a> !
+              </p>
+            </div>
           </p>
           <p>
             <span data-placeholder="Username"></span>

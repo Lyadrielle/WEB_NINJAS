@@ -11,8 +11,8 @@ class Login extends Component {
 
   render () {
     return (
-      <div className = "Login">
-        <DashboardBlock title="Login" content={this.displayLoginBlock()}/>
+      <div className = "login">
+          <DashboardBlock title="Login" content={this.displayLoginBlock()}/>
       </div>
     )
   }

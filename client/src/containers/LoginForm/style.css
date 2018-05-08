@@ -3,8 +3,19 @@ form{
 }
 
 input{
-  border-radius: 2px;
-  border-style : none;
+  border : solid;
+  border-radius: 3px;
+  border-width : 2px;
+  border-color: #f26c4f;
   padding : 5px;
+}
 
+.textLogin{
+  margin : 5px;
+  color : #f26c4f;
+}
+
+a{
+  font-weight: bold;
+  color : #f26c4f;
 }
