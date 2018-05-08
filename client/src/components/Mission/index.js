@@ -9,29 +9,28 @@ class Mission extends Component {
   constructor(props) {
     super(props)
     this.acceptMission = this.acceptMission.bind(this)
-    this.state = {
-      status:this.props.mission.status,
-      title: this.props.mission.title,
-      description: this.props.mission.description,
-      level: this.props.mission.level,
-      measure: this.props.mission.measure,
-    }
+    this.callBackEndOfMission = this.callBackEndOfMission.bind(this)
   }
 
   acceptMission() {
     console.log("Hello bro I accept the mission")
-    this.setState({status: true})
+    /* Faire un call API pour passer la mission à Pending */
+  }
+
+  callBackEndOfMission() {
+    /*Fonction pas forcément utile vu que c'est le back qui change les status des missions */
   }
 
   render () {
+    const { status, title, description, level } = this.props.mission;
     return (
       <div className='mission'>
-        <CupsMissionsLevel level = {this.state.level} />
+        <CupsMissionsLevel level = {level} />
          <div>
-           <h4>{ this.state.title }</h4>
-           <p className='mission-description'>{ this.state.description }</p>
+           <h4>{ title }</h4>
+           <p className='mission-description'>{ description }</p>
          </div>
-         {this.state.status? <p>Jauge</p> : <Button callBack = {this.acceptMission} title = "ACCEPTER"/>}
+         {status? <CircularMeasure callBackEnd = { this.callBackEndOfMission } /> : <Button callBack = {this.acceptMission} title = "ACCEPTER"/>}
       </div>
     )
   }

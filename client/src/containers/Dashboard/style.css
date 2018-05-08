@@ -1,0 +1,7 @@
+.mission {
+    border-bottom:2px solid #f26c4f;
+}
+
+.mission:last-of-type {
+    border-bottom:none;
+}
