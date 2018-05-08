@@ -1,12 +1,18 @@
 import React, { Component } from 'react'
-import Form from '../Form'
+import LoginForm from '../LoginForm'
+import DashboardBlock from '../DashBoardBlock'
 import './style.css'
 
 class Login extends Component {
+
+  displayLoginBlock(){
+    return <div><LoginForm/></div>
+  }
+
   render () {
     return (
-      <div>
-        <Form/>
+      <div className = "Login">
+        <DashboardBlock title="Login" content={this.displayLoginBlock()}/>
       </div>
     )
   }

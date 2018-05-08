@@ -7,6 +7,9 @@ import './style.css'
 import * as missions from './missions.json'
 
 class Dashboard extends Component {
+
+
+
   displaySkillsBlock() {
     console.log("dshbd competences")
     return <div><Skill/></div>
