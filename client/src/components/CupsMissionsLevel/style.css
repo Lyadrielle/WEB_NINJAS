@@ -4,7 +4,8 @@
 }
 
 .cups-container {
-    width: 75px;
+    height: 40px;
+    width: 120px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
