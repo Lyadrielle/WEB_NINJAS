@@ -20,16 +20,21 @@ $router->get('/', ['as' => 'test', function () use ($router) {
 
 $router->group(['prefix' => 'api'], function () use ($router) {
 
-      $router->post('signin', 'UtilisateurController@signin');
 
-      $router->post('signup', 'UtilisateurController@signup');
+      $router->group(['middleware' => 'session'], function () use ($router) {
+
+          $router->post('signin', 'UtilisateurController@signin');
+
+          $router->post('signup', 'UtilisateurController@signup');
+
+      });
 
       $router->group(['middleware' => 'auth'], function () use ($router) {
 
           $router->get('action/{action}', ['middleware' => 'action', 'uses' => 'ExerciceController@create']);
 
           $router->get('update/exercice', ['as' => 'updateExo', 'uses' => 'ExerciceController@update']);
-		  
+
 		   $router->get('mission/{idmrealisee}', ['middleware' => 'action', 'uses' => 'MissionController@create']);
 
           $router->get('game', ['as' => 'home', function (Request $request) {
@@ -41,11 +46,11 @@ $router->group(['prefix' => 'api'], function () use ($router) {
                 return redirect()->route('updateExo');
               }
 
-              return response()->json($user->get());
+              return response()->json($user);
           }]);
 
           $router->get('createNinja/{name}', ['as' => 'ninja', 'uses' => 'NinjaController@create']);
-		  
+
 		  $router->post('levelup', 'CompetenceController@addExp');
 
           $router->get('logout', function (Request $request) {
