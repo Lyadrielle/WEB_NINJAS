@@ -1,0 +1,6 @@
+.needbar {
+  height: 20px;
+  border-radius: 10px;
+  width: 100%;
+  min-width: 20px;
+}
