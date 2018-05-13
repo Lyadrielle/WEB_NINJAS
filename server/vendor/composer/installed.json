@@ -1173,8 +1173,8 @@
     },
     {
         "name": "illuminate/session",
-        "version": "v5.6.15",
-        "version_normalized": "5.6.15.0",
+        "version": "v5.6.17",
+        "version_normalized": "5.6.17.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/session.git",
