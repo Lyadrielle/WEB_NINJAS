@@ -15,8 +15,11 @@ class Login extends Component {
     this.setState({ error: false })
     const { userName, password } = this.state
     api.signin(userName, password)
-      .then(console.log)
-      .catch(() => {
+      .then(user => {
+        this.props.logAction(user)
+      })
+      .catch((e) => {
+        console.log(e)
         this.setState({ error: true })
       })
   }

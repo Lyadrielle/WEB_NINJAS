@@ -32,7 +32,7 @@ function signin(login, password) {
 }
 
 function signup(login, password, ninjaName) {
-  return request('POST', '/signin', {
+  return request('POST', '/signup', {
     pseudo: login,
     motdepasse: password,
     nom: ninjaName,

@@ -12,8 +12,12 @@ class App extends Component {
     }
   }
 
-  log = user => {
-    this.setState({ user })
+  generateLogAction = () => {
+    const setState = state => this.setState(state)
+    return user => {
+      console.log(user)
+      setState({ user })
+    }
   }
 
   render() {
@@ -21,7 +25,7 @@ class App extends Component {
 
     return (
       <div>
-        {user === null ? <Login/> : <Dashboard user={user} />}
+        {user === null ? <Login logAction={this.generateLogAction()}/> : <Dashboard user={user} />}
       </div>
     );
   }
