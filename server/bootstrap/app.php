@@ -67,6 +67,7 @@ $app->singleton(
 
 $app->middleware([
     \Illuminate\Session\Middleware\StartSession::class,
+    App\Http\Middleware\CorsMiddleware::class
 ]);
 
  $app->routeMiddleware([
