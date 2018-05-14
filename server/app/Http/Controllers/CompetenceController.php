@@ -27,17 +27,18 @@ class CompetenceController extends Controller
 		
 		$user = Utilisateur::where('idutilisateur', $request->session()->get("utilisateur"))->first();
 		$competences = $user->ninja->competences;
-     	$exp = $competences->where('idnomcompetence', 9);
-		$expMax = $competences->where('idnomcompetence', 10);
-		$level = $competences->where('idnomcompetence', 0);
 		
-		return Self::levelup($request->input('reward'), $exp, $expMax, $level);
+		return Self::levelup($request->input('reward'), $exp, $competences);
 		
 		
 	}
 	
-	static public function levelup($reward, $exp, $expMax, $level) {
+	static public function levelup($reward, $competences) {
 		
+		$exp = $competences->where('idnomcompetence', 9);
+		$expMax = $competences->where('idnomcompetence', 10);
+		$level = $competences->where('idnomcompetence', 0);
+
 		$need = $expMax->niveau - $exp->niveau;
 		
 		if($reward - $need >= 0) {
@@ -48,6 +49,8 @@ class CompetenceController extends Controller
             $expMax->save();
             $level->niveau++;
             $level->save();
+
+            skillsUp(rand(2,3), $competences);
 			
 			return $this->levelup($request, $reward);
 			
@@ -59,6 +62,16 @@ class CompetenceController extends Controller
 		}
 		
 		return route()->redirect('home');
+		
+	}
+
+	public function skillsUp($points, $competences){
+
+		while ($points != 0){
+			$competences->where('idnomcompetence', rand(4,8))->niveau += 1;
+			$points -= 1;
+		}
+		$competences->save();
 		
 	}
 			
