@@ -34,7 +34,7 @@ class Skill extends Component {
     return (
       <div className='skill'>
         <RadarChart/>
-         <div class="activityButtons">
+         <div className="activityButtons">
            <Button title = "Lancer de shurikens" image = "./images/shuriken.png" callBack={this.throwShurikens}/>
            <Button title = "Lecture" image = "./images/reading.png" callBack={this.readBooks}/>
            <Button title = "Dissimulation" image = "./images/leaf.png" callBack={this.dissimulation}/>
