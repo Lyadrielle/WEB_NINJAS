@@ -63,7 +63,7 @@ class UtilisateurController extends Controller
        $id = Utilisateur::insertGetId(['pseudo' => $request->input('pseudo'), 'motdepasse' => Hash::make($request->input('motdepasse'))]);
        $request->session()->put('utilisateur', $id);
        $name = $request->input('nom');
-       return redirect()->route('ninja', ['name', $name]);
+       return redirect()->route('ninja', ['name' => $name]);
 
      } else {
 

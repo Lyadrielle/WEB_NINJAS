@@ -26,7 +26,6 @@ class NinjaController extends Controller
 
     public function create(Request $request, $name) {
 
-
       $user = Utilisateur::where('idutilisateur', $request->session()->get('utilisateur'))->first();
 
       if(empty($user->idninja)) {
