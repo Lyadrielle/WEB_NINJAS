@@ -6,7 +6,7 @@ import './style.css'
 class Login extends Component {
 
   displayLoginBlock(){
-    return <div><LoginForm/></div>
+    return <div><LoginForm logAction={this.props.logAction}/></div>
   }
 
   render () {

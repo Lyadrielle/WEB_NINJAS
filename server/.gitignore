@@ -2,3 +2,9 @@
 
 # dependencies
 /vendor
+
+#generated
+storage/framework/sessions
+
+# dependencies
+vendor/

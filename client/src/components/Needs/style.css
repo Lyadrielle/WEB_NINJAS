@@ -1,0 +1,30 @@
+.need {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+  width: 80%;
+  margin: auto;
+}
+
+.need .need-bar-container {
+  width: 100%;
+}
+
+.need div:first-child {
+  position: relative;
+  min-width: 20px;
+  margin-right: 10px;
+}
+
+.need h5 {
+  line-height: inherit;
+  margin: inherit;
+  padding-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.need div img {
+  position: absolute;
+  height: 20px;
+  bottom: 0;  
+}

@@ -23,9 +23,11 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
-// $app->withFacades();
+$app->withFacades(true, [
+  Illuminate\Support\Facades\Session::class => "Session",
+]);
 
-// $app->withEloquent();
+$app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -63,9 +65,16 @@ $app->singleton(
 //    App\Http\Middleware\ExampleMiddleware::class
 // ]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->middleware([
+    \Illuminate\Session\Middleware\StartSession::class,
+    App\Http\Middleware\CorsMiddleware::class
+]);
+
+ $app->routeMiddleware([
+     'auth' => App\Http\Middleware\Authenticate::class,
+     'session' => App\Http\Middleware\SessionMiddleware::class,
+     'action' => App\Http\Middleware\ActionMiddleware::class,
+ ]);
 
 /*
 |--------------------------------------------------------------------------
@@ -78,8 +87,16 @@ $app->singleton(
 |
 */
 
+$app->configure('session');
+
+$app->bind(\Illuminate\Session\SessionManager::class, function () use ($app) {
+    return new \Illuminate\Session\SessionManager($app);
+});
+
+
+$app->register(\Illuminate\Session\SessionServiceProvider::class);
 // $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
+ $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
 /*

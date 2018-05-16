@@ -1,10 +1,20 @@
 {
   "ninja": {
-    "level": 0,
+    "level": 15,
+    "experience": 43,
     "needs": {
-      "hunger": 5,
-      "energy": 5,
-      "social": 5
+      "hunger": {
+        "value": 5,
+        "action": "eat"
+      },
+      "energy": {
+        "value": 5,
+        "action": "sleep"
+      },
+      "social": {
+        "value": 5,
+        "action": "talk"
+      }
     },
     "skills": {
       "strength": 5,

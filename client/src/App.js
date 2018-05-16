@@ -9,16 +9,24 @@ class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      logged: false,
+      user: null,
+    }
+  }
+
+  generateLogAction = () => {
+    const setState = state => this.setState(state)
+    return user => {
+      console.log(user)
+      setState({ user })
     }
   }
 
   render() {
-    const { logged } = this.state
+    const { user } = this.state
 
     return (
-      <div className='app-page'>
-        {logged === true ? <Login/> : <Dashboard/>}
+      <div>
+        {user === null ? <Login logAction={this.generateLogAction()}/> : <Dashboard user={user} />}
       </div>
     );
   }
