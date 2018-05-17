@@ -26,7 +26,7 @@ class App extends Component {
 
     return (
       <div>
-        {user === null ? <Login logAction={this.generateLogAction()}/> : <Dashboard user={user} />}
+        {user === null ? <Login logAction={this.generateLogAction}/> : <Dashboard user={user} />}
       </div>
     );
   }
