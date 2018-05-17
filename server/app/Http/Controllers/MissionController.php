@@ -48,9 +48,10 @@ class MissionController extends Controller
     static public function check($user) {
         $now = new DateTime();
         $now->setTimezone(new DateTimeZone('Europe/Paris'));
-        $missions = $user->missionRealisee->where(['fin', '<=', $now->format("Y-m-d H:i:s")], ['fin', '<>', '']);
+        $missions = $user->missionRealisee->where('fin', '<=', $now->format("Y-m-d H:i:s"));
+
         foreach($missions as $mission) {
-          Self::complete($mission->idmrealisee, $user);
+          if(!empty($mission->fin)) Self::complete($mission->idmrealisee, $user);
         }
     }
 
@@ -61,8 +62,10 @@ class MissionController extends Controller
         $ninja = $user->ninja;
 
         $mission->statut = 3;
-        if(rand(0, 99) < $mission->pourcentage)
-        CompetenceController::levelup((100 + $ninja->competence(0)->niveau) * $mission->difficulte, $ninja->competences);
+        if(rand(0, 99) < $mission->pourcentage) {
+          CompetenceController::levelup((100 + $ninja->competence(0)->niveau) * $mission->difficulte, $ninja->competences);
+        }
+
         $mission->save();
 
         Self::generate($user->idutilisateur, $mission->difficulte);
