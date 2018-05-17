@@ -42,41 +42,27 @@ class ExerciceController extends Controller
       return redirect()->route('home');
     }
 
-    public function create(Request $request, $action){
+    public function createAction(Request $request){
+
+      $this->validate($request, [
+        'action' => 'required'
+      ]);
+
+      $action = $request->input('action');
 
         $competences = array();
 
         switch($action){
-            case 0 : //manger
+            case "eat" :
               $competences = array(["valeur" => 3, "idnomcompetence" => 0]);
             break;
 
-            case 1 : //dormir
+            case "sleep" :
               $competences = array(["valeur" => 10, "idnomcompetence" => 1]);
             break;
 
-            case 2 : //parler
+            case "talk" :
               $competences = array(["valeur" => 10, "idnomcompetence" => 3]);
-            break;
-
-            case 3 : //lancer de shuriken (aug. force et agilité, baisse énergie et satiété)
-              $competences = array(["valeur" => 1, "idnomcompetence" => 8] , ["valeur" => 2, "idnomcompetence" => 6] , ["valeur" => -2, "idnomcompetence" => 1] , ["valeur" => -1, "idnomcompetence" => 2]);
-            break;
-
-            case 4 : //lecture (aug. sagesse, baisse vie sociale)
-              $competences = array(["valeur" => 2, "idnomcompetence" => 5] , ["valeur" => -1, "idnomcompetence" => 3]);
-            break;
-
-            case 5 : //dissimulation (aug. dissimulation, baisse vie sociale)
-              $competences = array(["valeur" => 2, "idnomcompetence" => 4] , ["valeur" => -1, "idnomcompetence" => 3]);
-            break;
-
-            case 6 : //musculation (aug. force et endurance, baisse énergie et satiété)
-              $competences = array(["valeur" => 2, "idnomcompetence" => 8] , ["valeur" => 1, "idnomcompetence" => 7] , ["valeur" => -2, "idnomcompetence" => 1] , ["valeur" => -2, "idnomcompetence" => 2]);
-            break;
-
-            case 7 : //jonglage (aug. agilité et endurance, baisse énergie et satiété)
-              $competences = array(["valeur" => 2, "idnomcompetence" => 6] , ["valeur" => 2, "idnomcompetence" => 7] , ["valeur" => -1, "idnomcompetence" => 1] , ["valeur" => -1, "idnomcompetence" => 2]);
             break;
 
             default:
@@ -89,6 +75,50 @@ class ExerciceController extends Controller
         return redirect()->route('home');
 
     }
+
+
+    public function createSkills(Request $request){
+      
+      $this->validate($request, [
+        'skill' => 'required'
+      ]);
+
+      $action = $request->input('skill');
+
+      $competences = array();
+
+        switch($action){
+            case "shuriken" : //lancer de shuriken (aug. force et agilité, baisse énergie et satiété)
+              $competences = array(["valeur" => 1, "idnomcompetence" => 8] , ["valeur" => 2, "idnomcompetence" => 6] , ["valeur" => -2, "idnomcompetence" => 1] , ["valeur" => -1, "idnomcompetence" => 2]);
+            break;
+
+            case "reading" : //lecture (aug. sagesse, baisse vie sociale)
+              $competences = array(["valeur" => 2, "idnomcompetence" => 5] , ["valeur" => -1, "idnomcompetence" => 3]);
+            break;
+
+            case "hide" : //dissimulation (aug. dissimulation, baisse vie sociale)
+              $competences = array(["valeur" => 2, "idnomcompetence" => 4] , ["valeur" => -1, "idnomcompetence" => 3]);
+            break;
+
+            case "musculation" : //musculation (aug. force et endurance, baisse énergie et satiété)
+              $competences = array(["valeur" => 2, "idnomcompetence" => 8] , ["valeur" => 1, "idnomcompetence" => 7] , ["valeur" => -2, "idnomcompetence" => 1] , ["valeur" => -2, "idnomcompetence" => 2]);
+            break;
+
+            case "juggle" : //jonglage (aug. agilité et endurance, baisse énergie et satiété)
+              $competences = array(["valeur" => 2, "idnomcompetence" => 6] , ["valeur" => 2, "idnomcompetence" => 7] , ["valeur" => -1, "idnomcompetence" => 1] , ["valeur" => -1, "idnomcompetence" => 2]);
+            break;
+
+            default:
+              return response()->json(['error' => 'Not Found'], 404);
+      break;
+
+        }
+
+        $this->evolving($competences, $request->session()->get("utilisateur"), $action);
+        return redirect()->route('home');
+
+    }
+
 
     public function evolving($array, $id, $action) {
         $user = Utilisateur::where('idutilisateur', $id)->first();
