@@ -44,7 +44,8 @@ class ExerciceController extends Controller
     static public function check($user) {
       $now = new DateTime();
       $now->setTimezone(new DateTimeZone('Europe/Paris'));
-      $exercices = $user->ninja->exercices->where('fin', '<=', $now->format("Y-m-d H:i:s"));
+      $exercices = $user->ninja->exercices->where(['fin', '<=', $now->format("Y-m-d H:i:s")], ['statut', '<', '3']);
+
 
       if(!empty($exercices)) {
         Self::update($user, $exercices);
@@ -98,24 +99,24 @@ class ExerciceController extends Controller
       $competences = array();
 
         switch($action){
-            case "shuriken" : //lancer de shuriken (aug. force et agilité, baisse énergie et satiété)
-              $competences = array(["valeur" => 1, "idnomcompetence" => 8] , ["valeur" => 2, "idnomcompetence" => 6] , ["valeur" => -2, "idnomcompetence" => 1] , ["valeur" => -1, "idnomcompetence" => 2]);
+            case "shuriken" : //lancer de shuriken (aug. force et agilité, baisse énergie et satiété et dissimulation)
+              $competences = array(["valeur" => 1, "idnomcompetence" => 8] , ["valeur" => 1, "idnomcompetence" => 6] , ["valeur" => -2, "idnomcompetence" => 4], ["valeur" => -10, "idnomcompetence" => 1] , ["valeur" => -10, "idnomcompetence" => 2]);
             break;
 
-            case "reading" : //lecture (aug. sagesse, baisse vie sociale)
-              $competences = array(["valeur" => 2, "idnomcompetence" => 5] , ["valeur" => -1, "idnomcompetence" => 3]);
+            case "reading" : //lecture (aug. sagesse, baisse vie sociale et force)
+              $competences = array(["valeur" => 2, "idnomcompetence" => 5] , ["valeur" => -10, "idnomcompetence" => 3], ["valeur" => -2, "idnomcompetence" => 8]);
             break;
 
-            case "hide" : //dissimulation (aug. dissimulation, baisse vie sociale)
-              $competences = array(["valeur" => 2, "idnomcompetence" => 4] , ["valeur" => -1, "idnomcompetence" => 3]);
+            case "hide" : //dissimulation (aug. dissimulation, baisse vie sociale et force)
+              $competences = array(["valeur" => 2, "idnomcompetence" => 4] , ["valeur" => -10, "idnomcompetence" => 3], ["valeur" => 2, "idnomcompetence" => 8]);
             break;
 
-            case "musculation" : //musculation (aug. force et endurance, baisse énergie et satiété)
-              $competences = array(["valeur" => 2, "idnomcompetence" => 8] , ["valeur" => 1, "idnomcompetence" => 7] , ["valeur" => -2, "idnomcompetence" => 1] , ["valeur" => -2, "idnomcompetence" => 2]);
+            case "musculation" : //musculation (aug. force et endurance, baisse sagesse, énergie et satiété)
+              $competences = array(["valeur" => 1, "idnomcompetence" => 8] , ["valeur" => 2, "idnomcompetence" => 7] , ["valeur" => -3, "idnomcompetence" => 5], ["valeur" => -10, "idnomcompetence" => 1] , ["valeur" => -10, "idnomcompetence" => 2]);
             break;
 
-            case "juggle" : //jonglage (aug. agilité et endurance, baisse énergie et satiété)
-              $competences = array(["valeur" => 2, "idnomcompetence" => 6] , ["valeur" => 2, "idnomcompetence" => 7] , ["valeur" => -1, "idnomcompetence" => 1] , ["valeur" => -1, "idnomcompetence" => 2]);
+            case "juggle" : //jonglage (aug. agilité et endurance, baisse dissimulation, énergie et satiété)
+              $competences = array(["valeur" => 1, "idnomcompetence" => 6] , ["valeur" => 1, "idnomcompetence" => 7] , ["valeur" => -2, "idnomcompetence" => 4], ["valeur" => -10, "idnomcompetence" => 1] , ["valeur" => -10, "idnomcompetence" => 2]);
             break;
 
             default:
