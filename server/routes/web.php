@@ -38,7 +38,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
           $router->post('mission', 'MissionController@start');
 
-		      $router->get('update', function(Request $request) {
+		      $router->get('ninja', function(Request $request) {
             $user = Utilisateur::where(["idutilisateur" => $request->session()->get('utilisateur')])->first();
             App\Http\Controllers\MissionController::check($user);
             App\Http\Controllers\ExerciceController::check($user);

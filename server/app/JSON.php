@@ -18,6 +18,7 @@ class JSON
     $obj = new \stdClass;
 
     $obj->error = true;
+    $obj->message = $message;
     $obj->endDate = $endDate;
     return $obj;
   }
@@ -27,6 +28,7 @@ class JSON
     $obj = new \stdClass;
 
     $obj->error = true;
+    $obj->message = $message;
     $obj->endDate = $endDate;
     $obj->missionID = $idMission;
     return $obj;
