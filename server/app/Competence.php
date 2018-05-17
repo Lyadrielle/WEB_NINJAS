@@ -38,4 +38,51 @@ class Competence extends Model
 
     }
 
+    public function max() {
+      switch($this->idnomcompetence) {
+        case 0:
+          $r = 100;
+          break;
+
+        case 1:
+          $r = 100;
+          break;
+
+        case 2:
+          $r = 100;
+          break;
+
+        case 3:
+          $r = 100;
+          break;
+
+        case 4:
+          $r = 50;
+          break;
+
+        case 5:
+          $r = 50;
+          break;
+
+        case 6:
+          $r = 50;
+          break;
+
+        case 7:
+          $r = 50;
+          break;
+
+        case 8:
+          $r = 50;
+          break;
+
+        default:
+          $r = null;
+          break;
+      }
+
+    return $r;
+
+  }
+
 }

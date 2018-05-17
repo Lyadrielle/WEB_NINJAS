@@ -32,7 +32,9 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
       $router->group(['middleware' => 'auth'], function () use ($router) {
 
-          $router->get('action/{action}', ['middleware' => 'action', 'uses' => 'ExerciceController@create']);
+          $router->post('action', ['middleware' => 'action', 'uses' => 'ExerciceController@createAction']);
+
+           $router->post('skill', ['middleware' => 'action', 'uses' => 'ExerciceController@createSkills']);
 
           $router->post('mission', 'MissionController@start');
 
