@@ -44,4 +44,8 @@ class Ninja extends Model
     public function competences() {
       return $this->hasMany('App\Competence', $this->primaryKey);
     }
+
+    public function competence($id) {
+      return $this->competences->where('idnomcompetence', $id)->first();
+    }
 }

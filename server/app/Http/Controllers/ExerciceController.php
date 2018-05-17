@@ -21,11 +21,9 @@ class ExerciceController extends Controller
         //
     }
 
-    public function update(Request $request) {
-      $user = Utilisateur::where('idutilisateur', $request->session()->get("utilisateur"))->first();
+    static public function update($user, $exercices) {
       $ninja = $user->ninja;
       $competences = $ninja->competences;
-      $exercices = $ninja->exercices->where("statut", '=', 2);
 
       foreach($exercices as $exercice) {
         $nomCompetences = $exercice->nomCompetences;
@@ -38,8 +36,18 @@ class ExerciceController extends Controller
         $exercice->statut = 3;
         $exercice->save();
       }
+      
+    }
 
-      return redirect()->route('home');
+    static public function check($user) {
+      $now = new DateTime();
+      $now->setTimezone(new DateTimeZone('Europe/Paris'));
+      $exercices = $user->ninja->exercices->where('fin', '<=', $now->format("Y-m-d H:i:s"));
+
+      if(!empty($exercices)) {
+        Self::update($user, $exercices);
+      }
+
     }
 
     public function create(Request $request, $action){

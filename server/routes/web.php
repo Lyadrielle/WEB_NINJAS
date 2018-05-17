@@ -33,17 +33,18 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
           $router->get('action/{action}', ['middleware' => 'action', 'uses' => 'ExerciceController@create']);
 
-          $router->get('update/exercice', ['as' => 'updateExo', 'uses' => 'ExerciceController@update']);
+		      $router->get('update', function() {
+            $user = Utilisateur::where(["idutilisateur" => $request->session()->get('utilisateur')])->first();
+            App\Http\Controllers\MissionController::check($user);
+            App\Http\Controllers\ExerciceController::check($user);
 
-		   $router->get('mission/{idmrealisee}', ['middleware' => 'action', 'uses' => 'MissionController@create']);
+            return redirect()->route('home');
+          });
 
           $router->get('game', ['as' => 'home', function (Request $request) {
               $user = Utilisateur::where(["idutilisateur" => $request->session()->get('utilisateur')])->first();
               if(empty($user->idninja)) {
                 return redirect()->route('ninja', ['name' => 'Alberto']);
-              }
-              if(!empty($user->ninja->exercices->where('statut', '=', 2)->first())) {
-                return redirect()->route('updateExo');
               }
 
               return response()->json($user);

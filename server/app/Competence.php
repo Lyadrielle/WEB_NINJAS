@@ -33,4 +33,9 @@ class Competence extends Model
       return $this->belongsTo('App\NomCompetence', 'idnomcompetence');
     }
 
+    public function findEquivalent($competences) {
+      return $competences->where('idnomcompetence', $this->idnomcompetence)->first();
+
+    }
+
 }
