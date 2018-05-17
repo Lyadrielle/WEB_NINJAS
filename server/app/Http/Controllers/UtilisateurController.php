@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 
 use App\Utilisateur;
 
+use App\Http\Controllers\MissionController;
+
 class UtilisateurController extends Controller
 {
     /**
@@ -63,6 +65,11 @@ class UtilisateurController extends Controller
        $id = Utilisateur::insertGetId(['pseudo' => $request->input('pseudo'), 'motdepasse' => Hash::make($request->input('motdepasse'))]);
        $request->session()->put('utilisateur', $id);
        $name = $request->input('nom');
+
+       MissionController::generate($id, 1);
+       MissionController::generate($id, 2);
+       MissionController::generate($id, 3);
+
        return redirect()->route('ninja', ['name' => $name]);
 
      } else {

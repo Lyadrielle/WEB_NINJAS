@@ -44,9 +44,9 @@ class Utilisateur extends Model implements AuthenticatableContract, Authorizable
     public function objets() {
       return $this->belongsToMany('App\Objet', 'posseder', $this->primaryKey, 'idobjet');
     }
-	
-	public function missionRealisee() {
-      return $this->hasMany('App\MissionRealisee', $this->primaryKey);
-	}
+
+  	public function missionRealisee() {
+        return $this->hasMany('App\MissionRealisee', $this->primaryKey);
+  	}
 
 }

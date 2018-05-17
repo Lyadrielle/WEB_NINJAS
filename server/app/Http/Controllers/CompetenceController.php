@@ -27,8 +27,9 @@ class CompetenceController extends Controller
 
 		$user = Utilisateur::where('idutilisateur', $request->session()->get("utilisateur"))->first();
 		$competences = $user->ninja->competences;
+    Self::levelup($request->input('reward'), $competences);
 
-		return Self::levelup($request->input('reward'), $exp, $competences);
+		return route()->redirect('home');
 
 
 	}
@@ -50,9 +51,9 @@ class CompetenceController extends Controller
             $level->niveau++;
             $level->save();
 
-            skillsUp(rand(2,3), $competences);
+            Self::skillsUp(rand(2,3), $competences);
 
-			return $this->levelup($request, $reward);
+			Self::levelup($request, $reward);
 
 		} else {
 
@@ -61,12 +62,28 @@ class CompetenceController extends Controller
 
 		}
 
-		return route()->redirect('home');
-
 	}
 
 
-	public function skillsUp($points, $competences){
+  static public function generateRequirementsForMission($min, $max, $n) {
+
+    $competences = array(['valeur' => 10, 'idnomcompetence' => 1]);
+
+    $ids = array(2, 3, 4, 5, 6, 7, 8);
+
+    for($i = 0; $i < $n && count($ids) > 0; ++$i) {
+      $random = rand(0, count($ids) - 1);
+      $value = ($ids[$random] != 2 && $ids[$random] != 3) ? rand($min, $max) : 10;
+      array_push($competences, ['valeur' => $value, 'idnomcompetence' => $ids[$random]]);
+      array_splice($ids, $random, 1);
+    }
+
+
+    return $competences;
+  }
+
+
+	static public function skillsUp($points, $competences){
 
 		while ($points != 0){
 			$competences->where('idnomcompetence', rand(4,8))->niveau += 1;

@@ -10,6 +10,7 @@ use App\MissionRealiseeNomCompetence;
 use App\Competence;
 use DateTime;
 use DateTimeZone;
+use App\Http\Controllers\CompetenceController;
 
 class MissionController extends Controller
 {
@@ -23,55 +24,107 @@ class MissionController extends Controller
         //
     }
 
-    public function create(Request $request, $action){
+    static public function generate($idutilisateur, $difficulty) {
 
-        $competences = array();
+        $user = Utilisateur::where('idutilisateur', $idutilisateur)->first();
 
-        switch($action){
-            case 0 :
-              $competences = array(["minimum" => 3, "idnomcompetence" => 0]);
-            break;
+        $missions = Mission::get();
 
-            default:
-              return response()->json(['error' => 'Not Found'], 404);
-            break;
+        $idMission = rand(0, count($missions) - 1);
+
+        $mission = $missions->where('idmission', $idMission)->first();
+
+        $idmrealisee = MissionRealisee::insertGetId(['idutilisateur' => $idutilisateur, 'difficulte' => $difficulty, 'statut' => 0, 'idmission' => $idMission]);
+
+        $arrayComp = CompetenceController::generateRequirementsForMission(rand(1, 5), rand(6, 10), rand(2, 5));
+
+        foreach($arrayComp as $comp) {
+          MissionRealiseeNomCompetence::insert(['idmrealisee' => $idmrealisee, 'minimum' => $comp['valeur'] * $difficulty, 'idnomcompetence' => $comp['idnomcompetence']]);
         }
-
-        $this->evolving($competences, $request->session()->get("utilisateur"), $action);
-        return redirect()->route('home');
 
     }
 
-    public function evolving($array, $id, $action) {
-        $user = Utilisateur::where('idutilisateur', $id)->first();
-        $dt = new DateTime();
-		$dt->setTimezone(new DateTimeZone('Europe/Paris'));
-        $dt->modify("+1 minute");
-        $mission = MissionRealisee::insertGetId(["fin" => $dt->format("Y-m-d H:i:s"), "statut" => 1, "idutilisateur" => $user]);
-        foreach($array as $competence){
-            MissionRealiseeNomCompetence::insert(array_merge($competence, array("idmrealisee" => $mission)));
+    static public function check($user) {
+        $now = new DateTime();
+        $now->setTimezone(new DateTimeZone('Europe/Paris'));
+        $missions = $user->missionRealisee->where('fin', '<=', $now->format("Y-m-d H:i:s"));
+        foreach($missions as $mission) {
+          Self::complete($mission->idmrealisee, $user);
         }
     }
-	
-	public function update(Request $request) {
-      $user = Utilisateur::where('idutilisateur', $request->session()->get("utilisateur"))->first();
-      $ninja = $user->ninja;
-      $competences = $ninja->competences;
-      $exercices = $ninja->missions->where("statut", '=', 2);
 
-      foreach($missions as $mission) {
-        $nomCompetences = $mission->nomCompetences;
-        foreach($nomCompetences as $nomCompetence) {
-          $competence = $competences->where('idnomcompetence', '=', $nomCompetence->idnomcompetence)->first();
-          //max ?
-+          $competence->niveau = ($nomCompetence->pivot->valeur + $competence->niveau) < 0 ? 0 : ($nomCompetence->pivot->valeur + $competence->niveau);
-          $competence->save();
-        }
+
+    static public function complete($idmrealisee, $user) {
+        $mission = $user->missionRealisee->where('idmrealisee', $idmrealisee)->first();
+
+        $ninja = $user->ninja;
+
         $mission->statut = 3;
-        $mission->save();
-      }
+        CompetenceController::levelup($user->idutilisateur, (100 + $ninja->competence(0)) * $mission->difficulte, $ninja->competences);
+        $misison->save();
+
+    }
+
+    public function start(Request $request) {
+
+      $this->validate($request, [
+        'id' => 'required'
+      ]);
+
+      $user = Utilisateur::where('idutilisateur', $request->session()->get('utilisateur'))->first();
+
+      $mission = $user->missionRealisee->where('idmrealisee', $request->input('id'))->first();
+
+      if(empty($mission)) return response()->json(['error' => 'Mission Not Found'], 404);
+      if($mission->status != 0) return response()->json(['error' => 'Mission Already Started'], 401);
+
+      $competencesRequired = $mission->competences;
+      $competencesNinja = $user->ninja->competences;
+
+      $pourcentage = Self::success($competencesRequired, $competencesNinja);
+
+      if($pourcentage < 0) return response()->json(['error' => 'Not Enough Energy'], 404);
+
+      $mission->statut = 1;
+
+      $dt = new DateTime();
+      $dt->setTimezone(new DateTimeZone('Europe/Paris'));
+      $temps = 1 * $mission->difficulte;
+      $dt->modify("+$temps minute");
+
+      $mission->fin = $dt;
+
+      $mission->save();
 
       return redirect()->route('home');
+
+
+    }
+
+    static public function success($competencesRequired, $competencesNinja) {
+        $energyRequired = $competencesRequired->where('idnomcompetence', 1)->first();
+        $energyNinja = $energyRequired->findEquivalent($competencesNinja);
+        if($energyNinja->niveau - $energyRequired->minimum < 0) {
+          return -1;
+        }
+
+        return Self::calculate($competencesRequired, $competencesNinja);
+
+    }
+
+    static public function calculate($competencesRequired, $competencesNinja) {
+      $pourcentage = 100;
+
+      foreach($competencesRequired as $competenceRequired) {
+        $competenceNinja = $competenceRequired->findEquivalent($competencesNinja);
+        $pourcentage += ceil(($competenceNinja->niveau - $competenceRequired->minimum) / $competenceRequired->minimum * 100 - 100);
+      }
+
+      if($pourcentage < 0) $pourcentage = 0;
+      if($pourcentage > 100) $pourcentage = 100;
+
+      return $pourcentage;
+
     }
 
 }
