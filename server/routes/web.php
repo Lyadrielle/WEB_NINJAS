@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use App\Utilisateur;
+use App\JSON;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +34,9 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
           $router->get('action/{action}', ['middleware' => 'action', 'uses' => 'ExerciceController@create']);
 
-		      $router->get('update', function() {
+          $router->post('mission', 'MissionController@start');
+
+		      $router->get('update', function(Request $request) {
             $user = Utilisateur::where(["idutilisateur" => $request->session()->get('utilisateur')])->first();
             App\Http\Controllers\MissionController::check($user);
             App\Http\Controllers\ExerciceController::check($user);
@@ -47,7 +50,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
                 return redirect()->route('ninja', ['name' => 'Alberto']);
               }
 
-              return response()->json($user);
+              return response()->json(JSON::user($user));
           }]);
 
           $router->get('createNinja/{name}', ['as' => 'ninja', 'uses' => 'NinjaController@create']);

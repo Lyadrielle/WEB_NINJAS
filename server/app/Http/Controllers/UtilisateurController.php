@@ -10,6 +10,8 @@ use App\Utilisateur;
 
 use App\Http\Controllers\MissionController;
 
+use App\JSON;
+
 class UtilisateurController extends Controller
 {
     /**
@@ -42,7 +44,7 @@ class UtilisateurController extends Controller
 
       } else {
 
-          return response()->json(['status' => 'fail'], 401);
+          return response()->json(JSON::error('Incorrect ids'), 401);
 
       }
 
@@ -59,10 +61,12 @@ class UtilisateurController extends Controller
 
      ]);
 
-     $existing = Utilisateur::where('pseudo', $request->input('pseudo'))->first();
+     $pseudo = $request->input('pseudo');
+
+     $existing = Utilisateur::where('pseudo', $pseudo)->first();
 
      if(empty($existing)) {
-       $id = Utilisateur::insertGetId(['pseudo' => $request->input('pseudo'), 'motdepasse' => Hash::make($request->input('motdepasse'))]);
+       $id = Utilisateur::insertGetId(['pseudo' => $pseudo, 'motdepasse' => Hash::make($request->input('motdepasse'))]);
        $request->session()->put('utilisateur', $id);
        $name = $request->input('nom');
 
@@ -74,7 +78,7 @@ class UtilisateurController extends Controller
 
      } else {
 
-       return response()->json(['error' => 'Pseudo Already Existing'], 401);
+       return response()->json(JSON::error('Pseudo Already Existing'), 401);
 
      }
 

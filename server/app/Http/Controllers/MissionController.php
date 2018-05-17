@@ -8,6 +8,7 @@ use App\Mission;
 use App\MissionRealisee;
 use App\MissionRealiseeNomCompetence;
 use App\Competence;
+use App\JSON;
 use DateTime;
 use DateTimeZone;
 use App\Http\Controllers\CompetenceController;
@@ -30,7 +31,7 @@ class MissionController extends Controller
 
         $missions = Mission::get();
 
-        $idMission = rand(0, count($missions) - 1);
+        $idMission = rand(1, count($missions));
 
         $mission = $missions->where('idmission', $idMission)->first();
 
@@ -47,7 +48,7 @@ class MissionController extends Controller
     static public function check($user) {
         $now = new DateTime();
         $now->setTimezone(new DateTimeZone('Europe/Paris'));
-        $missions = $user->missionRealisee->where('fin', '<=', $now->format("Y-m-d H:i:s"));
+        $missions = $user->missionRealisee->where(['fin', '<=', $now->format("Y-m-d H:i:s")], ['fin', '<>', '']);
         foreach($missions as $mission) {
           Self::complete($mission->idmrealisee, $user);
         }
@@ -60,8 +61,11 @@ class MissionController extends Controller
         $ninja = $user->ninja;
 
         $mission->statut = 3;
-        CompetenceController::levelup($user->idutilisateur, (100 + $ninja->competence(0)) * $mission->difficulte, $ninja->competences);
-        $misison->save();
+        if(rand(0, 99) < $mission->pourcentage)
+        CompetenceController::levelup((100 + $ninja->competence(0)->niveau) * $mission->difficulte, $ninja->competences);
+        $mission->save();
+
+        Self::generate($user->idutilisateur, $mission->difficulte);
 
     }
 
@@ -71,19 +75,21 @@ class MissionController extends Controller
         'id' => 'required'
       ]);
 
+      $id = $request->input('id');
+
       $user = Utilisateur::where('idutilisateur', $request->session()->get('utilisateur'))->first();
 
-      $mission = $user->missionRealisee->where('idmrealisee', $request->input('id'))->first();
+      $mission = $user->missionRealisee->where('idmrealisee', $id)->first();
 
-      if(empty($mission)) return response()->json(['error' => 'Mission Not Found'], 404);
-      if($mission->status != 0) return response()->json(['error' => 'Mission Already Started'], 401);
+      if(empty($mission)) return response()->json(JSON::errorMission('Mission Not Found', null, $id), 404);
+      if($mission->statut != 0) return response()->json(JSON::errorMission('Mission Already Started', $mission->fin, $mission->idmrealisee), 401);
 
       $competencesRequired = $mission->competences;
       $competencesNinja = $user->ninja->competences;
 
       $pourcentage = Self::success($competencesRequired, $competencesNinja);
 
-      if($pourcentage < 0) return response()->json(['error' => 'Not Enough Energy'], 404);
+      if($pourcentage < 0) return response()->json(JSON::errorMission('Not Enough Energy', null, $mission->idmrealisee), 401);
 
       $mission->statut = 1;
 
@@ -94,9 +100,11 @@ class MissionController extends Controller
 
       $mission->fin = $dt;
 
+      $mission->pourcentage = $pourcentage;
+
       $mission->save();
 
-      return redirect()->route('home');
+      return response()->json(JSON::success($dt->format("Y-m-d H:i:s")));
 
 
     }
@@ -117,7 +125,7 @@ class MissionController extends Controller
 
       foreach($competencesRequired as $competenceRequired) {
         $competenceNinja = $competenceRequired->findEquivalent($competencesNinja);
-        $pourcentage += ceil(($competenceNinja->niveau - $competenceRequired->minimum) / $competenceRequired->minimum * 100 - 100);
+        $pourcentage += ceil(($competenceNinja->niveau - $competenceRequired->minimum - 1) / ($competenceRequired->minimum + 1) * 100 - 100);
       }
 
       if($pourcentage < 0) $pourcentage = 0;

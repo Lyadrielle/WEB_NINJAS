@@ -8,6 +8,7 @@ use App\ExerciceNomCompetence;
 use App\Utilisateur;
 use DateTime;
 use DateTimeZone;
+use App\JSON;
 
 class ExerciceController extends Controller
 {
@@ -36,7 +37,7 @@ class ExerciceController extends Controller
         $exercice->statut = 3;
         $exercice->save();
       }
-      
+
     }
 
     static public function check($user) {
@@ -88,7 +89,7 @@ class ExerciceController extends Controller
             break;
 
             default:
-              return response()->json(['error' => 'Not Found'], 404);
+              return response()->json(JSON::error('Not Found'), 404);
 			break;
 
         }

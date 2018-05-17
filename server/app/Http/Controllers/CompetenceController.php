@@ -36,9 +36,9 @@ class CompetenceController extends Controller
 
 	static public function levelup($reward, $competences) {
 
-		$exp = $competences->where('idnomcompetence', 9);
-		$expMax = $competences->where('idnomcompetence', 10);
-		$level = $competences->where('idnomcompetence', 0);
+		$exp = $competences->where('idnomcompetence', 9)->first();
+		$expMax = $competences->where('idnomcompetence', 10)->first();
+		$level = $competences->where('idnomcompetence', 0)->first();
 
 		$need = $expMax->niveau - $exp->niveau;
 
@@ -53,7 +53,7 @@ class CompetenceController extends Controller
 
             Self::skillsUp(rand(2,3), $competences);
 
-			Self::levelup($request, $reward);
+			Self::levelup($reward, $competences);
 
 		} else {
 
@@ -86,10 +86,11 @@ class CompetenceController extends Controller
 	static public function skillsUp($points, $competences){
 
 		while ($points != 0){
-			$competences->where('idnomcompetence', rand(4,8))->niveau += 1;
+			$comp = $competences->where('idnomcompetence', rand(4,8))->first();
+      $comp->niveau += 1;
 			$points -= 1;
+      $comp->save();
 		}
-		$competences->save();
 
 	}
 

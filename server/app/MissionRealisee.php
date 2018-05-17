@@ -15,7 +15,7 @@ class MissionRealisee extends Model
      * @var array
      */
     protected $fillable = [
-        'fin', 'difficulte', 'statut',
+        'fin', 'difficulte', 'statut', 'pourcentage'
     ];
 
     protected $table = "missionrealisee";
