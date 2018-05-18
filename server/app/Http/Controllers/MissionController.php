@@ -49,7 +49,6 @@ class MissionController extends Controller
     static public function check($user) {
         $now = new DateTime();
         $now->setTimezone(new DateTimeZone('Europe/Paris'));
-        echo $now->format("Y-m-d H:i:s");
         $missions = $user->missionRealisee->where('fin', '<=', $now->format("Y-m-d H:i:s"));
 
         foreach($missions as $mission) {

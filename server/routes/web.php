@@ -40,19 +40,10 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
           $router->post('equipment', 'ObjetController@equip');
 
-		      $router->get('ninja', function(Request $request) {
-            $user = Utilisateur::where(["idutilisateur" => $request->session()->get('utilisateur')])->first();
-            App\Http\Controllers\MissionController::check($user);
-            App\Http\Controllers\ExerciceController::check($user);
-
-            return redirect()->route('home');
-          });
-
-          $router->get('game', ['as' => 'home', function (Request $request) {
+          $router->get('ninja', ['as' => 'home', function (Request $request) {
               $user = Utilisateur::where(["idutilisateur" => $request->session()->get('utilisateur')])->first();
-              if(empty($user->idninja)) {
-                return redirect()->route('ninja', ['name' => 'Alberto']);
-              }
+              App\Http\Controllers\MissionController::check($user);
+              App\Http\Controllers\ExerciceController::check($user);
 
               return response()->json(JSON::user($user));
           }]);
