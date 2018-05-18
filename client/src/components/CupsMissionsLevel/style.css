@@ -1,11 +1,11 @@
 .trophy {
-    max-width: 30px;
+    width: 25px;
+    height:25px;
     padding:3px;
 }
 
 .cups-container {
-    height: 40px;
-    width: 120px;
+    min-width: 100px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

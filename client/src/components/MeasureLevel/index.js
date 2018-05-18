@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import './style.css'
 import Measure from '../Measure';
 
-class MeasureNeed extends Component {
+class MeasureLevel extends Component {
   render () {
     const { level } = this.props
     const { measure } = this.props
@@ -17,4 +17,4 @@ class MeasureNeed extends Component {
   }
 }
 
-export default MeasureNeed
+export default MeasureLevel

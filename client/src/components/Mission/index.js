@@ -27,7 +27,7 @@ class Mission extends Component {
       <div className='mission'>
         <CupsMissionsLevel level = {level} />
          <div>
-           <h4>{ title }</h4>
+           <h5>{ title }</h5>
            <p className='mission-description'>{ description }</p>
          </div>
          {status? <CircularMeasure callBackEnd = { this.callBackEndOfMission } /> : <Button callBack = {this.acceptMission} title = "ACCEPTER"/>}

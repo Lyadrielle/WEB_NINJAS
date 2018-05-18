@@ -31,11 +31,11 @@ class Skill extends Component {
       <div className='skill'>
         <RadarChart/>
          <div className="activityButtons">
-           <Button title = "Lancer de shurikens" image = "./images/shuriken.png" callBack={this.throwShurikens}/>
-           <Button title = "Lecture" image = "./images/reading.png" callBack={this.readBooks}/>
-           <Button title = "Dissimulation" image = "./images/leaf.png" callBack={this.dissimulation}/>
-           <Button title = "Musculation" image = "./images/bodybuilding.png" callBack={this.bodybuilding}/>
-           <Button title = "Jonglage" image = "./images/juggling.png" callBack={this.juggling}/>
+           <Button title = "Lancer de shurikens" image = "./images/skills/shuriken.png" callBack={this.throwShurikens}/>
+           <Button title = "Lecture" image = "./images/skills/reading.png" callBack={this.readBooks}/>
+           <Button title = "Dissimulation" image = "./images/skills/leaf.png" callBack={this.dissimulation}/>
+           <Button title = "Musculation" image = "./images/skills/bodybuilding.png" callBack={this.bodybuilding}/>
+           <Button title = "Jonglage" image = "./images/skills/juggling.png" callBack={this.juggling}/>
          </div>
       </div>
     )

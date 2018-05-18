@@ -42,7 +42,7 @@ class Dashboard extends Component {
     return (
       <div className='need-block'>
         <div className='level'>
-          <h5>{`Niveau ${level}`}</h5>
+          <h5>{`Niv. ${level}`}</h5>
           <NeedBar percentage={experience} color='40D1D8'/>
         </div>
 
@@ -78,7 +78,7 @@ class Dashboard extends Component {
   }
 
   displaySkillsBlock() {
-    return <div><Skill/></div>
+    return <React.Fragment><Skill/></React.Fragment>
   }
 
   displayInventoryBlock() {
