@@ -1,13 +1,19 @@
 import React, { Component } from 'react'
+
+import Menu from '../../components/Menu'
 import DashboardBlock from '../DashBoardBlock'
-import Skill from '../../components/Skill'
-import Mission from '../../components/Mission'
+
 import Needs from '../../components/Needs'
 import NeedBar from '../../components/NeedBar'
+import Mission from '../../components/Mission'
+import Skill from '../../components/Skill'
+import Inventory from '../../components/Inventory'
+
 import Button from '../../components/Button'
 
 import './style.css'
 import * as missions from './missions.json'
+import * as data from '../../data.json'
 
 const needsMock = {
   "hunger": {
@@ -30,26 +36,14 @@ const levelMock = {
 }
 
 class Dashboard extends Component {
-  displaySkillsBlock() {
-    console.log("dshbd competences")
-    return <div><Skill/></div>
-  }
-
-  displayMissionBlock() {
-    console.log("dshbd miss")
-    return missions.map((item, i) =>
-      <div className="mission"><Mission mission={item} /></div>
-    )
-  }
-
   displayNeedBlock() {
     const { level, experience } = levelMock
 
     return (
       <div className='need-block'>
         <div className='level'>
-          <h5>{`level ${level}`}</h5>
-          <NeedBar percentage={experience} color='8e8e8e'/>
+          <h5>{`Niveau ${level}`}</h5>
+          <NeedBar percentage={experience} color='40D1D8'/>
         </div>
 
         <Needs needs = {needsMock}/>
@@ -73,13 +67,35 @@ class Dashboard extends Component {
     )
   }
 
+  displayMissionBlock() {
+    return (
+      <div className = 'mission-block'>
+        {missions.map((item, i) =>
+          <div className="mission" key = {i}><Mission mission={item} /></div>
+        )}
+      </div>
+    )
+  }
+
+  displaySkillsBlock() {
+    return <div><Skill/></div>
+  }
+
+  displayInventoryBlock() {
+    return <div className="inventory"><Inventory objects={data.ninja.inventory} /></div>
+  }
+
   render() {
     return (
-      <div className='dashboard-app'>
-        <DashboardBlock title="needs" content={this.displayNeedBlock()}/>
-        <DashboardBlock title="Missions" content={this.displayMissionBlock()} />
-        <DashboardBlock title="Compétences" content={this.displaySkillsBlock()}/>
-      </div>
+      <React.Fragment>
+        <Menu pseudo="ROBERT"/>
+        <div className='dashboard-app'>
+          <DashboardBlock title="Besoins" content={this.displayNeedBlock()}/>
+          <DashboardBlock title="Missions" content={this.displayMissionBlock()} />
+          <DashboardBlock title="Compétences" content={this.displaySkillsBlock()}/>
+          <DashboardBlock title="Inventaire" content={this.displayInventoryBlock()}/>
+        </div>
+      </React.Fragment>
     )
 }
 }

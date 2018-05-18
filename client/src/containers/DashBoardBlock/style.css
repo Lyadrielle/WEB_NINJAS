@@ -2,14 +2,19 @@ h2 {
     color: #f26c4f;
     margin:0px;
     margin-left:20px;
+    text-transform: uppercase;
 }
 
 .dashboard-content-block {
+    height: 300px;
     padding: 10px;
     border-style:solid;
     border-bottom-width: 22px;
     border-color: #f26c4f;
-    border-radius:1%;
+    border-radius:  5px;
     background-color:#f6f6f6;
 }
 
+.inventory {
+    height:250px;
+} 

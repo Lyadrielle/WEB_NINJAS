@@ -19,7 +19,7 @@ class Needs extends Component {
                     src = {`./images/needs/${label}.png`}
                     alt = {label}
                     style = {{
-                      'background-color': 'black'
+                      'backgroundColor': '40D1D8'
                     }}
                   ></img>
                 </div>
@@ -27,7 +27,7 @@ class Needs extends Component {
                   <h5>{label}</h5>
                   <NeedBar
                     percentage = {need.value}
-                    color = '7f7f7f'
+                    color = 'F7D260'
                   />
                 </div>
               </div>
