@@ -13,7 +13,7 @@ class Needs extends Component {
       <div>
         {Object.entries(needs).map(([label, need]) => {
             return (
-              <div className='need'>
+              <div className='need' key = {label}>
                 <div>
                   <img
                     src = {`./images/needs/${label}.png`}

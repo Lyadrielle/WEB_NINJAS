@@ -4,6 +4,7 @@
 }
 
 .inventory-image-detail {
+    align-self: center;
     background-color: #f6c0a3;
     padding: 5px;
     border-radius: 5px;
@@ -20,9 +21,20 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
+    min-height: 77px;
+    min-width: 215px;
 }
 
 .item-bonus {
-    font-size:10px;
+    font-size:9px;
     color:#f26c4f;
+    margin:3px;
 } 
+
+.btn-equipement {
+    align-self: flex-end;
+}
+
+.inventory-details {
+    align-self: flex-end
+}

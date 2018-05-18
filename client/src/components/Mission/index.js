@@ -12,12 +12,12 @@ class Mission extends Component {
     this.callBackEndOfMission = this.callBackEndOfMission.bind(this)
   }
 
-  acceptMission() {
+  acceptMission = () => {
     console.log("Hello bro I accept the mission")
     /* Faire un call API pour passer la mission à Pending */
   }
 
-  callBackEndOfMission() {
+  callBackEndOfMission = () => {
     /*Fonction pas forcément utile vu que c'est le back qui change les status des missions */
   }
 

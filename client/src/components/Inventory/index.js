@@ -7,19 +7,15 @@ import Button from '../Button'
 /**TODO : Focus sur le truc, différencier le stuff équipé du selectionné, faire un bouton déséquiper*/
 
 class Inventory extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
-      selectedObject:null,
-      equipedObject:null
+      selectedObject: null,
+      equipedObject: null
     }
-    this.selectObject = this.selectObject.bind(this)
-    this.equip = this.equip.bind(this)
-    this.unequip = this.unequip.bind(this)
-
-
   }
-  displayEmptySlots(nbr) {
+
+  displayEmptySlots = (nbr) => {
     let slots = [];
     for (let i = 0; i <= nbr; i++) {
       slots.push(<StuffSlot />)
@@ -27,23 +23,29 @@ class Inventory extends Component {
     return <div>{slots}</div>
   }
 
- selectObject(item) {
-    if(item !== null) {
-      this.setState({ selectedObject:item })
+  selectObject = (item) => {
+    if (item !== null) {
+      this.setState({ selectedObject: item })
     }
   }
 
-  equip() {
-    this.setState({equipedObject: this.state.selectedObject})
+  equip = () => {
+    this.setState({ equipedObject: this.state.selectedObject })
+    /**TODO : 
+     * Faire une fonction qui envoie l'objet à équiper au back
+     */
   }
 
-  unequip(){
-    this.setState({equipedObject: null})
+  unequip = () => {
+    this.setState({ equipedObject: null })
+    /**TODO :
+     * Faire une fonction qui envoie un signal au back disant qu'on veut désequiper
+     */
   }
 
-  render() {
+  render(){
     const { objects } = this.props
-    const {selectedObject, equipedObject} = this.state
+    const { selectedObject, equipedObject } = this.state
     const maxItems = 12
     let emptySlots = maxItems - objects.length
     console.log(selectedObject)
@@ -51,38 +53,41 @@ class Inventory extends Component {
       <React.Fragment>
         <div className='inventory-content'>
           {
-            objects.map((item) => <StuffSlot isEquiped={ item === equipedObject } callBack = { this.selectObject } object={item} key={item.name}/>)
+            objects.map((item) => <StuffSlot isEquiped={item.equipped} callBack={this.selectObject} object={item} key={item.id} />)
           }
 
           {
             [...Array(emptySlots)].map((item, i) =>
-              <StuffSlot callBack = { this.selectObject } key={i} />
+              <StuffSlot callBack={this.selectObject} key={i} />
             )
           }
         </div>
         <div className='inventory-selector'>
           <div className='inventory-image-detail'>
-            { selectedObject === null
+            {selectedObject === null
               && equipedObject !== selectedObject
               && <img
                 className='selected-item-image'
-                src = {'./images/inventory/' + equipedObject.name + '.png'}
-                alt = {equipedObject.name}
+                src={'./images/inventory/' + equipedObject.name + '.png'}
+                alt={equipedObject.name}
               />
-            } 
-            { selectedObject !== null
+            }
+            {selectedObject != null
               && <img
-                className = 'selected-item-image'
-                src = {'./images/inventory/' + selectedObject.name + '.png'}
-                alt = {selectedObject.name}
+                className='selected-item-image'
+                src={'./images/inventory/' + selectedObject.name + '.png'}
+                alt={selectedObject.name}
               />
-            } 
-            
+            }
+
           </div>
-          <div>
-          { selectedObject !== null? <p className = "item-bonus">{selectedObject.bonus.skill + ' +' + selectedObject.bonus.value}</p> : "" }
-          { selectedObject !== null && equipedObject !== selectedObject  && <Button title="ÉQUIPER" callBack = {this.equip} /> } 
-          { selectedObject !== null && equipedObject === selectedObject  && <Button title="DÉSÉQUIPER" callBack = {this.unequip} /> }
+          <div className = 'inventory-details'>
+            {selectedObject != null ? selectedObject.bonus.map((bonus, i) =>
+              <p key={i} className="item-bonus">
+                {bonus.value >= 0? bonus.skill + ' +' + bonus.value : bonus.skill + ' ' + bonus.value }
+              </p>) : ""}
+            {selectedObject != null && equipedObject !== selectedObject && <Button title="ÉQUIPER" callBack={this.equip} />}
+            {selectedObject != null && equipedObject === selectedObject && <Button title="DÉSÉQUIPER" callBack={this.unequip} />}
           </div>
         </div>
       </React.Fragment>

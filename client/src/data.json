@@ -16,7 +16,6 @@
         "action": "talk"
       }
     },
-    
     "skills": {
       "strength": 5,
       "smartness": 5,
@@ -24,35 +23,47 @@
       "dissimulation": 5,
       "endurance": 5
     },
-    
     "inventory": [
-      {
+      { 
+        "id":0,
         "name": "sword",
-        "bonus": {
-          "skill": "strength",
-          "value": 2
-        }
+        "bonus": [
+          {
+            "skill": "force",
+            "value": 2
+          },{
+            "skill": "endurance",
+            "value": -4
+          }
+        ],
+        "equipped": false
       },
       {
+        "id":1,
         "name": "shuriken",
-        "bonus": {
+        "bonus": [{
           "skill": "endurance",
           "value": 2
-        }
+        }],
+        "equipped": false
       },
       {
+        "id":2,
         "name": "katana",
-        "bonus": {
+        "bonus": [{
           "skill": "dissimulation",
           "value": 2
-        }
+        }],
+        "equipped": false
       },
       {
+        "id":3,
         "name": "kunai",
-        "bonus": {
-          "skill": "strength",
+        "bonus": [{
+          "skill": "force",
           "value": 2
-        }
+        }],
+        "equipped": false
       }
     ]
   },

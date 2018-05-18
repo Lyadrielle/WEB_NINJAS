@@ -5,23 +5,23 @@ import Button from '../Button'
 import RadarChart from '../RadarChart'
 
 class Skill extends Component {
-  throwShurikens(){
+  throwShurikens = () => {
     console.log("throwShurikens")
   }
 
-  readBooks(){
+  readBooks = () => {
     console.log("readBooks")
   }
 
-  dissimulation(){
+  dissimulation = () => {
     console.log("dissimulation")
   }
 
-  bodybuilding(){
+  bodybuilding = () => {
     console.log("bodybuilding")
   }
 
-  juggling(){
+  juggling = () => {
     console.log("juggling")
   }
 
