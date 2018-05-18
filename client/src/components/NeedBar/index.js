@@ -10,13 +10,13 @@ class NeedBar extends Component {
     return (
       <div className='needbar'
         style = {{
-          'background-color': '#3a3a3a',
-          'min-width': '100px',
+          'backgroundColor': '#f26c4f',
+          'minWidth': '100px',
         }}
       >
         <div className='needbar'
           style={{
-            'background-color': `#${color}`,
+            'backgroundColor': `#${color}`,
             width: `${percentage}%`,
           }}>
         </div>

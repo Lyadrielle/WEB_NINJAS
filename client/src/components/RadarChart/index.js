@@ -5,7 +5,7 @@ import { VictoryChart, VictoryTheme, VictoryLabel, VictoryGroup, VictoryArea, Vi
 import './style.css'
 
 const characterData = [
-  { strength: 10, intelligence: 20, luck: 30, stealth: 40, charisma: 25 }
+  { Force : 10, Sagesse : 20, Agilité: 30, Endurance : 40, Dissimulation: 25 }
 ];
 
 class RadarChart extends Component {

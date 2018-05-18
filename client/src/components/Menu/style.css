@@ -1,0 +1,13 @@
+.menu {
+  height : 40px;
+  text-align: right;
+  padding-right: 40px;
+  line-height: 40px;
+  white-space: nowrap;
+}
+
+a {
+  text-decoration: none;
+  margin-left: 50px;
+  color : white;
+}

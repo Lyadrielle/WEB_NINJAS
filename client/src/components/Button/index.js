@@ -31,7 +31,7 @@ class Button extends Component {
     return (
       <div>
          <button className='button' type='button' onClick={ this.disableButton } disabled={this.state.disabled}>
-         {image != null ? <img src = { image } alt='button-image'/> : ' ' }
+         {image != null ? <img src = { image } alt='button'/> : ' ' }
          {' ' + title}
          </button>
       </div>

@@ -5,7 +5,7 @@ class CupsMissionsLevel extends Component {
   displayCups(level) {
     let cups=[];
     for(let i = 0; i < level; i++) {
-      cups[i] = <img key={i} className='trophy' src='./images/trophy.png'/>
+      cups[i] = <img key={i} className='trophy' src='./images/trophy.png' alt = 'trophy'/>
     }
     return cups;
   }

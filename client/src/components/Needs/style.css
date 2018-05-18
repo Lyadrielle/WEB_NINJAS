@@ -2,8 +2,11 @@
   display: flex;
   flex-direction: row;
   margin: 10px;
-  width: 80%;
+  width: 100%;
   margin: auto;
+  justify-content: space-between;
+  align-items: center;
+  color:#f26c4f;
 }
 
 .need .need-bar-container {
@@ -19,8 +22,9 @@
 .need h5 {
   line-height: inherit;
   margin: inherit;
-  padding-bottom: 10px;
-  text-transform: uppercase;
+  padding: 10px 0;
+  text-transform: capitalize;
+  font-weight: bold;
 }
 
 .need div img {

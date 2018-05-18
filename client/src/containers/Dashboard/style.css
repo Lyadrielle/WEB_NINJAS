@@ -3,7 +3,13 @@
     height: 100%;
     display:flex;
     flex-wrap: wrap; 
+    align-items: center;
 }
+
+.dashboard-app > div {
+    margin: 10px 2%;
+}
+
 .mission {
     border-bottom:2px solid #f26c4f;
 }
@@ -27,6 +33,7 @@
 
 .need-block .level h5 {
     min-width: 110px;
+    color: #f26c4f;
     line-height: inherit;
     margin: inherit;
     margin-right: 10px;
