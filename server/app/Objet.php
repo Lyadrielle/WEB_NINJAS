@@ -33,4 +33,8 @@ class Objet extends Model
       return $this->belongsToMany('App\Utilisateur', 'posseder', $this->primaryKey, 'idutilisateur');
     }
 
+    public function competences() {
+      return $this->belongsToMany('App\NomCompetence', 'influencer', $this->primaryKey, 'idnomcompetence')->withPivot('bonus');
+    }
+
 }

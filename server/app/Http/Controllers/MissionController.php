@@ -12,6 +12,7 @@ use App\JSON;
 use DateTime;
 use DateTimeZone;
 use App\Http\Controllers\CompetenceController;
+use App\ObjetUtilisateur;
 
 class MissionController extends Controller
 {
@@ -48,10 +49,12 @@ class MissionController extends Controller
     static public function check($user) {
         $now = new DateTime();
         $now->setTimezone(new DateTimeZone('Europe/Paris'));
-        $missions = $user->missionRealisee->where(['fin', '<=', $now->format("Y-m-d H:i:s")], ['statut', '1']);
+        echo $now->format("Y-m-d H:i:s");
+        $missions = $user->missionRealisee->where('fin', '<=', $now->format("Y-m-d H:i:s"));
 
         foreach($missions as $mission) {
-          if(!empty($mission->fin)) Self::complete($mission->idmrealisee, $user);
+
+          if(!empty($mission->fin) && $mission->statut == 1) Self::complete($mission->idmrealisee, $user);
         }
     }
 
@@ -64,6 +67,13 @@ class MissionController extends Controller
         $mission->statut = 3;
         if(rand(0, 99) < $mission->pourcentage) {
           CompetenceController::levelup((100 + $ninja->competence(0)->niveau) * $mission->difficulte, $ninja->competences);
+          $equipments = $mission->mission->objets;
+          $equipment = $equipments->shuffle()->first();
+          if(!empty($equipment) && rand(0, 99) < $equipment->pivot->loot * $mission->difficulte) {
+            if(empty($user->objets->where('idobjet', $equipment->idobjet)->first())) {
+              ObjetUtilisateur::insert(['idutilisateur' => $user->idutilisateur, 'idobjet' => $equipment->idobjet]);
+            }
+          }
         }
 
         $mission->save();
@@ -87,7 +97,7 @@ class MissionController extends Controller
       if(empty($mission)) return response()->json(JSON::errorMission('Mission Not Found', null, $id), 404);
       if($mission->statut != 0) return response()->json(JSON::errorMission('Mission Already Started', $mission->fin, $mission->idmrealisee), 401);
 
-      $competencesRequired = $mission->competences;
+      $competencesRequired = $mission->nomcompetences;
       $competencesNinja = $user->ninja->competences;
 
       $pourcentage = Self::success($competencesRequired, $competencesNinja);
@@ -115,7 +125,7 @@ class MissionController extends Controller
     static public function success($competencesRequired, $competencesNinja) {
         $energyRequired = $competencesRequired->where('idnomcompetence', 1)->first();
         $energyNinja = $energyRequired->findEquivalent($competencesNinja);
-        if($energyNinja->niveau - $energyRequired->minimum < 0) {
+        if($energyNinja->niveau - $energyRequired->pivot->minimum < 0) {
           return -1;
         }
 

@@ -29,9 +29,9 @@ class MissionRealisee extends Model
 
     public $timestamps = false;
 
-	public function competences() {
-      return $this->belongsToMany('App\Competence', 'requerir', $this->primaryKey, 'idnomcompetence')->withPivot('minimum');
-    }
+  public function nomcompetences() {
+      return $this->belongsToMany('App\NomCompetence', 'requerir', $this->primaryKey, 'idnomcompetence')->withPivot('minimum');
+  }
 
     public function utilisateur() {
       return $this->belongsTo('App\Utilisateur', 'idutilisateur');

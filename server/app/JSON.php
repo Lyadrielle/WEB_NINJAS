@@ -64,16 +64,38 @@ class JSON
     $obj->needs->social->value = $competences->where('idnomcompetence', 3)->first()->niveau;
 
     $obj->skills = new \stdClass;
-    $obj->skills->strength = $competences->where('idnomcompetence', 8)->first()->niveau;
-    $obj->skills->smartness = $competences->where('idnomcompetence', 5)->first()->niveau;
-    $obj->skills->agility = $competences->where('idnomcompetence', 6)->first()->niveau;
-    $obj->skills->dissimulation = $competences->where('idnomcompetence', 4)->first()->niveau;
-    $obj->skills->endurance = $competences->where('idnomcompetence', 7)->first()->niveau;
+    $obj->skills->strength = Self::getValueCompByID($competences, 8, 'niveau');
+    $obj->skills->smartness = Self::getValueCompByID($competences, 5, 'niveau');
+    $obj->skills->agility = Self::getValueCompByID($competences, 6, 'niveau');
+    $obj->skills->dissimulation = Self::getValueCompByID($competences, 4, 'niveau');
+    $obj->skills->endurance = Self::getValueCompByID($competences, 7, 'niveau');
 
-    $obj->inventory = array();
+
+    $equipment = $ninja->objet;
+    if(!empty($equipment)) {
+      $equipComp = $equipment->competences;
+
+      $obj->skills->strength += Self::getValueCompByID($equipComp, 8, 'pivot->bonus');
+      $obj->skills->smartness += Self::getValueCompByID($equipComp, 5, 'pivot->bonus');
+      $obj->skills->agility += Self::getValueCompByID($equipComp, 6, 'pivot->bonus');
+      $obj->skills->dissimulation += Self::getValueCompByID($equipComp, 4, 'pivot->bonus');
+      $obj->skills->endurance += Self::getValueCompByID($equipComp, 7, 'pivot->bonus');
+    }
+
+    $obj->inventory = Self::inventory($ninja->utilisateur);
 
     return $obj;
 
+  }
+
+  static public function getValueCompByID($competences, $id, $term) {
+    $competence = $competences->where('idnomcompetence', $id)->first();
+    $value = 0;
+    if(!empty($competence)) {
+      $value = $competence->$term;
+    }
+
+    return $value;
   }
 
   static public function missions($user) {
@@ -100,6 +122,43 @@ class JSON
     $obj->status = ($mission->statut > 0);
 
     return $obj;
+  }
+
+  static public function inventory($user) {
+
+    $equipments = $user->objets;
+
+    $list = array();
+
+    foreach($equipments as $equipment) {
+      $obj = new \stdClass;
+
+      $obj->id = $equipment->idobjet;
+      $obj->name = $equipment->nom;
+      $obj->description = $equipment->description;
+      $obj->bonus = Self::equipmentComp($equipment);
+      $obj->equipped = ($user->ninja->idobjet === $equipment->idobjet);
+      array_push($list, $obj);
+
+    }
+
+    return $list;
+
+
+  }
+
+  static public function equipmentComp($equipment) {
+    $stats = array();
+    $competences = $equipment->competences;
+    foreach($competences as $competence) {
+      $obj = new \stdClass;
+      $obj->skill = $competence->nom;
+      $obj->bonus = $competence->pivot->bonus;
+      array_push($stats, $obj);
+    }
+
+    return $stats;
+
   }
 
 }
