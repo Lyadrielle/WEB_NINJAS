@@ -14,28 +14,6 @@ import api from '../../common/api'
 
 import './style.css'
 
-import * as data from '../../data.json'
-
-const needsMock = {
-  "hunger": {
-    value: 5,
-    action: "eat",
-  },
-  "energy": {
-    value: 100,
-    action: "sleep",
-  },
-  "social": {
-    value: 75,
-    action: "talk",
-  },
-}
-
-const levelMock = {
-  "level": 999,
-  "experience": 37,
-}
-
 class Dashboard extends Component {
   state = {}
 
@@ -97,7 +75,6 @@ class Dashboard extends Component {
   }
 
   update = async () => {
-    console.log(await api.ninja())
     const {
       ninja: {
         needs,
@@ -122,8 +99,14 @@ class Dashboard extends Component {
     })
   }
 
-  componentDidMount = async () => {
+  autoUpdate = () => {
     this.update()
+      .then(() => setTimeout(this.autoUpdate, 2000))
+      .catch(() => window.location.reload())
+  }
+
+  componentDidMount = async () => {
+    this.autoUpdate()
   }
 
 

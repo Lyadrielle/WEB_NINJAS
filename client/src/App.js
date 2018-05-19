@@ -19,13 +19,18 @@ class App extends Component {
 
   render() {
     const { user } = this.state
+    const signup = window.location.search.includes('signup')
 
-    return (
-      <div>
-        {user === null ? <Login logAction={this.generateLogAction()}/> : <Dashboard user={user} />}
-      </div>
-    );
+    if (user) {
+      return (<div><Dashboard user={user} /></div>)
+    }
+
+    if (signup) {
+      return (<div>PWET</div>)
+    }
+
+    return <Login logAction={this.generateLogAction()}/>
   }
 }
 
-export default App;
+export default App
