@@ -7,7 +7,6 @@ class NinjaBlock extends Component {
     return (
       <div className='ninja-block'>
         <img className = 'ninja-img' alt ={`My ninja ${currentActionImg}`} src={`./images/ninja/${currentActionImg}.png`}/>
-        <h3>NOM DU NINJA</h3>
       </div>
     )
   }

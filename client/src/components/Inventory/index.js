@@ -16,7 +16,7 @@ class Inventory extends Component {
   }
 
   displayEmptySlots = (nbr) => {
-    let slots = [];
+    let slots = []
     for (let i = 0; i <= nbr; i++) {
       slots.push(<StuffSlot />)
     }

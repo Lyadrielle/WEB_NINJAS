@@ -6,22 +6,27 @@ import RadarChart from '../RadarChart'
 
 class Skill extends Component {
   throwShurikens = () => {
+    this.props.changeNinjaImageFunction("shuriken")
     console.log("throwShurikens")
   }
 
   readBooks = () => {
+    this.props.changeNinjaImageFunction("reading")
     console.log("readBooks")
   }
 
   dissimulation = () => {
+    this.props.changeNinjaImageFunction("hidding")
     console.log("dissimulation")
   }
 
   bodybuilding = () => {
+    this.props.changeNinjaImageFunction("strength")
     console.log("bodybuilding")
   }
 
   juggling = () => {
+    this.props.changeNinjaImageFunction("juggling")
     console.log("juggling")
   }
 
