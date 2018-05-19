@@ -30,7 +30,7 @@ class Ninja extends Model
     public $timestamps = false;
 
     public function objet() {
-      return $this->hasOne('App/Objet', 'idobjet');
+      return $this->belongsTo('App\Objet', 'idobjet');
     }
 
     public function utilisateur() {
@@ -43,5 +43,9 @@ class Ninja extends Model
 
     public function competences() {
       return $this->hasMany('App\Competence', $this->primaryKey);
+    }
+
+    public function competence($id) {
+      return $this->competences->where('idnomcompetence', $id)->first();
     }
 }

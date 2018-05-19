@@ -15,9 +15,9 @@ class SessionMiddleware
      */
     public function handle($request, Closure $next)
     {
-      if(!$request->session()->exists('utilisateur')) {
+      if($request->session()->exists('utilisateur')) {
 
-        return redirect('/');
+        return redirect()->route('home');
 
       }
 

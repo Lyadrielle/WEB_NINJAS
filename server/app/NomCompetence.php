@@ -29,4 +29,12 @@ class NomCompetence extends Model
 
     public $timestamps = false;
 
+    public function competenceByNinjaID($idninja) {
+      return $this->hasMany('App\Competence', $this->primaryKey)->where('idninja', $idninja)->first();
+    }
+
+    public function findEquivalent($competences) {
+      return $competences->where('idnomcompetence', $this->idnomcompetence)->first();
+    }
+
 }

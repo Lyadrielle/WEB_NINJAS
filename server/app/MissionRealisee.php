@@ -15,7 +15,7 @@ class MissionRealisee extends Model
      * @var array
      */
     protected $fillable = [
-        'fin', 'difficulte', 'statut',
+        'fin', 'difficulte', 'statut', 'pourcentage'
     ];
 
     protected $table = "missionrealisee";
@@ -28,17 +28,17 @@ class MissionRealisee extends Model
     protected $hidden = [];
 
     public $timestamps = false;
-	
-	public function competences() {
-      return $this->belongsToMany('App\Competence', 'requerir', $this->primaryKey, 'idnomcompetence')->withPivot('minimum');
-    }
+
+  public function nomcompetences() {
+      return $this->belongsToMany('App\NomCompetence', 'requerir', $this->primaryKey, 'idnomcompetence')->withPivot('minimum');
+  }
 
     public function utilisateur() {
       return $this->belongsTo('App\Utilisateur', 'idutilisateur');
     }
-	
+
 	public function mission() {
-		return $this->belongsTo('App/Mission', 'idmission');
+		return $this->belongsTo('App\Mission', 'idmission');
 	}
 
 }

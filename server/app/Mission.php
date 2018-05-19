@@ -29,4 +29,8 @@ class Mission extends Model
 
     public $timestamps = false;
 
+    public function objets() {
+      return $this->belongsToMany('App\Objet', 'remporter', $this->primaryKey, 'idobjet')->withPivot('loot');
+    }
+
 }

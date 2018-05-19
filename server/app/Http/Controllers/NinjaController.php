@@ -10,6 +10,8 @@ use App\Utilisateur;
 
 use App\Competence;
 
+use App\JSON;
+
 class NinjaController extends Controller
 {
     /**
@@ -26,13 +28,12 @@ class NinjaController extends Controller
 
     public function create(Request $request, $name) {
 
-
       $user = Utilisateur::where('idutilisateur', $request->session()->get('utilisateur'))->first();
 
       if(empty($user->idninja)) {
 
         if(empty($name)) {
-          return response()->json(['error' => 'Name required'], 401);
+          return response()->json(JSON::error('Name required'), 401);
         }
 
 
@@ -57,7 +58,7 @@ class NinjaController extends Controller
 
       } else {
 
-        return response()->json(['error' => 'A Ninja is Already Existing'], 401);
+        return response()->json(JSON::error('A Ninja is Already Existing'), 401);
 
       }
 
