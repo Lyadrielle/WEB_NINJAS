@@ -39,6 +39,7 @@ class JSON
 
     $obj->ninja = Self::ninja($user->ninja);
     $obj->missions = Self::missions($user);
+    $obj->currentAction = Self::currentAction($user);
 
     return $obj;
   }
@@ -119,7 +120,8 @@ class JSON
     $obj->title = $m->nom;
     $obj->description = $m->description;
     $obj->level = $mission->difficulte;
-    $obj->status = ($mission->statut > 0);
+    $obj->status = $mission->statut;
+    $obj->endDate = $mission->fin;
 
     return $obj;
   }
@@ -159,6 +161,34 @@ class JSON
 
     return $stats;
 
+  }
+
+  static public function currentAction($user) {
+    $obj = new \stdClass;
+
+    $action = $user->ninja->exercices->where('statut', '<', '3')->first();
+    $label = "action";
+    if(empty($action)) {
+      $action = $user->missionRealisee->filter(function($item) {
+        return $item->statut > 0 && $item->statut < 3;
+      })->first();
+      $label = "mission";
+    }
+
+    if(!empty($action)) {
+      if($label == "action") {
+        if($action->idnomcompetence > 3 && $action->idnomcompetence < 9) $label = "skill";
+        $obj->id = $action->idexercice;
+      } else {
+        $obj->id = $action->idmrealisee;
+      }
+      $obj->label = $label;
+      $obj->endDate = $action->fin;
+
+      return $obj;
+    } else {
+      return null;
+    }
   }
 
 }
