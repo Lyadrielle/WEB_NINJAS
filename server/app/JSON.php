@@ -185,6 +185,7 @@ class JSON
       $obj->label = $label;
       $obj->endDate = $action->fin;
       $obj->title = Self::verb($action, $label);
+      $obj->name = ($label == "mission") ? "default" : $action->action;
 
       return $obj;
     } else {
