@@ -6,7 +6,7 @@ import './style.css'
 
 class SignInForm extends Component {
 
-  signin(){
+  signin = () => {
     console.log("j'essaie de m'inscrire");
   }
 

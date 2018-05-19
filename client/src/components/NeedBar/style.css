@@ -1,6 +1,10 @@
 .needbar {
-  height: 16px;
+  height: 12px;
   border-radius: 10px;
   width: 80%;
   min-width: 20px;
+}
+
+.level>.needbar, .level>.needbar>.needbar {
+  height: 10px;
 }

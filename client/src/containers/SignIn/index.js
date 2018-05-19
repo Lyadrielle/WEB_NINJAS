@@ -7,7 +7,7 @@ import './style.css'
 
 class SignIn extends Component {
 
-  displaySignInBlock(){
+  displaySignInBlock = () => {
     return <div><SignInForm/></div>
   }
 

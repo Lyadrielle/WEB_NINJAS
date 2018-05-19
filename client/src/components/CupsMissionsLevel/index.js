@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import './style.css'
 class CupsMissionsLevel extends Component {
-  displayCups(level) {
+  displayCups = (level) => {
     let cups=[];
     for(let i = 0; i < level; i++) {
       cups[i] = <img key={i} className='trophy' src='./images/trophy.png' alt = 'trophy'/>
@@ -14,7 +14,7 @@ class CupsMissionsLevel extends Component {
 
     return (
       <div className='cups-container'>
-        {this.displayCups(this.props.level)}
+        {this.displayCups(level)}
       </div>
     )
   }

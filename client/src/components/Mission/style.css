@@ -1,18 +1,18 @@
 .mission {
-    height: 100px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     color:#f26c4f;
+    padding: 3px 0 3px 0;
 }
 
-h4 {
-    margin-top:10px;
-    margin-bottom:10px;
+h5 {
+    margin-top:5px;
+    margin-bottom:5px;
 }
 
 .mission-description {
-    font-size:12px;
+    font-size:10px;
     max-width: 300px;
 
 }

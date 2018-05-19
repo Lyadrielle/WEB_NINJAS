@@ -6,13 +6,12 @@ class Button extends Component {
 
   constructor(props) {
     super(props)
-    this.disableButton = this.disableButton.bind(this)
     this.state = {
       disabled:false
     }
   }
 
-  disableButton(){
+  disableButton = () => {
     console.log("disableButton")
     console.log(this.state.disabled)
     this.setState({disabled: true})
@@ -26,7 +25,7 @@ class Button extends Component {
   }
 
   render () {
-    const { callBack, title, image } = this.props
+    const { title, image } = this.props
 
     return (
       <div>

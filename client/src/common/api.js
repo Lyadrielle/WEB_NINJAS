@@ -39,7 +39,41 @@ function signup(login, password, ninjaName) {
   })
 }
 
+function equipment(objectId) {
+  return request('POST', '/equipment', {
+    slot: objectId
+  })
+}
+
+function skill(skillName) {
+  return request('POST', '/skill', {
+    skill: skillName
+  })
+}
+
+function mission(missionId) {
+  return request('POST', '/mission', {
+    id:missionId
+  })
+}
+
+function action(actionName) {
+  return request('POST', '/action', {
+    action:actionName
+  })
+}
+
+function ninja() {
+  return request('GET', '/ninja')
+} 
+
+
 export default {
   signin,
   signup,
+  equipment,
+  skill,
+  mission,
+  action,
+  ninja
 }

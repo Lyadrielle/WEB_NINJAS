@@ -34,7 +34,7 @@ class CircularMeasure extends Component {
   }
 
 
-  getData(percent) {
+  getData = (percent) => {
     return [{ x: 1, y: percent }, { x: 2, y: 100 - percent }]
   }
 

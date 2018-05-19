@@ -16,7 +16,7 @@ class RadarChart extends Component {
         maxima: this.getMaxima(characterData)
       };
     }
-    getMaxima(data) {
+    getMaxima= (data) => {
     const groupedData = Object.keys(data[0]).reduce((memo, key) => {
       memo[key] = data.map((d) => d[key]);
       return memo;
@@ -27,7 +27,7 @@ class RadarChart extends Component {
     }, {});
   }
 
-  processData(data) {
+  processData = (data) => {
     const maxByGroup = this.getMaxima(data);
     const makeDataArray = (d) => {
       return Object.keys(d).map((key) => {

@@ -12,7 +12,7 @@ import Inventory from '../../components/Inventory'
 import Button from '../../components/Button'
 
 import './style.css'
-import * as missions from './missions.json'
+
 import * as data from '../../data.json'
 
 const needsMock = {
@@ -36,13 +36,13 @@ const levelMock = {
 }
 
 class Dashboard extends Component {
-  displayNeedBlock() {
+  displayNeedBlock = () => {
     const { level, experience } = levelMock
 
     return (
       <div className='need-block'>
         <div className='level'>
-          <h5>{`Niveau ${level}`}</h5>
+          <h5>{`Niv. ${level}`}</h5>
           <NeedBar percentage={experience} color='40D1D8'/>
         </div>
 
@@ -53,12 +53,10 @@ class Dashboard extends Component {
             const { action } = need
 
             return (
-              <Button
+              <Button key={label}
                 title = {action}
                 image = {`./images/needs/${label}.png`}
-                callback={() => {
-                  alert(`Your ninja is ${action}ing`)
-                }}
+                callBack= {() => alert(`Your ninja is ${action}ing`)}
               />
             )
           })}
@@ -67,21 +65,21 @@ class Dashboard extends Component {
     )
   }
 
-  displayMissionBlock() {
+  displayMissionBlock = () =>  {
     return (
       <div className = 'mission-block'>
-        {missions.map((item, i) =>
+        {data.missions.map((item, i) =>
           <div className="mission" key = {i}><Mission mission={item} /></div>
         )}
       </div>
     )
   }
 
-  displaySkillsBlock() {
-    return <div><Skill/></div>
+  displaySkillsBlock = () =>  {
+    return <React.Fragment><Skill/></React.Fragment>
   }
 
-  displayInventoryBlock() {
+  displayInventoryBlock = () =>  {
     return <div className="inventory"><Inventory objects={data.ninja.inventory} /></div>
   }
 
