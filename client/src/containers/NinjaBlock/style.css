@@ -1,0 +1,13 @@
+.ninja-block {
+    max-width: 300px;
+    max-height: 300px;
+    align-self: flex-end;
+}
+
+.ninja-img {
+    width: 100%;
+}
+
+.ninja-block>h3 {
+    text-align: center;
+}
