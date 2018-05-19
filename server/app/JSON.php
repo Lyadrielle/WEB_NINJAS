@@ -195,7 +195,7 @@ class JSON
   static public function verb($action, $label) {
     $verb = "";
     if($label == "mission") {
-      $verb "remplir une mission";
+      $verb = "remplir une mission";
     } else {
       switch($action->action) {
         case "sleep":
