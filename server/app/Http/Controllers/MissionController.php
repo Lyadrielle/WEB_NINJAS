@@ -98,8 +98,9 @@ class MissionController extends Controller
 
       $competencesRequired = $mission->nomcompetences;
       $competencesNinja = $user->ninja->competences;
+      $competencesObjet = !empty($user->ninja->objet) ? $user->ninja->objet->competences : null;
 
-      $pourcentage = Self::success($competencesRequired, $competencesNinja);
+      $pourcentage = Self::success($competencesRequired, $competencesNinja, $competencesObjet);
 
       if($pourcentage < 0) return response()->json(JSON::errorMission('Not Enough Energy', null, $mission->idmrealisee), 401);
 
@@ -121,23 +122,27 @@ class MissionController extends Controller
 
     }
 
-    static public function success($competencesRequired, $competencesNinja) {
+    static public function success($competencesRequired, $competencesNinja, $competencesObjet = null) {
         $energyRequired = $competencesRequired->where('idnomcompetence', 1)->first();
         $energyNinja = $energyRequired->findEquivalent($competencesNinja);
         if($energyNinja->niveau - $energyRequired->pivot->minimum < 0) {
           return -1;
         }
 
-        return Self::calculate($competencesRequired, $competencesNinja);
+        return Self::calculate($competencesRequired, $competencesNinja, $competencesObjet);
 
     }
 
-    static public function calculate($competencesRequired, $competencesNinja) {
+    static public function calculate($competencesRequired, $competencesNinja, $competencesObjet = null) {
       $pourcentage = 100;
 
       foreach($competencesRequired as $competenceRequired) {
         $competenceNinja = $competenceRequired->findEquivalent($competencesNinja);
-        $pourcentage += ceil(($competenceNinja->niveau - $competenceRequired->minimum - 1) / ($competenceRequired->minimum + 1) * 100 - 100);
+        if(!empty($competencesObjet)) $competenceObjet = $competenceRequired->findEquivalent($competencesObjet);
+        else $competenceObjet = null;
+        if(empty($competenceObjet)) $competenceObjet = 0;
+        else $competenceObjet = $competenceObjet->pivot->bonus;
+        $pourcentage += ceil(($competenceNinja->niveau + $competenceObjet - $competenceRequired->minimum - 1) / ($competenceRequired->minimum + 1) * 100 - 100);
       }
 
       if($pourcentage < 0) $pourcentage = 0;
