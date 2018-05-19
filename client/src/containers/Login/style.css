@@ -9,6 +9,14 @@
   background-color:#f6f6f6;
 }
 
+.ninja-img-login {
+  max-height: 400px;
+}
+
+.ninja-imgs-block {
+  text-align: center;
+}
+
 .text-login {
   margin : 10px;
   color : #f26c4f;

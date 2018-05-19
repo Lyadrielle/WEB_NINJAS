@@ -31,31 +31,38 @@ class Login extends Component {
   updatePassword = event => {
     this.setState({ password: event.target.value })
   }
-  
-  render () {
+
+  render() {
     const { error } = this.state
     return (
-      <div className = "login">
-        <form onSubmit = {this.login}>
-          <div className = "text-login">
-            Identifie-toi pour aller entrainer ton ninja !
+      <div>
+        <div className="login">
+          <form onSubmit={this.login}>
+            <div className="text-login">
+              Identifie-toi pour aller entrainer ton ninja !
               <p>
-              Sinon <a href = "?signup=true">inscris toi</a> !
+                Sinon <a href="?signup=true">inscris toi</a> !
               </p>
-          </div>
-          <div>
-            <span data-placeholder = "Username"></span>
-            <input type = "text" name = "username" placeholder = "username" onChange={this.updateUserName} />
-          </div>
-          <div>
-            <span data-placeholder = "Password"></span>
-            <input type = "password" name = "password" placeholder = "password" onChange={this.updatePassword} />
-          </div>
-          <button>Login</button>
-        </form>
-        {error && (
-          <p>Wrong username or password</p>
-        )}
+            </div>
+            <div>
+              <span data-placeholder="Username"></span>
+              <input type="text" name="username" placeholder="username" onChange={this.updateUserName} />
+            </div>
+            <div>
+              <span data-placeholder="Password"></span>
+              <input type="password" name="password" placeholder="password" onChange={this.updatePassword} />
+            </div>
+            <button>Login</button>
+          </form>
+          {error && (
+            <p>Wrong username or password</p>
+          )}
+        </div>
+        <div className="ninja-imgs-block">
+          <img className="ninja-img-login" src="images/gifs/eating.gif" />
+          <img className="ninja-img-login" src="images/gifs/walking.gif" />
+          <img className="ninja-img-login" src="images/gifs/shuriken.gif" />
+        </div>
       </div>
     )
   }

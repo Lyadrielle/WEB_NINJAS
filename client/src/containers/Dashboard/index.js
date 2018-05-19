@@ -39,7 +39,7 @@ class Dashboard extends Component {
     }
 
     return (
-     
+
       <div className='need-block'>
         <div className='level'>
           <h5>{`Niv. ${level}`}</h5>
@@ -61,7 +61,7 @@ class Dashboard extends Component {
                   callBack={() => {
                     this.action(action)
                     this.changeNinjaImage(action)
-                    }
+                  }
                   }
                 />
               )
@@ -93,7 +93,7 @@ class Dashboard extends Component {
     return (
       <div className='mission-block'>
         {missions.map((item, i) =>
-          <div className="mission" key={i}><Mission currentAction = { currentAction } mission={item} currentAction={currentAction} /></div>
+          <div className="mission" key={i}><Mission currentAction={currentAction} mission={item} currentAction={currentAction} /></div>
         )}
       </div>
     )
@@ -121,13 +121,13 @@ class Dashboard extends Component {
       const elapsedTime = Date.now() - startActionDate
       const totalTime = endTime - startActionDate
       const percent = (elapsedTime / totalTime) * 100
-      
+
       return (
         <div className='actions'>
           Votre ninja est en train de {currentAction.title}<br />
           <CircularMeasure percent={percent} />
         </div>
-      ) 
+      )
     }
     return (
       <div>
