@@ -26,7 +26,7 @@ class Skill extends Component {
   }
 
   render () {
-    const { skills = {} } = this.props
+    const { skills = {}, currentAction } = this.props
     const {
       strength = 0,
       agility = 0,
@@ -38,11 +38,11 @@ class Skill extends Component {
       <div className='skill'>
         <RadarChart strength={strength} agility={agility} endurance={endurance} smartness={smartness} dissimulation={dissimulation}/>
          <div className="activityButtons">
-           <Button title = "Lancer de shurikens" image = "./images/skills/shuriken.png" callBack={this.throwShurikens}/>
-           <Button title = "Lecture" image = "./images/skills/reading.png" callBack={this.readBooks}/>
-           <Button title = "Dissimulation" image = "./images/skills/leaf.png" callBack={this.dissimulation}/>
-           <Button title = "Musculation" image = "./images/skills/bodybuilding.png" callBack={this.bodybuilding}/>
-           <Button title = "Jonglage" image = "./images/skills/juggling.png" callBack={this.juggling}/>
+           <Button title = "Lancer de shurikens" image = "./images/skills/shuriken.png" callBack={this.throwShurikens} disabled={!!currentAction}/>
+           <Button title = "Lecture" image = "./images/skills/reading.png" callBack={this.readBooks} disabled={!!currentAction}/>
+           <Button title = "Dissimulation" image = "./images/skills/leaf.png" callBack={this.dissimulation} disabled={!!currentAction}/>
+           <Button title = "Musculation" image = "./images/skills/bodybuilding.png" callBack={this.bodybuilding} disabled={!!currentAction}/>
+           <Button title = "Jonglage" image = "./images/skills/juggling.png" callBack={this.juggling} disabled={!!currentAction}/>
          </div>
       </div>
     )

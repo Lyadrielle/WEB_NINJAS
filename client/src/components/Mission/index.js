@@ -22,7 +22,7 @@ class Mission extends Component {
   }
 
   render () {
-    const { status, title, description, level } = this.props.mission;
+    const { mission: { status, title, description, level }, currentAction } = this.props;
     return (
       <div className='mission'>
         <CupsMissionsLevel level = {level} />
@@ -30,7 +30,10 @@ class Mission extends Component {
            <h5>{ title }</h5>
            <p className='mission-description'>{ description }</p>
          </div>
-         {status? <CircularMeasure callBackEnd = { this.callBackEndOfMission } /> : <Button callBack = {this.acceptMission} title = "ACCEPTER"/>}
+          { status === 1
+             ? <CircularMeasure callBackEnd = { this.callBackEndOfMission } />
+             : <Button callBack = {this.acceptMission} title = "ACCEPTER" disabled={!!currentAction}/>
+          }
       </div>
     )
   }

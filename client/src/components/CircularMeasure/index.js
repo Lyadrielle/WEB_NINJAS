@@ -12,22 +12,33 @@ class CircularMeasure extends Component {
   }
 
   componentDidMount() {
-    let percent = 0;
-    this.setStateInterval = window.setInterval(() => {
-      percent += 1;
+    if (!this.props.percent) {
+      let percent = 0
+      this.setStateInterval = window.setInterval(() => {
+        percent += 1;
 
-      if (percent>=100) {
-        console.log('This is the end man !')
-        this.props.callBackEnd()
-      }
-      else {
-        this.setState({
-          percent, data: this.getData(percent)
-        })
-      }    
-    }, 1000)
+        if (percent>=100) {
+          this.props.callBackEnd()
+        }
+        else {
+          this.setState({
+            percent, data: this.getData(percent)
+          })
+        }    
+      }, 1000)
+    }
+    this.setState({
+      percent: this.props.percent,
+      data: this.getData(this.props.percent)
+    })
   }
 
+  componentWillReceiveProps(newProps) {
+    this.setState({
+      percent: newProps.percent,
+      data: this.getData(newProps.percent)
+    })
+  }
 
   componentWillUnmount() {
     window.clearInterval(this.setStateInterval);

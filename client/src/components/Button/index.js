@@ -6,30 +6,14 @@ class Button extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      disabled:false
-    }
-  }
-
-  disableButton = () => {
-    console.log("disableButton")
-    console.log(this.state.disabled)
-    this.setState({disabled: true})
-    setTimeout(function(){
-      console.log(this.state.disabled)
-      if(this.state.disabled === true){
-        setTimeout(function(){this.setState({disabled:false})}.bind(this), 3000) // changer ici le temps de désactivation du bouton
-      }
-    }.bind(this), 1000) // pour laisser le temps à setState de mettre à jour --> Asynchrone
-    this.props.callBack()
   }
 
   render () {
-    const { title, image } = this.props
+    const { title, image, disabled = false } = this.props
 
     return (
       <div>
-         <button className='button' type='button' onClick={ this.disableButton } disabled={this.state.disabled}>
+         <button className='button' type='button' onClick={ this.props.callBack } disabled={disabled}>
          {image != null ? <img src = { image } alt='button'/> : ' ' }
          {' ' + title}
          </button>

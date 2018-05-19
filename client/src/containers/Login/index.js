@@ -40,7 +40,7 @@ class Login extends Component {
           <div className = "text-login">
             Identifie-toi pour aller entrainer ton ninja !
               <p>
-              Sinon <a href = "">inscris toi</a> !
+              Sinon <a href = "?signup=true">inscris toi</a> !
               </p>
           </div>
           <div>
