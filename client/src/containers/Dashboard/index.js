@@ -18,8 +18,13 @@ class Dashboard extends Component {
   state = {}
 
   displayNeedBlock = () => {
-    const { needs = {} } = this.state
-    const { level, experience, experienceMax, ...needsProps } = needs
+    const { needs = {}, currentAction } = this.state
+    const {
+      level,
+      experience,
+      experienceMax,
+      ...needsProps
+    } = needs
 
     const actionsNamingMap = {
       eat: 'manger',
@@ -36,37 +41,61 @@ class Dashboard extends Component {
 
         <Needs needs = {needsProps}/>
 
+        { 
+          currentAction &&
+          <div className = 'actions'>
+            Votre ninja est en train de {currentAction.label}<br/>
+            Temps restant: {Math.floor((currentAction.endDate.getTime() - Date.now()) / 1000)} secondes
+          </div>
+        }
+
         <div className = 'actions'>
           {Object.entries(needsProps).map(([label, need]) => {
             const { action } = need
 
             return (
               <Button key={label}
+                disabled={!!currentAction}
                 title = {actionsNamingMap[action]}
                 image = {`./images/needs/${label}.png`}
-                callBack= {() => alert(`Your ninja is ${action}ing`)}
+                callBack= {() => this.action(action)}
               />
             )
           })}
         </div>
+        
       </div>
     )
   }
 
+  action = async actionLabel => {
+    const { endDate, success } = await api.action(actionLabel)
+    if (!success) {
+      window.location.reload()
+    }
+    const { needs } = this.state
+    this.setState({
+      currentAction: {
+        label: actionLabel,
+        endDate: new Date(endDate),
+      }
+    })
+  }
+
   displayMissionBlock = () =>  {
-    const { missions = [] } = this.state
+    const { missions = [], currentAction } = this.state
     return (
       <div className = 'mission-block'>
         {missions.map((item, i) =>
-          <div className="mission" key = {i}><Mission mission={item} /></div>
+          <div className="mission" key = {i}><Mission mission={item} currentAction={currentAction} /></div>
         )}
       </div>
     )
   }
 
   displaySkillsBlock = () =>  {
-    const { skills = {} } = this.state
-    return <React.Fragment><Skill skills={skills} /></React.Fragment>
+    const { skills = {}, currentAction } = this.state
+    return <React.Fragment><Skill skills={skills} currentAction={currentAction} /></React.Fragment>
   }
 
   displayInventoryBlock = () =>  {
@@ -85,7 +114,15 @@ class Dashboard extends Component {
         level,
       },
       missions,
+      currentAction,
     } = await api.ninja()
+
+    const currentActionUpdate = currentAction && {
+      label: currentAction.label,
+      endDate: currentAction.endDate,
+      missionId: currentAction.id,
+    }
+    
     this.setState({
       needs: {
         ...needs,
@@ -95,7 +132,8 @@ class Dashboard extends Component {
       },
       missions,
       skills,
-      inventory
+      inventory,
+      currentAction: currentActionUpdate
     })
   }
 
