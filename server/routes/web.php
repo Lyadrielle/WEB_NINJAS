@@ -44,6 +44,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
               $user = Utilisateur::where(["idutilisateur" => $request->session()->get('utilisateur')])->first();
               App\Http\Controllers\MissionController::check($user);
               App\Http\Controllers\ExerciceController::check($user);
+              $user = Utilisateur::where(["idutilisateur" => $request->session()->get('utilisateur')])->first();
 
               return response()->json(JSON::user($user));
           }]);

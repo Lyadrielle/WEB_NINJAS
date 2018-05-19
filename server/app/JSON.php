@@ -177,18 +177,62 @@ class JSON
 
     if(!empty($action)) {
       if($label == "action") {
-        if($action->idnomcompetence > 3 && $action->idnomcompetence < 9) $label = "skill";
+        if($action->action != "eat" && $action->action != "sleep" && $action->action != "talk") $label = "skill";
         $obj->id = $action->idexercice;
       } else {
         $obj->id = $action->idmrealisee;
       }
       $obj->label = $label;
       $obj->endDate = $action->fin;
+      $obj->title = Self::verb($action, $label);
 
       return $obj;
     } else {
       return null;
     }
+  }
+
+  static public function verb($action, $label) {
+    $verb = "";
+    if($label == "mission") {
+      $verb "remplir une mission";
+    } else {
+      switch($action->action) {
+        case "sleep":
+          $verb = "dormir";
+          break;
+
+        case "eat":
+          $verb = "manger";
+          break;
+
+        case "talk":
+          $verb = "parler";
+          break;
+
+        case "shuriken":
+          $verb = "lancer des shurikens";
+          break;
+
+        case "hide":
+          $verb = "se dissimuler";
+          break;
+
+        case "musculation":
+          $verb = "se muscler";
+          break;
+
+        case "juggle":
+          $verb = "jongler";
+          break;
+
+        default:
+          $verb = "ne rien faire";
+          break;
+      }
+    }
+
+    return $verb;
   }
 
 }
