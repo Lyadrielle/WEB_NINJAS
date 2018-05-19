@@ -7,7 +7,12 @@ class Needs extends Component {
 
   render () {
     const { needs } = this.props
-    console.log(needs)
+
+    const needsNamingMap = {
+      hunger: 'faim',
+      social: 'popularité',
+      energy: 'énergie'
+    }
 
     return (
       <div>
@@ -24,7 +29,7 @@ class Needs extends Component {
                   ></img>
                 </div>
                 <div className='need-bar-container'>
-                  <h5>{label}</h5>
+                  <h5>{needsNamingMap[label]}</h5>
                   <NeedBar
                     percentage = {need.value}
                     color = 'F7D260'

@@ -48,7 +48,6 @@ class Inventory extends Component {
     const { selectedObject, equipedObject } = this.state
     const maxItems = 12
     let emptySlots = maxItems - objects.length
-    console.log(selectedObject)
     return (
       <React.Fragment>
         <div className='inventory-content'>

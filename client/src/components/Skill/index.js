@@ -25,11 +25,18 @@ class Skill extends Component {
     console.log("juggling")
   }
 
-
   render () {
+    const { skills = {} } = this.props
+    const {
+      strength = 0,
+      agility = 0,
+      endurance = 0,
+      smartness = 0,
+      dissimulation = 0
+    } = skills
     return (
       <div className='skill'>
-        <RadarChart/>
+        <RadarChart strength={strength} agility={agility} endurance={endurance} smartness={smartness} dissimulation={dissimulation}/>
          <div className="activityButtons">
            <Button title = "Lancer de shurikens" image = "./images/skills/shuriken.png" callBack={this.throwShurikens}/>
            <Button title = "Lecture" image = "./images/skills/reading.png" callBack={this.readBooks}/>

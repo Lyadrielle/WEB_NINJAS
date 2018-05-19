@@ -13,7 +13,6 @@ class App extends Component {
   generateLogAction = () => {
     const setState = state => this.setState(state)
     return user => {
-      console.log(user)
       setState({ user })
     }
   }

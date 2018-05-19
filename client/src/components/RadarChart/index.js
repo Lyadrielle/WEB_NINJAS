@@ -4,37 +4,68 @@ import { VictoryChart, VictoryTheme, VictoryLabel, VictoryGroup, VictoryArea, Vi
 
 import './style.css'
 
-const characterData = [
-  { Force : 10, Sagesse : 20, Agilité: 30, Endurance : 40, Dissimulation: 25 }
-];
-
 class RadarChart extends Component {
   constructor(props) {
-      super(props);
-      this.state = {
-        data: this.processData(characterData),
-        maxima: this.getMaxima(characterData)
-      };
+    super(props)
+    const defaultCharacter = [{
+      Force: 0,
+      Sagesse: 0,
+      Agilité: 0,
+      Endurance: 0,
+      Dissimulation: 0,
+    }]
+    this.state = {
+      data: this.processData(defaultCharacter),
+      maxima: this.getMaxima(defaultCharacter),
     }
-    getMaxima= (data) => {
+  }
+
+  updateCharacterData = (props = this.props) => {
+    const {
+      strength,
+      agility,
+      endurance,
+      smartness,
+      dissimulation
+    } = props
+    const characterData = [
+      {
+        Force: strength,
+        Sagesse: smartness,
+        Agilité: agility,
+        Endurance: endurance,
+        Dissimulation: dissimulation,
+      }
+    ]
+    this.setState({
+      data: this.processData(characterData),
+      maxima: this.getMaxima(characterData)
+    })
+  }
+
+  componentWillReceiveProps = (newProps) => {
+    this.updateCharacterData(newProps)
+  }
+
+  getMaxima= (data) => {
     const groupedData = Object.keys(data[0]).reduce((memo, key) => {
-      memo[key] = data.map((d) => d[key]);
-      return memo;
-    }, {});
+      memo[key] = data.map((d) => d[key])
+      return memo
+    }, {})
     return Object.keys(groupedData).reduce((memo, key) => {
-      memo[key] = 50;
-      return memo;
-    }, {});
+      memo[key] = 50
+      return memo
+    }, {})
   }
 
   processData = (data) => {
-    const maxByGroup = this.getMaxima(data);
+    const maxByGroup = this.getMaxima(data)
     const makeDataArray = (d) => {
       return Object.keys(d).map((key) => {
-        return { x: key, y: d[key] / maxByGroup[key] };
-      });
-    };
-    return data.map((datum) => makeDataArray(datum));
+        return { x: key, y: d[key] / maxByGroup[key] }
+      })
+    }
+    return data.map((datum) => makeDataArray(datum))
   }
 
   render() {
@@ -48,7 +79,7 @@ class RadarChart extends Component {
           style={{ data: { fillOpacity: 0.2, strokeWidth: 2 } }}
         >
           {this.state.data.map((data, i) => {
-            return <VictoryArea key={i} data={data}/>;
+            return <VictoryArea key={i} data={data}/>
           })}
         </VictoryGroup>
       {
@@ -68,7 +99,7 @@ class RadarChart extends Component {
               tickFormat={(t) => Math.ceil(t * this.state.maxima[key])}
               tickValues={[0.25, 0.5, 0.75]}
             />
-          );
+          )
         })
       }
         <VictoryPolarAxis
@@ -82,7 +113,7 @@ class RadarChart extends Component {
 
       </VictoryChart>
       </div>
-    );
+    )
   }
 }
 

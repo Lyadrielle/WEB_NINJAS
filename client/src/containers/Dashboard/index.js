@@ -8,8 +8,9 @@ import NeedBar from '../../components/NeedBar'
 import Mission from '../../components/Mission'
 import Skill from '../../components/Skill'
 import Inventory from '../../components/Inventory'
-
 import Button from '../../components/Button'
+
+import api from '../../common/api'
 
 import './style.css'
 
@@ -36,25 +37,34 @@ const levelMock = {
 }
 
 class Dashboard extends Component {
+  state = {}
+
   displayNeedBlock = () => {
-    const { level, experience } = levelMock
+    const { needs = {} } = this.state
+    const { level, experience, experienceMax, ...needsProps } = needs
+
+    const actionsNamingMap = {
+      eat: 'manger',
+      sleep: 'dormir',
+      talk: 'bavarder'
+    }
 
     return (
       <div className='need-block'>
         <div className='level'>
           <h5>{`Niv. ${level}`}</h5>
-          <NeedBar percentage={experience} color='40D1D8'/>
+          <NeedBar percentage={ (experience/experienceMax) * 100 } color='40D1D8'/>
         </div>
 
-        <Needs needs = {needsMock}/>
+        <Needs needs = {needsProps}/>
 
         <div className = 'actions'>
-          {Object.entries(needsMock).map(([label, need]) => {
+          {Object.entries(needsProps).map(([label, need]) => {
             const { action } = need
 
             return (
               <Button key={label}
-                title = {action}
+                title = {actionsNamingMap[action]}
                 image = {`./images/needs/${label}.png`}
                 callBack= {() => alert(`Your ninja is ${action}ing`)}
               />
@@ -66,9 +76,10 @@ class Dashboard extends Component {
   }
 
   displayMissionBlock = () =>  {
+    const { missions = [] } = this.state
     return (
       <div className = 'mission-block'>
-        {data.missions.map((item, i) =>
+        {missions.map((item, i) =>
           <div className="mission" key = {i}><Mission mission={item} /></div>
         )}
       </div>
@@ -76,12 +87,46 @@ class Dashboard extends Component {
   }
 
   displaySkillsBlock = () =>  {
-    return <React.Fragment><Skill/></React.Fragment>
+    const { skills = {} } = this.state
+    return <React.Fragment><Skill skills={skills} /></React.Fragment>
   }
 
   displayInventoryBlock = () =>  {
-    return <div className="inventory"><Inventory objects={data.ninja.inventory} /></div>
+    const { inventory = [] } = this.state
+    return <div className="inventory"><Inventory objects={inventory} /></div>
   }
+
+  update = async () => {
+    console.log(await api.ninja())
+    const {
+      ninja: {
+        needs,
+        skills,
+        inventory,
+        experience,
+        experienceMax,
+        level,
+      },
+      missions,
+    } = await api.ninja()
+    this.setState({
+      needs: {
+        ...needs,
+        experience,
+        experienceMax,
+        level,
+      },
+      missions,
+      skills,
+      inventory
+    })
+  }
+
+  componentDidMount = async () => {
+    this.update()
+  }
+
+
 
   render() {
     return (
