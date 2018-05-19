@@ -30,7 +30,7 @@ class Mission extends Component {
            <h5>{ title }</h5>
            <p className='mission-description'>{ description }</p>
          </div>
-          { status
+          { status === 1
              ? <CircularMeasure callBackEnd = { this.callBackEndOfMission } />
              : <Button callBack = {this.acceptMission} title = "ACCEPTER" disabled={!!currentAction}/>
           }

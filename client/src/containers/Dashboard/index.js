@@ -9,6 +9,7 @@ import Mission from '../../components/Mission'
 import Skill from '../../components/Skill'
 import Inventory from '../../components/Inventory'
 import Button from '../../components/Button'
+import CircularMeasure from '../../components/CircularMeasure'
 
 import api from '../../common/api'
 
@@ -41,14 +42,6 @@ class Dashboard extends Component {
 
         <Needs needs = {needsProps}/>
 
-        { 
-          currentAction &&
-          <div className = 'actions'>
-            Votre ninja est en train de {currentAction.label}<br/>
-            Temps restant: {Math.floor((currentAction.endDate.getTime() - Date.now()) / 1000)} secondes
-          </div>
-        }
-
         <div className = 'actions'>
           {Object.entries(needsProps).map(([label, need]) => {
             const { action } = need
@@ -75,9 +68,11 @@ class Dashboard extends Component {
     }
     const { needs } = this.state
     this.setState({
+      startActionDate: Date.now(),
       currentAction: {
-        label: actionLabel,
+        label: 'action',
         endDate: new Date(endDate),
+        title: actionLabel,
       }
     })
   }
@@ -103,6 +98,33 @@ class Dashboard extends Component {
     return <div className="inventory"><Inventory objects={inventory} /></div>
   }
 
+  displayActionBlock = () => {
+    const { currentAction, startActionDate } = this.state
+
+    if (!startActionDate) {
+      return this.setState({ startActionDate: Date.now() })
+    }
+
+    if (currentAction) {
+      const endTime = currentAction.endDate.getTime()
+      const elapsedTime = Date.now() - startActionDate
+      const totalTime = endTime - startActionDate
+      const percent = (elapsedTime / totalTime) * 100
+      return (
+        <div className = 'actions'>
+          Votre ninja est en train de {currentAction.title}<br/>
+          <CircularMeasure percent={percent} />
+        </div>
+      )
+    }
+    return (
+      <div>
+        Votre ninja s'ennuie !<br/>
+        Faites lui faire quelque chose.
+      </div>
+    )
+}
+
   update = async () => {
     const {
       ninja: {
@@ -119,8 +141,9 @@ class Dashboard extends Component {
 
     const currentActionUpdate = currentAction && {
       label: currentAction.label,
-      endDate: currentAction.endDate,
+      endDate: new Date(currentAction.endDate),
       missionId: currentAction.id,
+      title: currentAction.title,
     }
     
     this.setState({
@@ -140,7 +163,7 @@ class Dashboard extends Component {
   autoUpdate = () => {
     this.update()
       .then(() => setTimeout(this.autoUpdate, 2000))
-      .catch(() => window.location.reload())
+      .catch(e => window.location.reload())
   }
 
   componentDidMount = async () => {
@@ -154,6 +177,7 @@ class Dashboard extends Component {
       <React.Fragment>
         <Menu pseudo="ROBERT"/>
         <div className='dashboard-app'>
+          <DashboardBlock title="Action" content={this.displayActionBlock()} />
           <DashboardBlock title="Besoins" content={this.displayNeedBlock()}/>
           <DashboardBlock title="Missions" content={this.displayMissionBlock()} />
           <DashboardBlock title="Compétences" content={this.displaySkillsBlock()}/>
