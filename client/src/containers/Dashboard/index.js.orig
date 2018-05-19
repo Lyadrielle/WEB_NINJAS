@@ -42,22 +42,33 @@ class Dashboard extends Component {
       <div className='need-block'>
         <div className='level'>
           <h5>{`Niv. ${level}`}</h5>
-          <NeedBar percentage={ (experience/experienceMax) * 100 } color='40D1D8'/>
+          <NeedBar percentage={(experience / experienceMax) * 100} color='40D1D8' />
         </div>
 
-        <Needs needs = {needsProps}/>
+        <Needs needs={needsProps} />
 
+<<<<<<< HEAD
         {
+          currentAction &&
+          <div className='actions'>
+            Votre ninja est en train de {currentAction.label}<br />
+            Temps restant: {Math.floor((currentAction.endDate.getTime() - Date.now()) / 1000)} secondes
+          </div>
+        }
+
+        <div className='actions'>
+=======
         <div className = 'actions'>
+>>>>>>> development
           {Object.entries(needsProps).map(([label, need]) => {
             const { action } = need
 
             return (
               <Button key={label}
                 disabled={!!currentAction}
-                title = {actionsNamingMap[action]}
-                image = {`./images/needs/${label}.png`}
-                callBack= {() => this.action(action)}
+                title={actionsNamingMap[action]}
+                image={`./images/needs/${label}.png`}
+                callBack={() => this.action(action)}
               />
             )
           })}
@@ -86,15 +97,15 @@ class Dashboard extends Component {
   displayMissionBlock = () => {
     const { missions = [], currentAction } = this.state
     return (
-      <div className = 'mission-block'>
+      <div className='mission-block'>
         {missions.map((item, i) =>
-          <div className="mission" key = {i}><Mission mission={item} currentAction={currentAction} /></div>
+          <div className="mission" key={i}><Mission mission={item} currentAction={currentAction} /></div>
         )}
       </div>
     )
   }
 
-  displaySkillsBlock = () =>  {
+  displaySkillsBlock = () => {
     const { skills = {}, currentAction } = this.state
     return <React.Fragment><Skill skills={skills} currentAction={currentAction} /></React.Fragment>
   }
@@ -184,11 +195,17 @@ class Dashboard extends Component {
       <React.Fragment>
         <Menu pseudo="ROBERT" />
         <div className='dashboard-app'>
+<<<<<<< HEAD
+          <DashboardBlock title="Besoins" content={this.displayNeedBlock()} />
+=======
           <DashboardBlock title="Action" content={this.displayActionBlock()} />
           <DashboardBlock title="Besoins" content={this.displayNeedBlock()}/>
+>>>>>>> development
           <DashboardBlock title="Missions" content={this.displayMissionBlock()} />
-          <DashboardBlock title="Compétences" content={this.displaySkillsBlock()}/>
-          <DashboardBlock title="Inventaire" content={this.displayInventoryBlock()}/>
+          <NinjaBlock currentActionImg={this.state.currentActionImg} />
+          <DashboardBlock title="Compétences" content={this.displaySkillsBlock()} />
+          <DashboardBlock title="Inventaire" content={this.displayInventoryBlock()} />
+         
         </div>
       </React.Fragment>
     )

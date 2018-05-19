@@ -6,7 +6,7 @@ use App\Utilisateur;
 use App\JSON;
 use Illuminate\Http\Request;
 
-class ExampleController extends Controller
+class ObjetController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -50,5 +50,5 @@ class ExampleController extends Controller
       return response()->json(JSON::success(null));
     }
 
-    
+
 }
