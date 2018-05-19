@@ -10,11 +10,10 @@ import Skill from '../../components/Skill'
 import Inventory from '../../components/Inventory'
 import Button from '../../components/Button'
 import CircularMeasure from '../../components/CircularMeasure'
-
+import NinjaBlock from '../NinjaBlock'
 import api from '../../common/api'
 
 import './style.css'
-import NinjaBlock from '../NinjaBlock';
 
 class Dashboard extends Component {
   constructor() {
@@ -40,6 +39,7 @@ class Dashboard extends Component {
     }
 
     return (
+     
       <div className='need-block'>
         <div className='level'>
           <h5>{`Niv. ${level}`}</h5>
@@ -93,7 +93,7 @@ class Dashboard extends Component {
     return (
       <div className='mission-block'>
         {missions.map((item, i) =>
-          <div className="mission" key={i}><Mission mission={item} currentAction={currentAction} /></div>
+          <div className="mission" key={i}><Mission currentAction = { currentAction } mission={item} currentAction={currentAction} /></div>
         )}
       </div>
     )
@@ -121,12 +121,13 @@ class Dashboard extends Component {
       const elapsedTime = Date.now() - startActionDate
       const totalTime = endTime - startActionDate
       const percent = (elapsedTime / totalTime) * 100
+      
       return (
         <div className='actions'>
           Votre ninja est en train de {currentAction.title}<br />
           <CircularMeasure percent={percent} />
         </div>
-      )
+      ) 
     }
     return (
       <div>
@@ -174,7 +175,9 @@ class Dashboard extends Component {
   autoUpdate = () => {
     this.update()
       .then(() => setTimeout(this.autoUpdate, 2000))
-      .catch(e => window.location.reload())
+      .catch(e => {
+        window.location.reload()
+      })
   }
 
   componentDidMount = async () => {

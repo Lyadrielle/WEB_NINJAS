@@ -3,31 +3,48 @@ import React, { Component } from 'react'
 import './style.css'
 import Button from '../Button'
 import RadarChart from '../RadarChart'
+import api from '../../common/api'
 
 class Skill extends Component {
   throwShurikens = () => {
     this.props.changeNinjaImageFunction("shuriken")
-    console.log("throwShurikens")
+    this.skill("shuriken")
   }
 
   readBooks = () => {
     this.props.changeNinjaImageFunction("reading")
-    console.log("readBooks")
+    this.skill("read")
   }
 
   dissimulation = () => {
     this.props.changeNinjaImageFunction("hidding")
-    console.log("dissimulation")
+    this.skill("hide")  
   }
 
   bodybuilding = () => {
     this.props.changeNinjaImageFunction("strength")
-    console.log("bodybuilding")
+    this.skill("musculation")  
   }
 
   juggling = () => {
     this.props.changeNinjaImageFunction("juggling")
-    console.log("juggling")
+    this.skill("juggle")  
+  }
+
+  skill = async skillLabel => {
+    const { endDate, success } = await api.action(skillLabel)
+    if (!success) {
+      window.location.reload()
+    }
+    const { skill } = this.state
+    this.setState({
+      startActionDate: Date.now(),
+      currentAction: {
+        label: 'skill',
+        endDate: new Date(endDate),
+        title: skillLabel,
+      }
+    })
   }
 
   render () {
