@@ -39,6 +39,8 @@ class Skill extends Component {
         title: skillLabel,
       }
     })
+    this.props.setStartActionDate(this.state.startActionDate)
+
   }
 
   render () {

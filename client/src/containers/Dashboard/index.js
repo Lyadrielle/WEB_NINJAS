@@ -86,7 +86,7 @@ class Dashboard extends Component {
     return (
       <div className='mission-block'>
         {missions.map((item, i) =>
-          <div className="mission" key={i}><Mission mission={item} currentAction={currentAction} /></div>
+          <div className="mission" key={i}><Mission setStartActionDate = {(newStart) => this.setState({startActionDate:newStart})} mission={item} currentAction={currentAction} /></div>
         )}
       </div>
     )
@@ -95,7 +95,7 @@ class Dashboard extends Component {
   displaySkillsBlock = () => {
     const { skills = {}, currentAction } = this.state
     return <React.Fragment>
-              <Skill skills={skills} currentAction={currentAction} />
+              <Skill setStartActionDate = {(newStart) => this.setState({startActionDate:newStart})} skills={skills} currentAction={currentAction} />
            </React.Fragment>
   }
 
@@ -137,6 +137,7 @@ class Dashboard extends Component {
   update = async () => {
     const {
       ninja: {
+        name,
         needs,
         skills,
         inventory,
@@ -146,6 +147,7 @@ class Dashboard extends Component {
       },
       missions,
       currentAction,
+      username,
     } = await api.ninja()
 
     const currentActionUpdate = currentAction && {
@@ -166,7 +168,8 @@ class Dashboard extends Component {
       missions,
       skills,
       inventory,
-      currentAction: currentActionUpdate
+      currentAction: currentActionUpdate,
+      username,
     })
   }
 
@@ -188,14 +191,14 @@ class Dashboard extends Component {
     const {currentAction} = this.state
      return (
       <React.Fragment>
-        <Menu pseudo="ROBERT" />
+        <Menu pseudo={this.state.username} />
         <div className='dashboard-app' style={{backgroundImage : 'url("./images/background.png")'}}>
-          <DashboardBlock title="Besoins" content={this.displayNeedBlock()} />
-          <DashboardBlock title="Missions" content={this.displayMissionBlock()} />
+          <DashboardBlock title='Besoins' content={this.displayNeedBlock()} />
+          <DashboardBlock title='Missions' content={this.displayMissionBlock()} />
           <DashboardBlock title="Action" content={this.displayActionBlock()} />
-          <DashboardBlock title="Compétences" content={this.displaySkillsBlock()} />
-          <DashboardBlock title="Inventaire" content={this.displayInventoryBlock()} />
-          {currentAction==null?<NinjaBlock currentAction = "default"/>:<NinjaBlock currentAction = {currentAction.name}/>}
+          <DashboardBlock title='Compétences' content={this.displaySkillsBlock()} />
+          <DashboardBlock title='Inventaire' content={this.displayInventoryBlock()} />
+          {currentAction==null?<NinjaBlock currentAction = 'default'/>:<NinjaBlock currentAction = {currentAction.name}/>}
         </div>
       </React.Fragment>
     )
