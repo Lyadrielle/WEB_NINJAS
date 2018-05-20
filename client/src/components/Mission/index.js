@@ -27,6 +27,7 @@ class Mission extends Component {
         title: missionLabel,
       }
     })
+    this.props.setStartActionDate(this.state.startActionDate)
   }
 
   render () {
@@ -36,6 +37,7 @@ class Mission extends Component {
     let elapsedTime = 0
     let totalTime = 0
     let percent = 0
+
     if (status === "1") {
       endTime = this.props.currentAction.endDate.getTime()
       elapsedTime = Date.now() - this.state.startActionDate

@@ -86,7 +86,7 @@ class Dashboard extends Component {
     return (
       <div className='mission-block'>
         {missions.map((item, i) =>
-          <div className="mission" key={i}><Mission mission={item} currentAction={currentAction} /></div>
+          <div className="mission" key={i}><Mission setStartActionDate = {(newStart) => this.setState({startActionDate:newStart})} mission={item} currentAction={currentAction} /></div>
         )}
       </div>
     )
@@ -95,7 +95,7 @@ class Dashboard extends Component {
   displaySkillsBlock = () => {
     const { skills = {}, currentAction } = this.state
     return <React.Fragment>
-              <Skill skills={skills} currentAction={currentAction} />
+              <Skill setStartActionDate = {(newStart) => this.setState({startActionDate:newStart})} skills={skills} currentAction={currentAction} />
            </React.Fragment>
   }
 
