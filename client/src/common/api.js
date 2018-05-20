@@ -31,11 +31,11 @@ function signin(login, password) {
   })
 }
 
-function signup(login, password, ninjaName) {
+function signup(ninjaName, login, password) {
   return request('POST', '/signup', {
+    nom: ninjaName,
     pseudo: login,
     motdepasse: password,
-    nom: ninjaName,
   })
 }
 

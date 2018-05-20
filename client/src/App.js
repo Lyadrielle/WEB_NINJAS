@@ -26,7 +26,7 @@ class App extends Component {
     }
 
     if (signup) {
-      return (<div>PWET</div>)
+      return (<div><SignIn logAction={this.generateLogAction()}/></div>)
     }
 
     return <Login logAction={this.generateLogAction()}/>
