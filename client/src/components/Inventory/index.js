@@ -36,7 +36,7 @@ class Inventory extends Component {
 
   unequip =  async (object) => {
     const { endDate, success } = await api.equipment(object.id)
-    this.setState({ selectedObject:{equipped:true}})
+    this.setState({ selectedObject:object})
   }
 
   getEquippedObject = () => {
@@ -98,6 +98,7 @@ class Inventory extends Component {
               <p key={i} className="item-bonus">
                 {bonus.bonus >= 0? bonus.skill + ' +' + bonus.bonus : bonus.skill + ' ' + bonus.bonus }
               </p>) : ""}
+            {selectedObject != null && this.getEquippedObject() ==null && <Button title="ÉQUIPER" callBack={() => this.equip(selectedObject)} />}
             {selectedObject != null && this.getEquippedObject() !=null && this.getEquippedObject().id !== selectedObject.id && <Button title="ÉQUIPER" callBack={() => this.equip(selectedObject)} />}
             {selectedObject != null && this.getEquippedObject()!=null && this.getEquippedObject().id == selectedObject.id && <Button title="DÉSÉQUIPER" callBack={() => this.unequip(selectedObject)} />}
           </div>
