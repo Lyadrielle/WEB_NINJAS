@@ -1,12 +1,15 @@
+
 .login {
   width: 250px;
   margin-left: calc(50% - 125px);
+  margin-top: 40px;
   padding: 10px;
   border-style:solid;
   border-bottom-width: 22px;
   border-color: #f26c4f;
   border-radius:  5px;
   background-color:#f6f6f6;
+  text-align: center;
 }
 
 .ninja-img-login {
@@ -35,6 +38,7 @@
   background-color:#f6f6f6;
   color: #f26c4f;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .login input {

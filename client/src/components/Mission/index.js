@@ -42,11 +42,11 @@ class Mission extends Component {
       totalTime = endTime - this.state.startActionDate
       percent = (elapsedTime / totalTime) * 100
     }
-    
+
     return (
       <div className='mission'>
         <CupsMissionsLevel level = {level} />
-         <div>
+         <div className='descriptionBlock'>
            <h5>{ title }</h5>
            <p className='mission-description'>{ description }</p>
          </div>

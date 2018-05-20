@@ -17,7 +17,7 @@ import './style.css'
 
 class Dashboard extends Component {
     state = {}
-  
+
 
   displayNeedBlock = () => {
     const { needs = {}, currentAction } = this.state
@@ -118,15 +118,17 @@ class Dashboard extends Component {
       const percent = (elapsedTime / totalTime) * 100
 
       return (
-        <div className='actions'>
-          Votre ninja est en train de {currentAction.title}<br />
+        <div className='actionsBlock'>
+          <p>
+            Votre ninja est en train de {currentAction.title}
+          </p>
           <CircularMeasure percent={percent} />
         </div>
       )
     }
     return (
       <div>
-        Votre ninja s'ennuie !<br />
+        Votre ninja s'ennuie !<br/>
         Faites lui faire quelque chose.
       </div>
     )
@@ -175,7 +177,7 @@ class Dashboard extends Component {
         window.location.reload()
       })
   }
-  
+
 
   componentDidMount = async () => {
     this.autoUpdate()
@@ -183,14 +185,14 @@ class Dashboard extends Component {
 
   render() {
     console.log(this.state)
-    const {currentAction} = this.state 
+    const {currentAction} = this.state
      return (
       <React.Fragment>
         <Menu pseudo="ROBERT" />
-        <div className='dashboard-app'>
-          <DashboardBlock title="Action" content={this.displayActionBlock()} />
+        <div className='dashboard-app' style={{backgroundImage : 'url("./images/background.png")'}}>
           <DashboardBlock title="Besoins" content={this.displayNeedBlock()} />
           <DashboardBlock title="Missions" content={this.displayMissionBlock()} />
+          <DashboardBlock title="Action" content={this.displayActionBlock()} />
           <DashboardBlock title="Compétences" content={this.displaySkillsBlock()} />
           <DashboardBlock title="Inventaire" content={this.displayInventoryBlock()} />
           {currentAction==null?<NinjaBlock currentAction = "default"/>:<NinjaBlock currentAction = {currentAction.name}/>}

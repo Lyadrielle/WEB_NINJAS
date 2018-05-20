@@ -35,7 +35,7 @@ class Login extends Component {
 
   render() {
     const { error } = this.state
-    
+
     return (
       <div>
         <div className="login">
@@ -43,7 +43,7 @@ class Login extends Component {
             <div className="text-login">
               <p>
                 Identifie-toi pour aller entrainer ton ninja !<br />
-                Sinon <a href="?signup=true">inscris toi</a> !
+                Sinon <strong><a href="?signup=true">inscris toi</a></strong> !
               </p>
             </div>
             <div>

@@ -1,4 +1,6 @@
 .circular-measure {
     max-width: 93.6px;
     max-height: 93.6px;
+    margin-left: auto;
+    margin-right: auto;
 }
