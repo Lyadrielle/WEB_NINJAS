@@ -15,7 +15,7 @@ class Ninja extends Model
      * @var array
      */
     protected $fillable = [
-        'nom', 'avatar',
+        'nom',
     ];
 
     protected $table = "ninja";

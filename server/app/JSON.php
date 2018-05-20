@@ -40,6 +40,7 @@ class JSON
     $obj->ninja = Self::ninja($user->ninja);
     $obj->missions = Self::missions($user);
     $obj->currentAction = Self::currentAction($user);
+    $obj->username = $user->pseudo;
 
     return $obj;
   }
@@ -49,6 +50,8 @@ class JSON
 
     $obj = new \stdClass;
 
+
+    $obj->name = $ninja->nom;
     $obj->level = $competences->where('idnomcompetence', 0)->first()->niveau;
     $obj->experience = $competences->where('idnomcompetence', 9)->first()->niveau;
     $obj->experienceMax = $competences->where('idnomcompetence', 10)->first()->niveau;
