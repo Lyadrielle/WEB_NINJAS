@@ -25,29 +25,25 @@ class ObjetController extends Controller
 
       $slot = $request->input('slot');
 
-
       $user = Utilisateur::where('idutilisateur', $request->session()->get('utilisateur'))->first();
       $objet = $user->objets->where('idobjet', $slot)->first();
       if(empty($objet)) {
         return response()->json(JSON::error('Object Not Found', $slot), 404);
       }
 
+
       $ninja = $user->ninja;
-      $ninja->idobjet = $slot;
+
+      if($ninja->idobjet == $slot) {
+        $ninja->idobjet = null;
+      } else {
+        $ninja->idobjet = $slot;
+      }
+
       $ninja->save();
 
       return response()->json(JSON::success(null));
 
-    }
-
-    public function unequip(Request $request) {
-      $user = Utilisateur::where('idutilisateur', $request->session()->get('utilisateur'))->first();
-      $ninja = $user->ninja;
-
-      $ninja->idobjet = null;
-      $ninja->save();
-
-      return response()->json(JSON::success(null));
     }
 
 

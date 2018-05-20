@@ -13,12 +13,13 @@ class SignIn extends Component {
     error: false,
   }
 
-  SignUp = event => {
+  signup = event => {
     event.preventDefault()
     this.setState({ error: false })
     const { ninjaName, userName, password } = this.state
     api.signup(ninjaName, userName, password)
       .then(user => {
+        console.log('USER: ' + user)
         this.props.logAction(user)
       })
       .catch((e) => {
@@ -43,17 +44,18 @@ class SignIn extends Component {
     const { error } = this.state
 
     return (
+      <React.Fragment>
       <div className="sign-up">
-        <form onSubmit={this.signUp}>
-          <div className = "text-Sign-up">
+        <form onSubmit={this.signup}>
+          <div className = "text-sign-up">
             <p>
               Inscris-toi pour jouer et entrainer ton ninja !<br />
               Sinon <a href="?signin=true">identifie toi</a> !
             </p>
           </div>
           <div>
-            <span data-placeholder="Username"></span>
-            <input type="text" name="username" placeholder="nom du ninja" onChange={this.updateNinjaName} />
+            <span data-placeholder="ninjaName"></span>
+            <input type="text" name="ninjaName" placeholder="nom du ninja" onChange={this.updateNinjaName} />
           </div>
           <div>
             <span data-placeholder="Username"></span>
@@ -68,10 +70,11 @@ class SignIn extends Component {
         {error && (
             <p>Wrong username or password</p>
         )}
-         <div className="ninja-imgs-block">
-          <img className="ninja-img-login" src="images/gifs/shuriken.gif" alt = "ninja is throwing shurikens"/>
-        </div>
       </div>
+      <div className="ninja-imgs-block">
+        <img className="ninja-img-login" src="images/gifs/shuriken.gif" alt = "ninja is throwing shurikens"/>
+      </div>
+      </React.Fragment>
     )
   }
 }

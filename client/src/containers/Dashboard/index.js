@@ -135,6 +135,7 @@ class Dashboard extends Component {
   update = async () => {
     const {
       ninja: {
+        name,
         needs,
         skills,
         inventory,
@@ -144,6 +145,7 @@ class Dashboard extends Component {
       },
       missions,
       currentAction,
+      username,
     } = await api.ninja()
 
     const currentActionUpdate = currentAction && {
@@ -164,7 +166,8 @@ class Dashboard extends Component {
       missions,
       skills,
       inventory,
-      currentAction: currentActionUpdate
+      currentAction: currentActionUpdate,
+      username,
     })
   }
 
@@ -186,14 +189,14 @@ class Dashboard extends Component {
     const {currentAction} = this.state 
      return (
       <React.Fragment>
-        <Menu pseudo="ROBERT" />
+        <Menu pseudo={this.state.username} />
         <div className='dashboard-app'>
-          <DashboardBlock title="Action" content={this.displayActionBlock()} />
-          <DashboardBlock title="Besoins" content={this.displayNeedBlock()} />
-          <DashboardBlock title="Missions" content={this.displayMissionBlock()} />
-          <DashboardBlock title="Compétences" content={this.displaySkillsBlock()} />
-          <DashboardBlock title="Inventaire" content={this.displayInventoryBlock()} />
-          {currentAction==null?<NinjaBlock currentAction = "default"/>:<NinjaBlock currentAction = {currentAction.name}/>}
+          <DashboardBlock title='Action' content={this.displayActionBlock()} />
+          <DashboardBlock title='Besoins' content={this.displayNeedBlock()} />
+          <DashboardBlock title='Missions' content={this.displayMissionBlock()} />
+          <DashboardBlock title='Compétences' content={this.displaySkillsBlock()} />
+          <DashboardBlock title='Inventaire' content={this.displayInventoryBlock()} />
+          {currentAction==null?<NinjaBlock currentAction = 'default'/>:<NinjaBlock currentAction = {currentAction.name}/>}
         </div>
       </React.Fragment>
     )
