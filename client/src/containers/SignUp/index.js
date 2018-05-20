@@ -19,6 +19,7 @@ class SignIn extends Component {
     const { ninjaName, userName, password } = this.state
     api.signup(ninjaName, userName, password)
       .then(user => {
+        console.log('USER: ' + user)
         this.props.logAction(user)
       })
       .catch((e) => {
