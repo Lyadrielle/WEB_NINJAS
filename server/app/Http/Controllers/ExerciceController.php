@@ -65,7 +65,7 @@ class ExerciceController extends Controller
 
         switch($action){
             case "eat" :
-              $competences = array(["valeur" => 10, "idnomcompetence" => 0]);
+              $competences = array(["valeur" => 10, "idnomcompetence" => 2]);
             break;
 
             case "sleep" :
