@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import './style.css'
 
 import api from '../../common/api'
+
+import './style.css'
 
 class Login extends Component {
   state = {
@@ -31,31 +32,37 @@ class Login extends Component {
   updatePassword = event => {
     this.setState({ password: event.target.value })
   }
-  
-  render () {
+
+  render() {
     const { error } = this.state
+    
     return (
-      <div className = "login">
-        <form onSubmit = {this.login}>
-          <div className = "text-login">
-            Identifie-toi pour aller entrainer ton ninja !
+      <div>
+        <div className="login">
+          <form onSubmit={this.login}>
+            <div className="text-login">
               <p>
-              Sinon <a href = "?signup=true">inscris toi</a> !
+                Identifie-toi pour aller entrainer ton ninja !<br />
+                Sinon <a href="?signup=true">inscris toi</a> !
               </p>
-          </div>
-          <div>
-            <span data-placeholder = "Username"></span>
-            <input type = "text" name = "username" placeholder = "username" onChange={this.updateUserName} />
-          </div>
-          <div>
-            <span data-placeholder = "Password"></span>
-            <input type = "password" name = "password" placeholder = "password" onChange={this.updatePassword} />
-          </div>
-          <button>Login</button>
-        </form>
-        {error && (
-          <p>Wrong username or password</p>
-        )}
+            </div>
+            <div>
+              <span data-placeholder="Username"></span>
+              <input type="text" name="username" placeholder="pseudonyme" onChange={this.updateUserName} />
+            </div>
+            <div>
+              <span data-placeholder="Password"></span>
+              <input type="password" name="password" placeholder="mot de passe" onChange={this.updatePassword} />
+            </div>
+            <button>Login</button>
+          </form>
+          {error && (
+            <p>Wrong username or password</p>
+          )}
+        </div>
+        <div className="ninja-imgs-block">
+          <img className="ninja-img-login" src="images/gifs/walking.gif" alt = "ninja is walking" />
+        </div>
       </div>
     )
   }

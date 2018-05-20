@@ -3,40 +3,53 @@ import React, { Component } from 'react'
 import './style.css'
 import Button from '../Button'
 import RadarChart from '../RadarChart'
+import api from '../../common/api'
 
 class Skill extends Component {
   throwShurikens = () => {
-    console.log("throwShurikens")
+    this.skill("shuriken")
   }
 
   readBooks = () => {
-    console.log("readBooks")
+    this.skill("reading")
   }
 
   dissimulation = () => {
-    console.log("dissimulation")
+    this.skill("hide")  
   }
 
   bodybuilding = () => {
-    console.log("bodybuilding")
+    this.skill("musculation")  
   }
 
   juggling = () => {
-    console.log("juggling")
+    this.skill("juggle")  
+  }
+
+  skill = async skillLabel => {
+    const { endDate, success } = await api.skill(skillLabel)
+    if (!success) {
+      window.location.reload()
+    }
+    this.setState({
+      startActionDate: Date.now(),
+      currentAction: {
+        label: 'skill',
+        endDate: new Date(endDate),
+        title: skillLabel,
+      }
+    })
   }
 
   render () {
     const { skills = {}, currentAction } = this.props
-    const {
-      strength = 0,
-      agility = 0,
-      endurance = 0,
-      smartness = 0,
-      dissimulation = 0
-    } = skills
     return (
       <div className='skill'>
-        <RadarChart strength={strength} agility={agility} endurance={endurance} smartness={smartness} dissimulation={dissimulation}/>
+        <RadarChart strength={skills.strength} 
+                    agility={skills.agility} 
+                    endurance={skills.endurance} 
+                    smartness={skills.smartness} 
+                    dissimulation={skills.dissimulation}/>
          <div className="activityButtons">
            <Button title = "Lancer de shurikens" image = "./images/skills/shuriken.png" callBack={this.throwShurikens} disabled={!!currentAction}/>
            <Button title = "Lecture" image = "./images/skills/reading.png" callBack={this.readBooks} disabled={!!currentAction}/>

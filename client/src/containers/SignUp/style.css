@@ -1,4 +1,4 @@
-.login {
+.sign-up {
   width: 250px;
   margin-left: calc(50% - 125px);
   padding: 10px;
@@ -9,25 +9,23 @@
   background-color:#f6f6f6;
 }
 
-.ninja-img-login {
+.ninja-img {
   max-height: 400px;
 }
 
-.ninja-imgs-block {
+.text-sign-up {
+  margin : 10px 0;
   text-align: center;
-}
-
-.text-login {
-  margin : 10px;
   color : #f26c4f;
 }
 
-.text-login a {
+.text-sign-up a {
   margin: inherit;
+  font-weight: bold;
   color: #f26c4f;
 }
 
-.login button {
+.sign-up button {
   padding: 10px 30px;
   border-style:solid;
   border-color: #f26c4f;
@@ -37,8 +35,17 @@
   font-weight: bold;
 }
 
-.login input {
-  margin: 10px;
+.sign-up input {
+  width: 90%;
+  margin: 10px 0;
+  padding: 5px;
+  border-style:solid;
+  border-color: #f26c4f;
+  border-radius:  5px;
+}
+
+.sign-up button {
+  margin: auto;
 }
 
 ::-webkit-input-placeholder {

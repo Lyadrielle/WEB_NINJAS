@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import { Route, BrowserRouter as Router } from 'react-router-dom'
 
 import Login from './containers/Login'
-import SignIn from './containers/SignIn'
+import SignUp from './containers/SignUp'
 import Dashboard from './containers/Dashboard'
 
 class App extends Component {
@@ -26,7 +26,7 @@ class App extends Component {
     }
 
     if (signup) {
-      return (<div>PWET</div>)
+      return (<div><SignUp logAction={this.generateLogAction()}/></div>)
     }
 
     return <Login logAction={this.generateLogAction()}/>

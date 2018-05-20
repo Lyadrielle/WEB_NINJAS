@@ -3,9 +3,10 @@ import './style.css'
 
 class NinjaBlock extends Component {
   render () {
+    const {currentAction} = this.props
     return (
-      <div>
-        <img alt ="Mon ninja" src=""/>
+      <div className='ninja-block'>
+        <img className = 'ninja-img' alt ={`My ninja ${currentAction}`} src={`./images/ninja/${currentAction}.png`}/>
       </div>
     )
   }

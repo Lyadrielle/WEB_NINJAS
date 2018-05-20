@@ -6,8 +6,14 @@
   white-space: nowrap;
 }
 
-a {
+.menu a {
   text-decoration: none;
   margin-left: 50px;
   color : white;
+}
+
+.menu p {
+  color: #f26c4f;
+  text-transform: uppercase;
+  font-weight: bold;
 }
