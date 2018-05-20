@@ -43,7 +43,6 @@ class Skill extends Component {
 
   render () {
     const { skills = {}, currentAction } = this.props
-    console.log(skills)
     return (
       <div className='skill'>
         <RadarChart strength={skills.strength} 
