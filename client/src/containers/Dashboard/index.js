@@ -54,10 +54,7 @@ class Dashboard extends Component {
                   disabled={!!currentAction}
                   title={actionsNamingMap[action]}
                   image={`./images/needs/${label}.png`}
-                  callBack={() => {
-                    this.action(action)
-                    this.changeNinjaImage(action)
-                  }
+                  callBack={() => {this.action(action)}
                   }
                 />
               )
@@ -79,6 +76,7 @@ class Dashboard extends Component {
         label: 'action',
         endDate: new Date(endDate),
         title: actionLabel,
+        name: actionLabel
       }
     })
   }
@@ -183,11 +181,8 @@ class Dashboard extends Component {
     this.autoUpdate()
   }
 
-  changeNinjaImage = (action) => {
-    this.setState({ currentActionImg: action })
-  }
-
   render() {
+    console.log(this.state)
     const {currentAction} = this.state 
      return (
       <React.Fragment>
