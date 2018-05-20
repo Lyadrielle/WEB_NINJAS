@@ -7,6 +7,8 @@
     align-items: center;
     background-size: 100%;
     color : #f26c4f;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .actionsBlock{

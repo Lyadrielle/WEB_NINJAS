@@ -22,7 +22,7 @@ class App extends Component {
     const signup = window.location.search.includes('signup')
 
     if (user) {
-      return (<div><Dashboard user={user} /></div>)
+      return (<React.Fragment><Dashboard user={user} /></React.Fragment>)
     }
 
     if (signup) {
