@@ -59,9 +59,9 @@ class Login extends Component {
           )}
         </div>
         <div className="ninja-imgs-block">
-          <img className="ninja-img-login" src="images/gifs/eating.gif" />
-          <img className="ninja-img-login" src="images/gifs/walking.gif" />
-          <img className="ninja-img-login" src="images/gifs/shuriken.gif" />
+          <img className="ninja-img-login" src="images/gifs/eating.gif" alt = "ninja is eating"/>
+          <img className="ninja-img-login" src="images/gifs/walking.gif" alt = "ninja is walking" />
+          <img className="ninja-img-login" src="images/gifs/shuriken.gif" alt = "ninja is throwing shurikens"/>
         </div>
       </div>
     )

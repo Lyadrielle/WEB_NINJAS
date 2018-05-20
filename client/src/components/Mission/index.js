@@ -19,7 +19,6 @@ class Mission extends Component {
     if (!success) {
       window.location.reload()
     }
-    const { mission } = this.state
     this.setState({
       startActionDate: Date.now(),
       currentMission: {

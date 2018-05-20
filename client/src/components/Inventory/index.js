@@ -83,7 +83,7 @@ class Inventory extends Component {
           <div className = 'inventory-details'>
             {selectedObject != null ? selectedObject.bonus.map((bonus, i) =>
               <p key={i} className="item-bonus">
-                {bonus.value >= 0? bonus.skill + ' +' + bonus.value : bonus.skill + ' ' + bonus.value }
+                {bonus.bonus >= 0? bonus.skill + ' +' + bonus.bonus : bonus.skill + ' ' + bonus.bonus }
               </p>) : ""}
             {selectedObject != null && equipedObject !== selectedObject && <Button title="ÉQUIPER" callBack={this.equip} />}
             {selectedObject != null && equipedObject === selectedObject && <Button title="DÉSÉQUIPER" callBack={this.unequip} />}

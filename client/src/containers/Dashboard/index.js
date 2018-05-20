@@ -16,12 +16,8 @@ import api from '../../common/api'
 import './style.css'
 
 class Dashboard extends Component {
-  constructor() {
-    super()
-    this.state = {
-      currentActionImg: "default"
-    }
-  }
+    state = {}
+  
 
   displayNeedBlock = () => {
     const { needs = {}, currentAction } = this.state
@@ -77,7 +73,6 @@ class Dashboard extends Component {
     if (!success) {
       window.location.reload()
     }
-    const { needs } = this.state
     this.setState({
       startActionDate: Date.now(),
       currentAction: {
@@ -93,7 +88,7 @@ class Dashboard extends Component {
     return (
       <div className='mission-block'>
         {missions.map((item, i) =>
-          <div className="mission" key={i}><Mission currentAction={currentAction} mission={item} currentAction={currentAction} /></div>
+          <div className="mission" key={i}><Mission mission={item} currentAction={currentAction} /></div>
         )}
       </div>
     )
@@ -101,7 +96,9 @@ class Dashboard extends Component {
 
   displaySkillsBlock = () => {
     const { skills = {}, currentAction } = this.state
-    return <React.Fragment><Skill changeNinjaImageFunction={this.changeNinjaImage} skills={skills} currentAction={currentAction} /></React.Fragment>
+    return <React.Fragment>
+              <Skill skills={skills} currentAction={currentAction} />
+           </React.Fragment>
   }
 
   displayInventoryBlock = () => {
@@ -156,6 +153,7 @@ class Dashboard extends Component {
       endDate: new Date(currentAction.endDate),
       missionId: currentAction.id,
       title: currentAction.title,
+      name: currentAction.name
     }
 
     this.setState({
@@ -179,6 +177,7 @@ class Dashboard extends Component {
         window.location.reload()
       })
   }
+  
 
   componentDidMount = async () => {
     this.autoUpdate()
@@ -189,8 +188,8 @@ class Dashboard extends Component {
   }
 
   render() {
-    if (this.state.currentActionImg == null) this.setState({ currentActionImg: "default" })
-    return (
+    const {currentAction} = this.state 
+     return (
       <React.Fragment>
         <Menu pseudo="ROBERT" />
         <div className='dashboard-app'>
@@ -199,7 +198,7 @@ class Dashboard extends Component {
           <DashboardBlock title="Missions" content={this.displayMissionBlock()} />
           <DashboardBlock title="Compétences" content={this.displaySkillsBlock()} />
           <DashboardBlock title="Inventaire" content={this.displayInventoryBlock()} />
-          <NinjaBlock currentActionImg={this.state.currentActionImg} />
+          {currentAction==null?<NinjaBlock currentAction = "default"/>:<NinjaBlock currentAction = {currentAction.name}/>}
         </div>
       </React.Fragment>
     )
