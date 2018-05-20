@@ -227,6 +227,10 @@ class JSON
           $verb = "jongler";
           break;
 
+        case "reading":
+          $verb = "lire";
+          break;
+
         default:
           $verb = "ne rien faire";
           break;
