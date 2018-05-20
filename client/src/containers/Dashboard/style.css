@@ -3,14 +3,14 @@
     height: 100%;
     display:flex;
     flex-wrap: wrap;
-    justify-content:center;
+    justify-content:flex-start;
     align-items: center;
     background-size: 100%;
+    color : #f26c4f;
 }
 
 .actionsBlock{
   max-width: 238.6px;
-  color : #f26c4f;
 }
 
 .actionsBlock p{

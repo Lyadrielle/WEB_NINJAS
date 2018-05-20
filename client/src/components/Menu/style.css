@@ -3,17 +3,13 @@
   line-height: 40px;
   position : fixed;
   right : 0;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
 .menu a {
   text-decoration: none;
   color : white;
-  margin-right: 50px;
-  margin-left: 50px;
-}
-
-.menu p {
-  color: #f26c4f;
-  text-transform: uppercase;
-  font-weight: bold;
+  margin-right: 40px;
+  margin-left: 40px;
 }

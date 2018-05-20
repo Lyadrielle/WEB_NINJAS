@@ -53,7 +53,7 @@ class Dashboard extends Component {
                 <Button key={label}
                   disabled={!!currentAction}
                   title={actionsNamingMap[action]}
-                  image={`./images/needs/${label}.png`}
+                  image={`./images/needs/${label}_blanc.png`}
                   callBack={() => {this.action(action)}
                   }
                 />
