@@ -65,15 +65,15 @@ class ExerciceController extends Controller
 
         switch($action){
             case "eat" :
-              $competences = array(["valeur" => 10, "idnomcompetence" => 2]);
+              $competences = array(["valeur" => 10*2, "idnomcompetence" => 2]);
             break;
 
             case "sleep" :
-              $competences = array(["valeur" => 10, "idnomcompetence" => 1]);
+              $competences = array(["valeur" => 10*2, "idnomcompetence" => 1]);
             break;
 
             case "talk" :
-              $competences = array(["valeur" => 10, "idnomcompetence" => 3]);
+              $competences = array(["valeur" => 10*2, "idnomcompetence" => 3]);
             break;
 
             default:
@@ -100,23 +100,23 @@ class ExerciceController extends Controller
 
         switch($action){
             case "shuriken" : //lancer de shuriken (aug. force et agilité, baisse énergie et satiété et dissimulation)
-              $competences = array(["valeur" => 1, "idnomcompetence" => 8] , ["valeur" => 1, "idnomcompetence" => 6] , ["valeur" => -2, "idnomcompetence" => 4], ["valeur" => -10, "idnomcompetence" => 1] , ["valeur" => -10, "idnomcompetence" => 2]);
+              $competences = array(["valeur" => 1*2, "idnomcompetence" => 8] , ["valeur" => 1*2, "idnomcompetence" => 6] , ["valeur" => -2*2, "idnomcompetence" => 4], ["valeur" => -10*2, "idnomcompetence" => 1] , ["valeur" => -10*2, "idnomcompetence" => 2]);
             break;
 
             case "reading" : //lecture (aug. sagesse, baisse vie sociale et force)
-              $competences = array(["valeur" => 2, "idnomcompetence" => 5] , ["valeur" => -10, "idnomcompetence" => 3], ["valeur" => -2, "idnomcompetence" => 8]);
+              $competences = array(["valeur" => 2*2, "idnomcompetence" => 5] , ["valeur" => -10*2, "idnomcompetence" => 3], ["valeur" => -2*2, "idnomcompetence" => 8]);
             break;
 
             case "hide" : //dissimulation (aug. dissimulation, baisse vie sociale et force)
-              $competences = array(["valeur" => 2, "idnomcompetence" => 4] , ["valeur" => -10, "idnomcompetence" => 3], ["valeur" => 2, "idnomcompetence" => 8]);
+              $competences = array(["valeur" => 2*2, "idnomcompetence" => 4] , ["valeur" => -10*2, "idnomcompetence" => 3], ["valeur" => 2*2, "idnomcompetence" => 8]);
             break;
 
             case "musculation" : //musculation (aug. force et endurance, baisse sagesse, énergie et satiété)
-              $competences = array(["valeur" => 1, "idnomcompetence" => 8] , ["valeur" => 2, "idnomcompetence" => 7] , ["valeur" => -3, "idnomcompetence" => 5], ["valeur" => -10, "idnomcompetence" => 1] , ["valeur" => -10, "idnomcompetence" => 2]);
+              $competences = array(["valeur" => 1*2, "idnomcompetence" => 8] , ["valeur" => 2*2, "idnomcompetence" => 7] , ["valeur" => -3*2, "idnomcompetence" => 5], ["valeur" => -10*2, "idnomcompetence" => 1] , ["valeur" => -10*2, "idnomcompetence" => 2]);
             break;
 
             case "juggle" : //jonglage (aug. agilité et endurance, baisse dissimulation, énergie et satiété)
-              $competences = array(["valeur" => 1, "idnomcompetence" => 6] , ["valeur" => 1, "idnomcompetence" => 7] , ["valeur" => -2, "idnomcompetence" => 4], ["valeur" => -10, "idnomcompetence" => 1] , ["valeur" => -10, "idnomcompetence" => 2]);
+              $competences = array(["valeur" => 1*2, "idnomcompetence" => 6] , ["valeur" => 1*2, "idnomcompetence" => 7] , ["valeur" => -2*2, "idnomcompetence" => 4], ["valeur" => -10*2, "idnomcompetence" => 1] , ["valeur" => -10*2, "idnomcompetence" => 2]);
             break;
 
             default:
@@ -135,7 +135,7 @@ class ExerciceController extends Controller
         $user = Utilisateur::where('idutilisateur', $id)->first();
         $dt = new DateTime();
 		    $dt->setTimezone(new DateTimeZone('Europe/Paris'));
-        $dt->modify("+1 minute");
+        $dt->modify("+30 seconds");
         $exo = Exercice::insertGetId(["fin" => $dt->format("Y-m-d H:i:s"), "statut" => 1, "action" => $action, "idninja" => $user->idninja]);
         foreach($array as $competence){
             ExerciceNomCompetence::insert(array_merge($competence, array("idexercice" => $exo)));

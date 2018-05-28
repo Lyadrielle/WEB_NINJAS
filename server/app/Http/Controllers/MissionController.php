@@ -122,8 +122,8 @@ class MissionController extends Controller
 
       $dt = new DateTime();
       $dt->setTimezone(new DateTimeZone('Europe/Paris'));
-      $temps = 1 * $mission->difficulte;
-      $dt->modify("+$temps minute");
+      $temps = 30 * $mission->difficulte;
+      $dt->modify("+$temps seconds");
 
       $mission->fin = $dt;
 
