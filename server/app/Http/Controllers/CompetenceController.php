@@ -67,13 +67,13 @@ class CompetenceController extends Controller
 
   static public function generateRequirementsForMission($min, $max, $n) {
 
-    $competences = array(['valeur' => 10, 'idnomcompetence' => 1]);
+    $competences = array(['valeur' => 10*2, 'idnomcompetence' => 1]);
 
     $ids = array(2, 3, 4, 5, 6, 7, 8);
 
     for($i = 0; $i < $n && count($ids) > 0; ++$i) {
       $random = rand(0, count($ids) - 1);
-      $value = ($ids[$random] != 2 && $ids[$random] != 3) ? rand($min, $max) : 10;
+      $value = ($ids[$random] != 2 && $ids[$random] != 3) ? rand($min, $max) : 10*2;
       array_push($competences, ['valeur' => $value, 'idnomcompetence' => $ids[$random]]);
       array_splice($ids, $random, 1);
     }
