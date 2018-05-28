@@ -64,6 +64,20 @@ class MissionController extends Controller
         $ninja = $user->ninja;
 
         $mission->statut = 3;
+
+        $competencesRequired = $mission->nomcompetences->filter(function($item) {
+          return $item->idnomcompetence < 4 && $item->idnomcompetence > 0;
+        });
+        $competencesNinja = $ninja->competences;
+
+        foreach($competencesRequired as $competenceRequired) {
+            $competenceNinja = $competenceRequired->findEquivalent($competencesNinja);
+            if(!empty($competenceNinja)) {
+              $competenceNinja->niveau = ($competenceNinja->niveau - $competenceRequired->pivot->minimum < 0) ? 0 : $competenceNinja->niveau - $competenceRequired->pivot->minimum;
+              $competenceNinja->save();
+            }
+        }
+
         if(rand(0, 99) < $mission->pourcentage) {
           CompetenceController::levelup((100 + $ninja->competence(0)->niveau) * $mission->difficulte, $ninja->competences);
           $equipments = $mission->mission->objets;
